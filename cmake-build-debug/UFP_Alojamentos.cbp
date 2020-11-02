@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="UFP_Alojamentos"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="D:/Projects/UFP_Alojamentos/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="edit_cache">
+				<Option working_dir="D:/Projects/UFP_Alojamentos/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 edit_cache"/>
+					<CompileFile command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="UFP_Alojamentos">
+				<Option output="D:/Projects/UFP_Alojamentos/cmake-build-debug/UFP_Alojamentos.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Projects/UFP_Alojamentos/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFP_Alojamentos"/>
+					<CompileFile command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="UFP_Alojamentos/fast">
+				<Option output="D:/Projects/UFP_Alojamentos/cmake-build-debug/UFP_Alojamentos.exe" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="D:/Projects/UFP_Alojamentos/cmake-build-debug"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/include"/>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/../../../../include"/>
+					<Add directory="d:\ufp\mingw2\bin\../lib/gcc/mingw32/9.2.0/include-fixed"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 UFP_Alojamentos/fast"/>
+					<CompileFile command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="rebuild_cache">
+				<Option working_dir="D:/Projects/UFP_Alojamentos/cmake-build-debug"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 rebuild_cache"/>
+					<CompileFile command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="D:/UFP/Mingw2/bin/mingw32-make.exe -f &quot;D:/Projects/UFP_Alojamentos/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="D:/Projects/UFP_Alojamentos/main.c">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/project.c">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/project.h">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

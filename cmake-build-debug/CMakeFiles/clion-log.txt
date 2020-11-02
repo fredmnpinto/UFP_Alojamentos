@@ -1,0 +1,4 @@
+"D:\UFP\CLion 2019.2.2\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" D:\Projects\UFP_Alojamentos
+-- Configuring done
+-- Generating done
+-- Build files have been written to: D:/Projects/UFP_Alojamentos/cmake-build-debug
