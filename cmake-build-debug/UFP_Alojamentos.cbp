@@ -77,10 +77,22 @@
 		<Unit filename="D:/Projects/UFP_Alojamentos/main.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/project.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/csv_handler.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/project.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/csv_handler.h">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/global_defines.c">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/global_defines.h">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/project.c">
+			<Option target="UFP_Alojamentos"/>
+		</Unit>
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/project.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
 		<Unit filename="D:/Projects/UFP_Alojamentos/CMakeLists.txt">
