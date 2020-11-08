@@ -1,9 +1,11 @@
 file(REMOVE_RECURSE
   "CMakeFiles/UFP_Alojamentos.dir/main.c.obj"
-  "CMakeFiles/UFP_Alojamentos.dir/project.c.obj"
-  "UFP_Alojamentos.pdb"
+  "CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj"
+  "CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj"
+  "CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj"
   "UFP_Alojamentos.exe"
   "UFP_Alojamentos.exe.manifest"
+  "UFP_Alojamentos.pdb"
   "libUFP_Alojamentos.dll.a"
 )
 

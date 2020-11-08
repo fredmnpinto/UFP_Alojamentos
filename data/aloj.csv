@@ -1,2 +1,2 @@
-id,nome,estudio_id,tipo
-1,"Exemplo",1,"T2"
+id,estudio_id,tipo
+1 ,1         ,"T2"
