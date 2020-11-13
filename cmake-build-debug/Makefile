@@ -169,32 +169,32 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/main.c.s
 .PHONY : main.c.s
 
-scripts/csv_handler.obj: scripts/csv_handler.c.obj
+scripts/data_handler.obj: scripts/data_handler.c.obj
 
-.PHONY : scripts/csv_handler.obj
+.PHONY : scripts/data_handler.obj
 
 # target to build an object file
-scripts/csv_handler.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj
-.PHONY : scripts/csv_handler.c.obj
+scripts/data_handler.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj
+.PHONY : scripts/data_handler.c.obj
 
-scripts/csv_handler.i: scripts/csv_handler.c.i
+scripts/data_handler.i: scripts/data_handler.c.i
 
-.PHONY : scripts/csv_handler.i
+.PHONY : scripts/data_handler.i
 
 # target to preprocess a source file
-scripts/csv_handler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.i
-.PHONY : scripts/csv_handler.c.i
+scripts/data_handler.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.i
+.PHONY : scripts/data_handler.c.i
 
-scripts/csv_handler.s: scripts/csv_handler.c.s
+scripts/data_handler.s: scripts/data_handler.c.s
 
-.PHONY : scripts/csv_handler.s
+.PHONY : scripts/data_handler.s
 
 # target to generate assembly for a file
-scripts/csv_handler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.s
-.PHONY : scripts/csv_handler.c.s
+scripts/data_handler.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.s
+.PHONY : scripts/data_handler.c.s
 
 scripts/global_defines.obj: scripts/global_defines.c.obj
 
@@ -262,9 +262,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... scripts/csv_handler.obj
-	@echo ... scripts/csv_handler.i
-	@echo ... scripts/csv_handler.s
+	@echo ... scripts/data_handler.obj
+	@echo ... scripts/data_handler.i
+	@echo ... scripts/data_handler.s
 	@echo ... scripts/global_defines.obj
 	@echo ... scripts/global_defines.i
 	@echo ... scripts/global_defines.s

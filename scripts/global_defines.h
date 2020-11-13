@@ -8,6 +8,7 @@
 #define ARR_SMALL 10
 #define STR_MAX 50
 #define AGENDA_MAX 365
+#define ALOJ_HEADER 19
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -92,7 +93,7 @@ typedef struct Edificio {
  * @tipo            O tipo de alojamento (T0, T1, T2, T2+1, ...)
  */
 typedef struct Alojamento {
-    unsigned long int id;
+    int id;
     unsigned long int estudio_id;
     char tipo[5];
 } ALOJ;
@@ -115,8 +116,9 @@ void remove_linebreak(char str[]);
 /**
  * Funcao para printar todos os alojs do array
  * @param aloj_array    Array com todos os alojamentos
+ * @param array_size    Tamanho do array
  */
-void print_alojs(ALOJ *aloj_array);
+void print_alojs(ALOJ *aloj_array, int array_size);
 
 
 #endif //UFP_ALOJAMENTOS_GLOBAL_DEFINES_H

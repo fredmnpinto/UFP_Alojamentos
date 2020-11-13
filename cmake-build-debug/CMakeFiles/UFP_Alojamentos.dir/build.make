@@ -102,18 +102,18 @@ CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.s"
 	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\project.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\project.c.s
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
-CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj: ../scripts/csv_handler.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\csv_handler.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\csv_handler.c
+CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
+CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj: ../scripts/data_handler.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\data_handler.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\data_handler.c
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.i"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\csv_handler.c > CMakeFiles\UFP_Alojamentos.dir\scripts\csv_handler.c.i
+CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.i"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\data_handler.c > CMakeFiles\UFP_Alojamentos.dir\scripts\data_handler.c.i
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.s"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\csv_handler.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\csv_handler.c.s
+CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.s"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\data_handler.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\data_handler.c.s
 
 CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
 CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj: ../scripts/global_defines.c
@@ -132,7 +132,7 @@ CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.s: cmake_force
 UFP_Alojamentos_OBJECTS = \
 "CMakeFiles/UFP_Alojamentos.dir/main.c.obj" \
 "CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj" \
-"CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj" \
+"CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj" \
 "CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj"
 
 # External object files for target UFP_Alojamentos
@@ -140,7 +140,7 @@ UFP_Alojamentos_EXTERNAL_OBJECTS =
 
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/main.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj
-UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj
+UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/build.make
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/linklibs.rsp
