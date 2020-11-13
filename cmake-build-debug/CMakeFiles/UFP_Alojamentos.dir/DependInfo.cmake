@@ -5,7 +5,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
   "D:/Projects/UFP_Alojamentos/main.c" "D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir/main.c.obj"
-  "D:/Projects/UFP_Alojamentos/scripts/csv_handler.c" "D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir/scripts/csv_handler.c.obj"
+  "D:/Projects/UFP_Alojamentos/scripts/data_handler.c" "D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj"
   "D:/Projects/UFP_Alojamentos/scripts/global_defines.c" "D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj"
   "D:/Projects/UFP_Alojamentos/scripts/project.c" "D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj"
   )

@@ -17,3 +17,11 @@ void remove_linebreak(char str[]) {
         }
     }
 }
+
+void print_alojs(ALOJ* aloj_array, int array_size){
+    for (int i = 0; i < array_size; ++i) {
+        printf("ID: %lu\n", aloj_array[i].id);
+        printf("ESTUDIO ID: %lu\n", aloj_array[i].estudio_id);
+        printf("TIPO DE ALOJAMENTO: %s\n", aloj_array[i].tipo);
+    }
+}

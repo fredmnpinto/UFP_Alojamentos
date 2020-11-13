@@ -6,9 +6,9 @@
 #include "data_handler.h"
 
 int main_proj(int argc, char *argv[]) {
-    int n;
-    get_aloj_data(&n);
-    return 0;
+    int size;
+    ALOJ* a_array = get_aloj_data(&size);
+    free(a_array);
 }
 
 void main_menu(int argc, char *argv[]) {
