@@ -77,10 +77,10 @@
 		<Unit filename="D:/Projects/UFP_Alojamentos/main.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_handler.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_reader.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_handler.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_reader.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
 		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/global_defines.c">

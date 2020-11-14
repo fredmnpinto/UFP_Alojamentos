@@ -169,32 +169,32 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/main.c.s
 .PHONY : main.c.s
 
-scripts/data_handler.obj: scripts/data_handler.c.obj
+scripts/data_reader.obj: scripts/data_reader.c.obj
 
-.PHONY : scripts/data_handler.obj
+.PHONY : scripts/data_reader.obj
 
 # target to build an object file
-scripts/data_handler.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.obj
-.PHONY : scripts/data_handler.c.obj
+scripts/data_reader.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.obj
+.PHONY : scripts/data_reader.c.obj
 
-scripts/data_handler.i: scripts/data_handler.c.i
+scripts/data_reader.i: scripts/data_reader.c.i
 
-.PHONY : scripts/data_handler.i
+.PHONY : scripts/data_reader.i
 
 # target to preprocess a source file
-scripts/data_handler.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.i
-.PHONY : scripts/data_handler.c.i
+scripts/data_reader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.i
+.PHONY : scripts/data_reader.c.i
 
-scripts/data_handler.s: scripts/data_handler.c.s
+scripts/data_reader.s: scripts/data_reader.c.s
 
-.PHONY : scripts/data_handler.s
+.PHONY : scripts/data_reader.s
 
 # target to generate assembly for a file
-scripts/data_handler.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler.c.s
-.PHONY : scripts/data_handler.c.s
+scripts/data_reader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.s
+.PHONY : scripts/data_reader.c.s
 
 scripts/global_defines.obj: scripts/global_defines.c.obj
 
@@ -262,9 +262,9 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
-	@echo ... scripts/data_handler.obj
-	@echo ... scripts/data_handler.i
-	@echo ... scripts/data_handler.s
+	@echo ... scripts/data_reader.obj
+	@echo ... scripts/data_reader.i
+	@echo ... scripts/data_reader.s
 	@echo ... scripts/global_defines.obj
 	@echo ... scripts/global_defines.i
 	@echo ... scripts/global_defines.s

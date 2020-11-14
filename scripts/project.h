@@ -5,7 +5,7 @@
 #ifndef UFP_ALOJAMENTOS_PROJECT_H
 #define UFP_ALOJAMENTOS_PROJECT_H
 
-#include "data_handler.h"
+#include "data_reader.h"
 
 //Functions
 void main_menu(int argc, char *argv[]);

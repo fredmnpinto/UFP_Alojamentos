@@ -1,6 +1,6 @@
 # UFP_Alojamentos
 
-# Descrição do problema
+## Descrição do problema
 
   Uma empresa de alojamento local do Porto, a PortoFlats, possui S estúdios (e.g. S = 50+) para
 alojamento local, distribuídos por E edifícios distintos (e.g. E = 3+), situados em diferentes
@@ -36,22 +36,22 @@ que permitirá definir o preço diário base. O preço diário efetivamente prat
 entanto depender de várias regras a aplicar. Assim, o preço da estadia poderá variar em função
 de um conjunto de regras:
 
-    ● A configuração do estúdio poderá afectar o preço (e.g. ser duplex ou ter terraço pode
+    -> A configuração do estúdio poderá afectar o preço (e.g. ser duplex ou ter terraço pode
      aplicar uma taxa extra);
      
-    ● A duração da estadia:
+    -> A duração da estadia:
         i) menos de uma semana;
         ii) uma semana e menos de um mês;
         iii) um mês ou mais (NB: a faturação para durações superiores a um mês pode ser feita
              ao mês ou em frações de ½ mês em vez de ser feita ao dia);
              
-    ● A altura ou época do ano, como por exemplo, através de uma divisão entre época baixa
+    -> A altura ou época do ano, como por exemplo, através de uma divisão entre época baixa
       e época alta (e.g. ao fim de semana, a estadia é normalmente mais cara);
       
-    ● A plataforma onde é efectuada a reserva poderá aplicar preços e promoções
+    -> A plataforma onde é efectuada a reserva poderá aplicar preços e promoções
       específicas;
       
-    ● A modalidade de reserva: 
+    -> A modalidade de reserva: 
         i) ao estúdio, em que o hóspede reserva o alojamento para
         um estúdio em particular;
         ii) à estadia, em que o hóspede apenas escolhe o período de
@@ -60,9 +60,9 @@ de um conjunto de regras:
             de otimização de ocupação dos estúdios, por esse motivo, a tarifa poderá ser mais
             atrativa;
             
-    ● Antecedência da reserva (cf. normal, antecipada, última hora).
+    -> Antecedência da reserva (cf. normal, antecipada, última hora).
     
-    ● Taxa de ocupação, à data da reserva, para o período reservado.
+    -> Taxa de ocupação, à data da reserva, para o período reservado.
   
   A política de preços, como se subentende, pode ser complexa. Poderão haver diferentes
 políticas de preços em diferentes plataformas. Uma política de preços pode incorporar os
@@ -75,7 +75,7 @@ template terá um conjunto de regras que poderão ser aplicadas em simultâneo o
 que permita gerir as reservas da empresa PortoFlats de acordo com os requisitos abaixo
 elencados.
 
-# Requisitos
+## Requisitos
 
   Pretende-se que os alunos proponham um conjunto de estruturas de dados dinâmicas (cf.
 arrays dinâmicos e listas ligadas) e respectivas funções de manipulação e interface com essas
