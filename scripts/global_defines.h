@@ -57,7 +57,7 @@ typedef struct Agenda {
  */
 typedef struct Local {
     char endereco[STR_MAX];
-    int lat, longi;
+    double lat, longi;
 } LOCAL;
 
 /**
@@ -88,6 +88,7 @@ typedef struct Edificio {
     long id;
     LOCAL endereco;
     char nome[STR_MAX];
+    struct Edificio* next;
 } ED;
 
 /**

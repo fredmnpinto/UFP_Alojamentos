@@ -7,8 +7,8 @@
 
 int main_proj(int argc, char *argv[]) {
     int size;
-    ALOJ* a_array = get_aloj_data(&size);
-    free(a_array);
+    get_data_edfs(&size);
+    return 0;
 }
 
 void main_menu(int argc, char *argv[]) {

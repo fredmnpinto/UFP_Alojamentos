@@ -13,15 +13,15 @@
  * @num_alojs Numero de alojamentos \attention ENTRA VAZIO, SAI PREENCHIDO \attention
  * @return Array dinamico com todos os alojamentos do .csv
  */
-ALOJ *get_aloj_data(int *num_alojs); //DONE
+ALOJ *get_data_aloj(int *num_alojs); //DONE
 
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
  * lista ligada de structs do tipo ED (struct Edificio)
  * @param num_ests      Numero de Edificios lidos
- * @return              Endereco do primeiro elemento da 
+ * @return              Endereco do primeiro elemento da lista
  */
-ED get_data_estudio(int *num_eds);
+ED get_data_edfs();
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -47,5 +47,6 @@ int get_number_of_lines(FILE *fr);
  */
 void get_data_main(int argc, char* argv[]);
 
+void print_edfs_list(ED edf);
 
 #endif //UFP_ALOJAMENTOS_DATA_READER_H

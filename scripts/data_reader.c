@@ -16,8 +16,8 @@ void get_data_main(int argc, char* argv[]){
       "estu",
       "agenda",
     };
-    void (*read_functions[])(void) = {
-      get_aloj_data();
+    void (*read_functions[])(int c, char** v) = {
+            get_data_main,
     };
     int i = 0;
     do{
@@ -28,7 +28,7 @@ void get_data_main(int argc, char* argv[]){
     }while(i < argc);
 }
 
-ALOJ *get_aloj_data(int *num_alojs) {
+ALOJ *get_data_aloj(int *num_alojs) {
     FILE *fr = fopen("./data/aloj.csv", "r");
     char delimiter[] = ",";
     *num_alojs = get_number_of_lines(fr);
@@ -38,7 +38,12 @@ ALOJ *get_aloj_data(int *num_alojs) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
-        char answer = getchar();
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(".data/aloj.csv", "w");
+            fprintf(fw, "id,estudio_id,tipo\n");
+            fclose(fw);
+        }
     } else {
         char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
 
@@ -108,4 +113,77 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
         strcpy(new_array[i].tipo, static_array[i].tipo);
     }
     return new_array;
+}
+
+ED get_data_edfs(){
+    FILE *fr = fopen("./data/edfs.psv", "r");
+    ED *head = NULL;
+    char delimiter[] = "|";
+    if (fr == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(".data/edfs.psv", "w");
+            fprintf(fw, "id,estudio_id,tipo\n");
+            fclose(fw);
+        }
+    } else {
+        printf("edfs.psv has %d lines\n", get_number_of_lines(fr));
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+        int row_count = 0, field_count;
+
+        printf("\t");
+        while(fgets(buffer, CHAR_LIMIT, fr)){
+            field_count = 0;
+            row_count++;
+            if (row_count == 1)
+                continue;
+
+            char *field = strtok(buffer, delimiter);
+            while (field_count < 5){
+                ED *tmp = (ED*)malloc(sizeof(ED));
+                switch (field_count){   // id, endereco_str, endereco_lat, endereco_longi, nome
+                    case 0: {
+                        tmp->id = atol(field);
+                        break;
+                    }
+                    case 1: {
+                        strcpy(tmp->endereco.endereco, field);
+                        break;
+                    }
+                    case 2: {
+                        tmp->endereco.lat = atof(field);
+
+                        break;
+                    }
+                    case 3: {
+                        tmp->endereco.longi = atof(field);
+
+                        break;
+                    }
+                    case 4: {
+                        remove_linebreak_on_the_end(field);
+                        strcpy(tmp->nome, field);
+                        break;
+                    }
+                    default :{
+                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                    }
+
+                }
+                if (head == NULL)
+                    head = tmp;
+                else{
+                    head->next = tmp;   //TODO checar se isso funciona e se isso esta certo
+                }
+                printf("'%s'\t", field);
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+        }
+
+    }
+    fclose(fr);
 }
