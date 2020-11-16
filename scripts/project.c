@@ -6,9 +6,16 @@
 #include "data_handler.h"
 
 int main_proj(int argc, char *argv[]) {
+<<<<<<< Updated upstream
     int size;
     ALOJ* a_array = get_aloj_data(&size);
     free(a_array);
+=======
+    int id = 1234;
+    char* name = get_filepath_agenda_master(id);
+    printf("%s", name);
+    return 0;
+>>>>>>> Stashed changes
 }
 
 void main_menu(int argc, char *argv[]) {
