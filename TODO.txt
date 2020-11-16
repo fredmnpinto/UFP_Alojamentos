@@ -1,0 +1,58 @@
+========================================================================================================
+ Implementar estruturas de dados para manter a informação a ser processada pela aplicação, nomeadamente:
+
+ DONE uma lista ligada para todos os edifícios;
+
+ ToDo um array dinâmico para os estúdios de cada edifício;
+
+ ToDo um array dinâmico de dias para cada
+       agenda de cada estúdio;
+
+ ToDo uma lista ligada dos eventos de cada dia (e.g. ocupação,
+      limpeza, etc.);
+
+ ToDo uma lista ligada dos hóspedes e seu histórico de estadias (reservas);
+
+ ToDo um array dinâmico de regras de custo para cada política de preços; etc.;
+
+========================================================================================================
+ToDo Implementar uma API base de funções para a criação e inserção ordenada, pesquisa
+    binária, remoção e alteração de informação de cada entidade registada no sistema,
+    nomeadamente: edifício, estúdio, hóspede, política de preços e regras de custo, etc.;
+
+ToDo Implementar uma API de funções de criação/inserção, pesquisa, remoção e alteração
+    de eventos em cada agenda de cada estúdio (e.g. reservas, limpezas, manutenção,
+    etc.);
+
+ToDo Implementar uma API de funções de leitura e escrita de ficheiros de texto e binário das
+  diversas entidades: edifícios e respectivos estúdios; hóspedes e histórico de estadias (a
+  tabela poderá ser ordenada por um dos campos (e.g. nome, data crescente ou
+  decrescente); políticas de preços e respectivas regras de custo e prioridades de
+  aplicação;
+
+Todo Implementar uma API de funções de leitura e escrita de texto e binário para cada
+  agenda, com os respectivos eventos registados;
+
+ToDo Implementar a geração de relatórios (para o ecrã e ficheiro) com as estatísticas das
+  taxas de ocupação por estúdio, por edifício ou na totalidade do parque de edifícios.
+  Deverá ser possível escolher o período do relatório a gerar; os dados do relatório devem
+  ser ordenados por campos a determinar (e.g. por ordem alfabética do nome do estúdio
+  e edifício, por taxa de ocupação crescente ou decrescente, etc.);
+
+ToDo Implementar a geração de relatórios (ecrã e ficheiro) com a faturação por estúdio, por
+  edifício ou na totalidade do parque de edifícios. Deverá ser possível escolher o período
+  do relatório a gerar e a ordem de ordenação (crescente ou decrescente);
+
+ToDo Implementar a sincronização de uma agenda para a agenda principal (e da principal
+  para as restantes), aplicando estratégias de resolução de conflitos existentes
+  (sincronização e gestão de versões);
+
+ToDo Implementar um mecanismo alternativo de alocação dinâmica de um conjunto de
+  necessidades de estadias para os vários estúdios disponíveis. Pretende-se criar um
+  mecanismo para otimizar a realização de pré-reservas em função dos estúdios livres
+  (modalidade de reserva à estadia). Por exemplo, tendo conhecimento da existência de
+  um conjunto de necessidades de alojamento para diversos períodos de tempo,
+  associadas a um evento desportivo (cf. diversos hóspedes, de várias equipas de uma
+  dada modalidade desportiva), pretende-se elaborar uma alocação dinâmica dos
+  estúdios que optimize a ocupação (minimizando intervalos livres entre reservas para o
+  mesmo estúdio) e que cumpra as necessidades de alojamento.
