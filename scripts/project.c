@@ -6,9 +6,9 @@
 #include "data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-    int id = 1234;
-    char* name = get_filepath_agenda_master(id);
-    printf("%s", name);
+    int size;
+    AGENDA *ag = get_data_agenda_master(1234);
+    print_agenda(ag);
     return 0;
 }
 
