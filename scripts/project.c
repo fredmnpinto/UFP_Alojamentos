@@ -6,8 +6,9 @@
 #include "data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-    int size;
-    get_data_edfs(&size);
+    int id = 1234;
+    char* name = get_filepath_agenda_master(id);
+    printf("%s", name);
     return 0;
 }
 

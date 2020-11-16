@@ -28,7 +28,7 @@ void get_data_main(int argc, char* argv[]){
     }while(i < argc);
 }
 
-ALOJ *get_data_aloj(int *num_alojs) {
+ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     FILE *fr = fopen("./data/aloj.csv", "r");
     char delimiter[] = ",";
     *num_alojs = get_number_of_lines(fr);
@@ -115,7 +115,7 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
     return new_array;
 }
 
-ED* get_data_edfs(){
+ED* get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     FILE *fr = fopen("./data/edfs.psv", "r");
     ED *head = NULL, *aux, *tail;
     ED *tmp = (ED*)malloc(sizeof(ED));
@@ -208,3 +208,151 @@ void print_edfs_list(ED *head){
     }
 }
 
+EST * get_data_estudio(int *size){
+    FILE *fr = fopen("./data/estudio.psv", "r");
+    char delimiter[] = ",";
+    *size = get_number_of_lines(fr);
+    printf("aloj.csv has %d lines\n", *size);
+    EST *est_array = (EST*)malloc(*size * sizeof(EST));           // Guarda somente 20 objetos de Alojamentos PODE SER EXTENDIDO
+    if (fr == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(".data/estudio.csv", "w");
+            fprintf(fw, "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n");
+            fclose(fw);
+        }
+    } else {
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+
+        int row_count = 0, field_count;
+
+        while(fgets(buffer, CHAR_LIMIT, fr)){
+            field_count = 0;
+            row_count++;
+            if (row_count == 1)
+                continue;
+
+            char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
+            while (field_count < 3){
+//                printf("%s\t", field);
+                switch (field_count){   // id, estudio_id, tipo
+                    case 0: {
+                        est_array[row_count - 2].id = atoi(field);
+
+                        break;
+                    }
+                    case 1: {
+                        est_array[row_count - 2].edificio_id = atoi(field);
+                        break;
+                    }
+                    case 2: {
+                        strcpy(est_array[row_count - 2].nome, field);
+                        remove_linebreak_on_the_end(est_array[row_count - 2].nome);
+                        break;
+                    }
+                    /*case 3: {
+                        est_array[row_count - 2].agenda_master_id = atoi(field);
+                        break;
+                    }
+                    case 4: {
+                        est_array[row_count - 2].agendas_outras_id = atoi(field);
+                        break;
+                    }*/
+                    default :{
+                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                    }
+
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+        }
+    }
+    fclose(fr);
+    return est_array;
+}
+
+AGENDA get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
+    char *filepath = get_filepath_agenda_master(agenda_id);
+    FILE* data = fopen(filepath, "r");
+    char delimiter[] = "|";
+    int agenda_size = get_number_of_lines(data);
+    printf("aloj.csv has %d lines\n", agenda_size);
+    MARC *datas_array = (MARC*)malloc(sizeof(DATA) * agenda_size);           // Guarda somente 200 objetos de Alojamentos
+    if (data == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(filepath, "w");
+            fprintf(fw, "dia|mes|ano|descricao\n");
+            fclose(fw);
+        }
+    } else {
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+
+        int row_count = 0, field_count;
+
+        while(fgets(buffer, CHAR_LIMIT, data)){
+            field_count = 0;
+            row_count++;
+            if (row_count == 1)
+                continue;
+
+            char *field = strtok(buffer, delimiter);
+            while (field_count < 3){
+                remove_linebreak_on_the_end(field);
+//                printf("%s\t", field);
+                switch (field_count){   // dia|mes|ano|descricao
+                    case 0: {
+                        datas_array[row_count - 2].data.dia = atoi(field);
+
+                        break;
+                    }
+                    case 1: {
+                        datas_array[row_count - 2].data.mes = atoi(field);
+                        break;
+                    }
+                    case 2: {
+                        datas_array[row_count - 2].data.ano = atoi(field);
+                        break;
+                    }
+                    case 3: {
+                        strcpy(datas_array[row_count - 2].descricao, field);
+                        break;
+                    }
+                    default :{
+                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                    }
+
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+        }
+
+    }
+    fclose(data);
+    AGENDA agenda_master;
+    agenda_master.id = agenda_id;
+    agenda_master.size = agenda_size;
+    agenda_master.marcacoes = datas_array;
+    agenda_master.path = filepath;
+    return agenda_master;
+}
+
+char* get_filepath_agenda_master(int id){
+    char* file_preset1 = "./data/agendas/masters";
+    char* file_preset2 = "_master.csv";
+    char fnum[6];
+    itoa(id, fnum, 10);
+    char* file_path = (char*)malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum)));
+    strcpy(&file_path[0], file_preset1);
+    strcpy(&file_path[strlen(file_path)], fnum);
+    strcpy(&file_path[strlen(file_path)], file_preset2);
+    return file_path;
+}
