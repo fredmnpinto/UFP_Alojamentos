@@ -29,6 +29,7 @@ void get_data_main(int argc, char* argv[]){
 }
 
 ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
+
     FILE *fr = fopen("./data/aloj.csv", "r");
     char delimiter[] = ",";
     *num_alojs = get_number_of_lines(fr);
@@ -116,6 +117,7 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
 }
 
 ED* get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
+
     FILE *fr = fopen("./data/edfs.psv", "r");
     ED *head = NULL, *aux, *tail;
     ED *tmp = (ED*)malloc(sizeof(ED));

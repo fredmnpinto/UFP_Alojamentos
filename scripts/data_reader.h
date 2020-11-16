@@ -15,9 +15,11 @@
  */
 ALOJ *get_data_aloj(int *num_alojs);    //DONE
 
+
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
  * lista ligada de structs do tipo ED (struct Edificio)
+
  * @return              Endereco do primeiro elemento da lista (HEAD)
  */
 ED* get_data_edfs();                    //DONE
@@ -37,6 +39,7 @@ EST* get_data_estudio(int *size);
  * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
  */
 AGENDA get_data_agenda_master(int id);
+
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
