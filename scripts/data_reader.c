@@ -210,10 +210,10 @@ void print_edfs_list(ED *head){
 
 EST * get_data_estudio(int *size){
     FILE *fr = fopen("./data/estudio.psv", "r");
-    char delimiter[] = ",";
+    char delimiter[] = "|";
     *size = get_number_of_lines(fr);
     printf("aloj.csv has %d lines\n", *size);
-    EST *est_array = (EST*)malloc(*size * sizeof(EST));           // Guarda somente 20 objetos de Alojamentos PODE SER EXTENDIDO
+    EST *est_array = (EST*)malloc((*size) * sizeof(EST));           // Guarda somente 20 objetos de Alojamentos PODE SER EXTENDIDO
     if (fr == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -236,7 +236,7 @@ EST * get_data_estudio(int *size){
                 continue;
 
             char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
-            while (field_count < 3){
+            while (field_count < 5){
 //                printf("%s\t", field);
                 switch (field_count){   // id, estudio_id, tipo
                     case 0: {
@@ -253,11 +253,11 @@ EST * get_data_estudio(int *size){
                         remove_linebreak_on_the_end(est_array[row_count - 2].nome);
                         break;
                     }
-                    /*case 3: {
-                        est_array[row_count - 2].agenda_master_id = atoi(field);
+                    case 3: {
+                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
                         break;
                     }
-                    case 4: {
+                    /*case 4: {
                         est_array[row_count - 2].agendas_outras_id = atoi(field);
                         break;
                     }*/
@@ -275,13 +275,13 @@ EST * get_data_estudio(int *size){
     return est_array;
 }
 
-AGENDA get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
+AGENDA* get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
     char *filepath = get_filepath_agenda_master(agenda_id);
     FILE* data = fopen(filepath, "r");
     char delimiter[] = "|";
     int agenda_size = get_number_of_lines(data);
-    printf("aloj.csv has %d lines\n", agenda_size);
-    MARC *datas_array = (MARC*)malloc(sizeof(DATA) * agenda_size);           // Guarda somente 200 objetos de Alojamentos
+    printf("%s has %d lines\n", filepath, agenda_size);
+    MARC *datas_array = (MARC*)malloc(sizeof(MARC) * agenda_size);
     if (data == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -304,7 +304,7 @@ AGENDA get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
                 continue;
 
             char *field = strtok(buffer, delimiter);
-            while (field_count < 3){
+            while (field_count < 4){
                 remove_linebreak_on_the_end(field);
 //                printf("%s\t", field);
                 switch (field_count){   // dia|mes|ano|descricao
@@ -322,6 +322,7 @@ AGENDA get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
                         break;
                     }
                     case 3: {
+                        datas_array[row_count - 2].descricao = (char*)malloc(sizeof(char)*strlen(field) + 1);
                         strcpy(datas_array[row_count - 2].descricao, field);
                         break;
                     }
@@ -337,22 +338,29 @@ AGENDA get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
 
     }
     fclose(data);
-    AGENDA agenda_master;
-    agenda_master.id = agenda_id;
-    agenda_master.size = agenda_size;
-    agenda_master.marcacoes = datas_array;
-    agenda_master.path = filepath;
+    AGENDA *agenda_master = (AGENDA*)malloc(sizeof(AGENDA));
+    agenda_master->id = agenda_id;
+    agenda_master->size = agenda_size;
+    agenda_master->marcacoes = datas_array;
+    agenda_master->path = filepath;
     return agenda_master;
 }
 
 char* get_filepath_agenda_master(int id){
-    char* file_preset1 = "./data/agendas/masters";
-    char* file_preset2 = "_master.csv";
+    char* file_preset1 = "./data/agendas/masters/";
+    char* file_preset2 = "_master.psv";
     char fnum[6];
     itoa(id, fnum, 10);
-    char* file_path = (char*)malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum)));
+    char* file_path = (char*)malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum) + 1));
     strcpy(&file_path[0], file_preset1);
     strcpy(&file_path[strlen(file_path)], fnum);
     strcpy(&file_path[strlen(file_path)], file_preset2);
     return file_path;
+}
+
+void print_agenda(AGENDA* ag){
+    int n = ag->size;
+    for (int i = 0; i < n; ++i) {
+        printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag->marcacoes[i].data.dia, ag->marcacoes[i].data.mes, ag->marcacoes[i].data.ano, ag->marcacoes[i].descricao);
+    }
 }

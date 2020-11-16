@@ -33,8 +33,7 @@ typedef struct Data {
  */
 typedef struct Marcacao {
     DATA data;
-    char descricao[STR_MAX];
-    int agenda_id;
+    char *descricao;
 } MARC;
 
 
@@ -65,14 +64,14 @@ typedef struct Local {
  * @param nome                  Nome do estudio
  * @param id                    Identificador do estudio (Index)
  * @param edificio_id           Identificador do edificio onde o estudio esta alojado
- * @param agenda_master_id      Agenda principal do estudio
+ * @param agenda_master         Apontador para a agenda principal do estudio
  * @param agendas_outras        Array onde estao as agendas a parte baseadas nas outras plataformas
  */
 typedef struct Estudio {
     int id;
     int edificio_id;
     char nome[STR_MAX];
-    AGENDA agenda_master;
+    AGENDA* agenda_master;
     AGENDA *agendas_outras;
 } EST;
 
