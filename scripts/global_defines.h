@@ -85,7 +85,7 @@ typedef struct Estudio {
  * @param nome            Efetivamente no nome do edificio
  */
 typedef struct Edificio {
-    long id;
+    int id;
     LOCAL endereco;
     char nome[STR_MAX];
     struct Edificio* next;

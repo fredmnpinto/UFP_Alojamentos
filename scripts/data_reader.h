@@ -21,7 +21,7 @@ ALOJ *get_data_aloj(int *num_alojs); //DONE
  * @param num_ests      Numero de Edificios lidos
  * @return              Endereco do primeiro elemento da lista
  */
-ED get_data_edfs();
+ED* get_data_edfs();
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -47,6 +47,10 @@ int get_number_of_lines(FILE *fr);
  */
 void get_data_main(int argc, char* argv[]);
 
-void print_edfs_list(ED edf);
+/**
+ * Funcao para printar todos os elementos da lista de edificios
+ * @param head  Ponteiro para a head da lista de edificios a ser printada
+ */
+void print_edfs_list(ED *head);
 
 #endif //UFP_ALOJAMENTOS_DATA_READER_H

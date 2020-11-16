@@ -115,9 +115,10 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
     return new_array;
 }
 
-ED get_data_edfs(){
+ED* get_data_edfs(){
     FILE *fr = fopen("./data/edfs.psv", "r");
-    ED *head = NULL;
+    ED *head = NULL, *aux, *tail;
+    ED *tmp = (ED*)malloc(sizeof(ED));
     char delimiter[] = "|";
     if (fr == NULL) {
         printf("ERROR: ");
@@ -136,14 +137,16 @@ ED get_data_edfs(){
 
         printf("\t");
         while(fgets(buffer, CHAR_LIMIT, fr)){
+            tail = tmp;
             field_count = 0;
             row_count++;
-            if (row_count == 1)
+
+            if (row_count == 1) {
                 continue;
+            }
 
             char *field = strtok(buffer, delimiter);
             while (field_count < 5){
-                ED *tmp = (ED*)malloc(sizeof(ED));
                 switch (field_count){   // id, endereco_str, endereco_lat, endereco_longi, nome
                     case 0: {
                         tmp->id = atol(field);
@@ -173,17 +176,35 @@ ED get_data_edfs(){
                     }
 
                 }
-                if (head == NULL)
-                    head = tmp;
-                else{
-                    head->next = tmp;   //TODO checar se isso funciona e se isso esta certo
-                }
+
                 printf("'%s'\t", field);
                 field = strtok(NULL, delimiter);
                 field_count++;
             }
+            if (head == NULL) {
+                head = tmp;
+                tmp = (ED*)malloc(sizeof(ED));
+                head->next = tmp;
+            }
+            else{
+                aux = (ED*)malloc(sizeof(ED));
+                tmp->next = aux;   //Esta a adicionar todos os elementos sempre a frente da lista
+                tmp = aux;
+            }
         }
-
+        free(aux);
+        tail->next = NULL;
     }
     fclose(fr);
+    print_edfs_list(head);
+    return head;
 }
+
+void print_edfs_list(ED *head){
+    ED *tmp = head;
+    while(tmp != NULL){
+        printf("\nId: %d\nNome: %s\nEndereco: %s\t(lat: %f longi: %f)\n", tmp->id, tmp->nome, tmp->endereco.endereco, tmp->endereco.lat, tmp->endereco.longi);
+        tmp = tmp->next;
+    }
+}
+
