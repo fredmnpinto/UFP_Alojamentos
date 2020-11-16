@@ -6,13 +6,27 @@
 
 #IncludeRegexTransform: 
 
+
+D:/Projects/UFP_Alojamentos/scripts/data_handler.h
+=======
+D:/Projects/UFP_Alojamentos/main.c
+stdio.h
+-
+scripts/project.h
+D:/Projects/UFP_Alojamentos/scripts/project.h
+
 D:/Projects/UFP_Alojamentos/scripts/data_reader.c
 data_reader.h
 D:/Projects/UFP_Alojamentos/scripts/data_reader.h
 
 D:/Projects/UFP_Alojamentos/scripts/data_reader.h
+
 errno.h
 -
+global_defines.h
+D:/Projects/UFP_Alojamentos/scripts/global_defines.h
+
+D:/Projects/UFP_Alojamentos/scripts/global_defines.c
 global_defines.h
 D:/Projects/UFP_Alojamentos/scripts/global_defines.h
 
@@ -24,3 +38,13 @@ stdlib.h
 string.h
 -
 
+D:/Projects/UFP_Alojamentos/scripts/project.c
+project.h
+D:/Projects/UFP_Alojamentos/scripts/project.h
+
+data_handler.h
+D:/Projects/UFP_Alojamentos/scripts/data_handler.h
+
+D:/Projects/UFP_Alojamentos/scripts/project.h
+data_handler.h
+D:/Projects/UFP_Alojamentos/scripts/data_handler.h

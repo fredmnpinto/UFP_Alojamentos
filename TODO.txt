@@ -1,7 +1,8 @@
 ========================================================================================================
  Implementar estruturas de dados para manter a informação a ser processada pela aplicação, nomeadamente:
 
- DONE uma lista ligada para todos os edifícios;
+
+ DONE uma lista ligada para todos os edifícios; [Terminado tanto a estrutura quanto a funcao de leitura do arquivo csv]
 
  ToDo um array dinâmico para os estúdios de cada edifício;
 

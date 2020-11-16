@@ -44,10 +44,10 @@ typedef struct Marcacao {
  * @param size            Tamanho do array \marcacoes
  */
 typedef struct Agenda {
-    MARC marcacoes[AGENDA_MAX];
-    long id;
+    MARC *marcacoes;
+    int id;
     int size;
-    char path[STR_MAX];
+    char *path;
 } AGENDA;
 
 /**
@@ -61,22 +61,18 @@ typedef struct Local {
 } LOCAL;
 
 /**
- * ESTUDIO:
- * @param nome             Nome do estudio
- * @param id               Identificador do estudio (Index)
- * @param edificio_id      Identificador do edificio onde o estudio esta alojado
- * @param agenda_master    Agenda principal do estudio
- * @param agendas_outras   Array onde estao as agendas a parte baseadas nas outras
- *                   plataformas
- * @a_o_size         Tamanho do array @agendas_outras
+ * @param nome                  Nome do estudio
+ * @param id                    Identificador do estudio (Index)
+ * @param edificio_id           Identificador do edificio onde o estudio esta alojado
+ * @param agenda_master_id      Agenda principal do estudio
+ * @param agendas_outras        Array onde estao as agendas a parte baseadas nas outras plataformas
  */
 typedef struct Estudio {
+    int id;
     int edificio_id;
-    long id;
     char nome[STR_MAX];
     AGENDA agenda_master;
-    AGENDA agendas_outras[ARR_SMALL];
-    int a_o_size;
+    AGENDA *agendas_outras;
 } EST;
 
 /**
@@ -160,5 +156,7 @@ char * get_upper_str(char str[]);
  * @return      1 para sim, 0 para nao
  */
 int is_upper_c(char c);
+
+
 
 #endif //UFP_ALOJAMENTOS_GLOBAL_DEFINES_H

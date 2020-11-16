@@ -13,15 +13,33 @@
  * @num_alojs Numero de alojamentos \attention ENTRA VAZIO, SAI PREENCHIDO \attention
  * @return Array dinamico com todos os alojamentos do .csv
  */
-ALOJ *get_data_aloj(int *num_alojs); //DONE
+ALOJ *get_data_aloj(int *num_alojs);    //DONE
+
 
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
  * lista ligada de structs do tipo ED (struct Edificio)
- * @param num_ests      Numero de Edificios lidos
- * @return              Endereco do primeiro elemento da lista
+
+ * @return              Endereco do primeiro elemento da lista (HEAD)
  */
-ED* get_data_edfs();
+ED* get_data_edfs();                    //DONE
+
+/**
+ * Funcao para pegar os dados do arquivo .psv e armazena-los em um
+ * array dinamico de structs do tipo EST (struct Estudio)
+ * @param size          Tamanho do array
+ * @return              Endereco do array
+ */
+EST* get_data_estudio(int *size);
+
+/**
+ * Funcao para pegar os dados de um arquivo .psv de uma especifica agenda
+ * master e armazena-los em uma struct do tipo AGENDA (struct agenda)
+ * @param id            Id da agenda a ser buscada (primeira parte do nome do arquivo)
+ * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
+ */
+AGENDA get_data_agenda_master(int id);
+
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -52,5 +70,20 @@ void get_data_main(int argc, char* argv[]);
  * @param head  Ponteiro para a head da lista de edificios a ser printada
  */
 void print_edfs_list(ED *head);
+
+/**
+ * Funcao para pegar os dados de uma determinada agenda pelo id (comeco do nome do arquivo)
+ * e armazena-os em uma struct de tipo AGENDA (struct agenda)
+ * @param id    Identificador da respectiva agenda
+ * @return      Agenda a ser lida
+ */
+AGENDA get_data_agenda_master(int id);
+
+/**
+ * Funcao para montar o path do arquivo da agenda do respectivo id
+ * @param id    Identificador da agenda a ser trabalhada
+ * @return      Nome do arquivo onde esta guardada a agenda
+ */
+char* get_filepath_agenda_master(int id);
 
 #endif //UFP_ALOJAMENTOS_DATA_READER_H
