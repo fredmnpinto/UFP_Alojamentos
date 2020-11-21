@@ -44,6 +44,7 @@ typedef struct Marcacao {
  */
 typedef struct Agenda {
     MARC *marcacoes;
+    char nome[STR_MAX];
     int id;
     int size;
     char *path;
@@ -60,19 +61,34 @@ typedef struct Local {
 } LOCAL;
 
 /**
+ * OUTRAS_AGENDAS_HANDLER:
+ * @param agendas               Array dinamico com todas as outras agendas (que nao sao master)
+ * @param size                  Tamanho do array de agendas
+ * @param find                  Funcao para encontrar uma determinada agenda, dentro do array
+ * \attention INICIALIZAR SOMENTE USANDO A RESPETIVA FUNCAO INICIALIZADORA
+ */
+typedef struct OutrasAgendasHandler {
+    AGENDA *agendas;
+    int size;
+    AGENDA* find;
+}AGENDAS_HANDLER;
+
+/**
  * ESTUDIO:
  * @param nome                  Nome do estudio
  * @param id                    Identificador do estudio (Index)
  * @param edificio_id           Identificador do edificio onde o estudio esta alojado
  * @param agenda_master         Apontador para a agenda principal do estudio
  * @param agendas_outras        Array onde estao as agendas a parte baseadas nas outras plataformas
+ * @param preco_base            Preco base do estudio
  */
 typedef struct Estudio {
     int id;
     int edificio_id;
     char nome[STR_MAX];
     AGENDA* agenda_master;
-    AGENDA *agendas_outras;
+    AGENDA agendas_outras;
+    float preco_base;
 } EST;
 
 /**
@@ -98,6 +114,10 @@ typedef struct Alojamento {
     char tipo[5];
 } ALOJ;
 
+typedef struct Estadia {
+    DATA date;
+    char nome_cliente[STR_MAX];
+}ESTADIA;
 
 //GLOBAL FUNCTIONS [Usadas ou que podem ser usadas por todos os arquivos]
 
