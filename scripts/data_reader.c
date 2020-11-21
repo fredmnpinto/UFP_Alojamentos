@@ -213,7 +213,7 @@ EST * get_data_estudio(int *size){
     char delimiter[] = "|";
     *size = get_number_of_lines(fr);
     printf("aloj.csv has %d lines\n", *size);
-    EST *est_array = (EST*)malloc((*size) * sizeof(EST));           // Guarda somente 20 objetos de Alojamentos PODE SER EXTENDIDO
+    EST *est_array = (EST*)malloc((*size) * sizeof(EST));
     if (fr == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -257,7 +257,7 @@ EST * get_data_estudio(int *size){
                         est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
                         break;
                     }
-                    /*case 4: {
+                    /*case 4: { //TODO array dinamicos com as outras agendas
                         est_array[row_count - 2].agendas_outras_id = atoi(field);
                         break;
                     }*/
@@ -363,4 +363,34 @@ void print_agenda(AGENDA* ag){
     for (int i = 0; i < n; ++i) {
         printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag->marcacoes[i].data.dia, ag->marcacoes[i].data.mes, ag->marcacoes[i].data.ano, ag->marcacoes[i].descricao);
     }
+}
+
+AGENDA* find_agenda_in_OutrasHandler(AGENDAS_HANDLER* self, int index, char* nome_agenda){
+    int n = self->size;
+    if (index > -1){
+        //Binary search
+    }
+    else if (nome_agenda != "")
+    {
+        for (int i = 0; i < n; ++i) {
+            if(strcmp(self->agendas[i].nome, nome_agenda))
+                return &self->agendas[i];
+        }
+    }
+    printf("\n\nINVALID INPUT ON AGENDAS_FIND\n\nMUST ENTER EITHER THE INDEX OR THE NAME OF THE AGENDA WANTED\n\n");
+    AGENDA* agenda_placeholder = (AGENDA*)malloc(sizeof(agenda_placeholder));
+    char* nome = "Placeholder Name";
+
+    strcpy(agenda_placeholder->nome, nome);
+    agenda_placeholder->size = 0;
+    agenda_placeholder->id = -1;
+    agenda_placeholder->path = "Path/to/placeholder.txt";
+
+    return agenda_placeholder;
+}
+AGENDAS_HANDLER* create_outras_handler(AGENDA* agendas, int size){
+    AGENDAS_HANDLER *new_outras = (AGENDAS_HANDLER*)malloc(sizeof(new_outras));
+    new_outras->agendas = agendas;
+    new_outras->find = &find_agenda_in_OutrasHandler;
+
 }

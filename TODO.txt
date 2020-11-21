@@ -1,3 +1,9 @@
+ATENCAO:
+    Agenda Master e as outras Agendas
+    a agenda master é obviamente a principal
+    as outras são as agendas para o caso de fazerem uma reserva por diferente plataformas
+    TODO Periodicamente a master tem de ser atualizada em funcao das outras (Pode ser apenas uma funcao manual)
+
 ========================================================================================================
  Implementar estruturas de dados para manter a informação a ser processada pela aplicação, nomeadamente:
 

@@ -8,6 +8,8 @@
 #include <errno.h>
 #include "global_defines.h"
 
+
+
 /**
  * Pega os dados do arquivo .csv e armazena-os em um array dinamico
  * @num_alojs Numero de alojamentos \attention ENTRA VAZIO, SAI PREENCHIDO \attention
@@ -37,6 +39,23 @@ EST* get_data_estudio(int *size);
  * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
  */
 AGENDA* get_data_agenda_master(int id);
+
+/**
+ * Funcao para buscar uma agenda pelo nome ou index \attention CASO SEJA PELO NOME ESPECIFICAR INDEX = -1
+ * @param self                  Objeto da struct AGENDAS_HANDLER
+ * @param index                 Index da agenda a ser buscada (SOMENTE SE ESTIVER BUSCANDO PELO INDEX)
+ * @param nome_agenda           Nome da agenda a ser buscado (SE NAO SOUBER, ESPECIFICAR "" STRING VAZIA)
+ * @return                      Agenda encontrada
+ */
+AGENDA* find_agenda_in_OutrasHandler(AGENDAS_HANDLER* self, int index, char* nome_agenda);
+
+/**
+ * Funcao para inicializar o handler de agendas outras.
+ * @param agendas               Array de agendas que sera guardado
+ * @param size                  Tamanho do array de agendas
+ * @return                      Objeto da struct AGENDA_HANDLER inicializado
+ */
+AGENDAS_HANDLER* create_outras_handler(AGENDA* agendas, int size);
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
