@@ -6,7 +6,7 @@
 #define UFP_ALOJAMENTOS_DATA_READER_H
 
 #include <errno.h>
-#include "global_defines.h"
+#include "../general/utils.h"
 
 
 
@@ -22,7 +22,7 @@ ALOJ *get_data_aloj(int *num_alojs);    //DONE
  * lista ligada de structs do tipo ED (struct Edificio)
  * @return              Endereco do primeiro elemento da lista (HEAD)
  */
-ED* get_data_edfs();                    //DONE
+ED_QUEUE* get_data_edfs();                    //DONE
 
 /**
  * Funcao para pegar os dados do arquivo .psv e armazena-los em um
@@ -30,7 +30,7 @@ ED* get_data_edfs();                    //DONE
  * @param size          Tamanho do array
  * @return              Endereco do array
  */
-EST* get_data_estudio(int *size);
+EST* get_data_estudio(int *size);           //ONGOING
 
 /**
  * Funcao para pegar os dados de um arquivo .psv de uma especifica agenda
@@ -41,21 +41,10 @@ EST* get_data_estudio(int *size);
 AGENDA* get_data_agenda_master(int id);
 
 /**
- * Funcao para buscar uma agenda pelo nome ou index \attention CASO SEJA PELO NOME ESPECIFICAR INDEX = -1
- * @param self                  Objeto da struct AGENDAS_HANDLER
- * @param index                 Index da agenda a ser buscada (SOMENTE SE ESTIVER BUSCANDO PELO INDEX)
- * @param nome_agenda           Nome da agenda a ser buscado (SE NAO SOUBER, ESPECIFICAR "" STRING VAZIA)
- * @return                      Agenda encontrada
+ * Funcao para buscar o array dinamico de agendas de outras plataformas
+ * @return              Objeto da struct AGENDAS_HANDLER com o array dinamico de todas as agendas de outras plataformas
  */
-AGENDA* find_agenda_in_OutrasHandler(AGENDAS_HANDLER* self, int index, char* nome_agenda);
-
-/**
- * Funcao para inicializar o handler de agendas outras.
- * @param agendas               Array de agendas que sera guardado
- * @param size                  Tamanho do array de agendas
- * @return                      Objeto da struct AGENDA_HANDLER inicializado
- */
-AGENDAS_HANDLER* create_outras_handler(AGENDA* agendas, int size);
+AGENDAS_HANDLER * get_data_agendas_outras();
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -74,21 +63,6 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
 int get_number_of_lines(FILE *fr);
 
 /**
- * Funcao para lidar com o input e administrar o que fazer a partir dele
- * no caso dele ser "read", como visto na funcao main_menu() de projeto.c
- * @param argc          Numero de argumentos
- * @param argv          Quais dados serao lidos (i.e. "aloj")
- */
-void get_data_main(int argc, char* argv[]);
-
-/**
- * Funcao para printar todos os elementos da lista de edificios
- * @param head  Ponteiro para a head da lista de edificios a ser printada
- */
-void print_edfs_list(ED *head);
-
-
-/**
  * Funcao para montar o path do arquivo da agenda do respectivo id
  * @param id    Identificador da agenda a ser trabalhada
  * @return      Nome do arquivo onde esta guardada a agenda
@@ -96,9 +70,11 @@ void print_edfs_list(ED *head);
 char* get_filepath_agenda_master(int id);
 
 /**
- * Funcao para printar uma agenda especifica (Por motivos de debug)
- * @param ag    Agenda a ser printada
+ * Funcao para lidar com o input e administrar o que fazer a partir dele
+ * no caso dele ser "read", como visto na funcao main_menu() de projeto.c
+ * @param argc          Numero de argumentos
+ * @param argv          Quais dados serao lidos (i.e. "aloj")
  */
-void print_agenda(AGENDA* ag);
+void get_data_main(int argc, char* argv[]);
 
 #endif //UFP_ALOJAMENTOS_DATA_READER_H

@@ -115,10 +115,11 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
     return new_array;
 }
 
-ED* get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
+ED_QUEUE * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     FILE *fr = fopen("./data/edfs.psv", "r");
     ED *head = NULL, *aux, *tail;
     ED *tmp = (ED*)malloc(sizeof(ED));
+    ED_QUEUE *queue = init_ed_queue();
     char delimiter[] = "|";
     if (fr == NULL) {
         printf("ERROR: ");
@@ -194,22 +195,18 @@ ED* get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
         }
         free(aux);
         tail->next = NULL;
+        queue->tail = tail;
     }
     fclose(fr);
-    print_edfs_list(head);
-    return head;
+    queue->head = head;
+    queue->print(queue);
+    return queue;
 }
 
-void print_edfs_list(ED *head){
-    ED *tmp = head;
-    while(tmp != NULL){
-        printf("\nId: %d\nNome: %s\nEndereco: %s\t(lat: %f longi: %f)\n", tmp->id, tmp->nome, tmp->endereco.endereco, tmp->endereco.lat, tmp->endereco.longi);
-        tmp = tmp->next;
-    }
-}
 
-EST * get_data_estudio(int *size){
-    FILE *fr = fopen("./data/estudio.psv", "r");
+EST * get_data_estudio(int *size){ // FALTA FAZER AS AGENDAS OUTRAS -- PREGUICA --
+    char *file_path = "./data/estudio.psv";
+    FILE *fr = fopen(file_path, "r");
     char delimiter[] = "|";
     *size = get_number_of_lines(fr);
     printf("aloj.csv has %d lines\n", *size);
@@ -262,7 +259,7 @@ EST * get_data_estudio(int *size){
                         break;
                     }*/
                     default :{
-                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                        printf("WARNING: Possible unreadable data in '%s'\n", file_path);
                     }
 
                 }
@@ -275,7 +272,7 @@ EST * get_data_estudio(int *size){
     return est_array;
 }
 
-AGENDA* get_data_agenda_master(int agenda_id){   //TODO testar essa funcao
+AGENDA* get_data_agenda_master(int agenda_id){   //DONE ?
     char *filepath = get_filepath_agenda_master(agenda_id);
     FILE* data = fopen(filepath, "r");
     char delimiter[] = "|";
@@ -358,39 +355,75 @@ char* get_filepath_agenda_master(int id){
     return file_path;
 }
 
-void print_agenda(AGENDA* ag){
-    int n = ag->size;
-    for (int i = 0; i < n; ++i) {
-        printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag->marcacoes[i].data.dia, ag->marcacoes[i].data.mes, ag->marcacoes[i].data.ano, ag->marcacoes[i].descricao);
-    }
-}
+AGENDAS_HANDLER * get_data_agendas_outras(int id){
+    char *file_path = "./data/agendas/outras_handlers/";
+    strcat(file_path, (const char *) id);
+    strcat(file_path, ".psv");
+    FILE *fr = fopen(file_path, "r");
+    char delimiter[] = "|";
+    int n_lines = get_number_of_lines(fr);
+    printf("aloj.csv has %d lines\n", n_lines);
+    EST *est_array = (EST*)malloc((n_lines) * sizeof(EST));
+    if (fr == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(".data/estudio.csv", "w");
+            fprintf(fw, "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n");
+            fclose(fw);
+        }
+    } else {
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
 
-AGENDA* find_agenda_in_OutrasHandler(AGENDAS_HANDLER* self, int index, char* nome_agenda){
-    int n = self->size;
-    if (index > -1){
-        //Binary search
-    }
-    else if (nome_agenda != "")
-    {
-        for (int i = 0; i < n; ++i) {
-            if(strcmp(self->agendas[i].nome, nome_agenda))
-                return &self->agendas[i];
+        int row_count = 0, field_count;
+
+        while(fgets(buffer, CHAR_LIMIT, fr)){
+            field_count = 0;
+            row_count++;
+            if (row_count == 1)
+                continue;
+
+            char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
+            while (field_count < 5){
+//                printf("%s\t", field);
+                switch (field_count){   // id, estudio_id, tipo
+                    case 0: {
+                        est_array[row_count - 2].id = atoi(field);
+
+                        break;
+                    }
+                    case 1: {
+                        est_array[row_count - 2].edificio_id = atoi(field);
+                        break;
+                    }
+                    case 2: {
+                        strcpy(est_array[row_count - 2].nome, field);
+                        remove_linebreak_on_the_end(est_array[row_count - 2].nome);
+                        break;
+                    }
+                    case 3: {
+                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
+                        break;
+                    }
+                        /*case 4: { //TODO array dinamicos com as outras agendas
+                            est_array[row_count - 2].agendas_outras_id = atoi(field);
+                            break;
+                        }*/
+                    default :{
+                        printf("WARNING: Possible unreadable data in '%s'\n", file_path);
+                    }
+
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
         }
     }
-    printf("\n\nINVALID INPUT ON AGENDAS_FIND\n\nMUST ENTER EITHER THE INDEX OR THE NAME OF THE AGENDA WANTED\n\n");
-    AGENDA* agenda_placeholder = (AGENDA*)malloc(sizeof(agenda_placeholder));
-    char* nome = "Placeholder Name";
-
-    strcpy(agenda_placeholder->nome, nome);
-    agenda_placeholder->size = 0;
-    agenda_placeholder->id = -1;
-    agenda_placeholder->path = "Path/to/placeholder.txt";
-
-    return agenda_placeholder;
+    fclose(fr);
+    return NULL;
 }
-AGENDAS_HANDLER* create_outras_handler(AGENDA* agendas, int size){
-    AGENDAS_HANDLER *new_outras = (AGENDAS_HANDLER*)malloc(sizeof(new_outras));
-    new_outras->agendas = agendas;
-    new_outras->find = &find_agenda_in_OutrasHandler;
 
-}
+
+

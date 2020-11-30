@@ -2,7 +2,7 @@
 // Created by Frederico on 07/11/2020.
 //
 
-#include "global_defines.h"
+#include "utils.h"
 
 void remove_linebreak_on_the_end(char str[]) {
     if (str[strlen(str) - 1] == '\n')
@@ -20,7 +20,7 @@ void remove_linebreak(char str[]) {
 
 void print_alojs(ALOJ* aloj_array, int array_size){
     for (int i = 0; i < array_size; ++i) {
-        printf("ID: %lu\n", aloj_array[i].id);
+        printf("ID: %d\n", aloj_array[i].id);
         printf("ESTUDIO ID: %lu\n", aloj_array[i].estudio_id);
         printf("TIPO DE ALOJAMENTO: %s\n", aloj_array[i].tipo);
     }
@@ -71,4 +71,10 @@ char * get_upper_str(char str[]){
             str2[i] = get_lower_c(str2[i]);
     }
     return str;
+}
+
+int comp_date(DATA dat1, DATA dat2){
+    if(dat1.dia == dat2.dia && dat1.mes == dat2.mes && dat1.ano == dat2.ano)
+        return 1;
+    return 0;
 }

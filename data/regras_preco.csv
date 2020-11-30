@@ -1,0 +1,20 @@
+id,regra,taxa
+1,estudio duplex,200
+2,estudio com terraco,150
+3,1 mes,60
+4,3 meses,20
+5,6 meses,10
+6,1 ano,5
+7,epoca baixa,5
+8,epoca alta,50
+9,Plat A,50
+10,Plat B,25
+11,Plat C,-15
+12,estudio especificado,35
+13,estudio nao especificado,0
+14,reserva para <1 semana,45
+15,reserva para <1 mes,15
+16,reserva para >1 mes,0
+17,>65% de ocupacao,50
+18,25%<ocupacao<65%,10
+19,<25% de ocupacao,0

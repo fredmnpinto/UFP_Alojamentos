@@ -1,19 +1,11 @@
 //
-// Created by Frederico on 07/11/2020.
+// Created by Frederico on 29/11/2020.
 //
 
-#ifndef UFP_ALOJAMENTOS_GLOBAL_DEFINES_H
-#define UFP_ALOJAMENTOS_GLOBAL_DEFINES_H
+#ifndef UFP_ALOJAMENTOS_STRUCTS_H
+#define UFP_ALOJAMENTOS_STRUCTS_H
 
-#define ARR_SMALL 10
-#define STR_MAX 50
-#define AGENDA_MAX 365
-#define ALOJ_HEADER "id,estudio_id,tipo"
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-
+#include "utils.h"
 
 /// STRUCTS TO BE USED IN ALL FILES
 /**
@@ -70,7 +62,12 @@ typedef struct Local {
 typedef struct OutrasAgendasHandler {
     AGENDA *agendas;
     int size;
-    AGENDA* find;
+    AGENDA* (*find)(struct OutrasAgendasHandler* self, int index, char* nome_agenda);
+    int (*free)(struct OutrasAgendasHandler*);
+    void (*print_all)(struct OutrasAgendasHandler*);
+    void (*insert_to_end)(struct OutrasAgendasHandler*, AGENDA*);
+    int (*check_availability)(struct OutrasAgendasHandler*, DATA, int);
+    AGENDA* (*get_agenda)(struct OutrasAgendasHandler*, int);
 }AGENDAS_HANDLER;
 
 /**
@@ -87,7 +84,7 @@ typedef struct Estudio {
     int edificio_id;
     char nome[STR_MAX];
     AGENDA* agenda_master;
-    AGENDA agendas_outras;
+    AGENDA* agendas_outras;
     float preco_base;
 } EST;
 
@@ -119,64 +116,25 @@ typedef struct Estadia {
     char nome_cliente[STR_MAX];
 }ESTADIA;
 
-//GLOBAL FUNCTIONS [Usadas ou que podem ser usadas por todos os arquivos]
+typedef struct EdificiosQueue{
+    ED * head;
+    ED * tail;
+    void (*print)(struct EdificiosQueue*);
+    void (*append)(struct EdificiosQueue*, ED*);
+    void (*remove)(struct EdificiosQueue*, ED*);
+    void (*free_all)(struct EdificiosQueue*);
+    void (*insert_to_front)(struct EdificiosQueue*, ED*);
+} ED_QUEUE;
 
 /**
- * Remove o '\ n' no final da string, caso tenha
- * \warning         Altera o valor da string inicial (remove o \ n)
- * @param str       string com ou sem a quebra de linha no fim
+ * @param id              Identificador
+ * @param regra           Nome da regra
+ * @param taxa            Taxa da regra
  */
-void remove_linebreak_on_the_end(char str[]);
+typedef struct Regras_Preco {
+    int id;
+    char regra[STR_MAX];
+    int taxa;
+} RP;
 
-/**
- * Remove o '\ n' de qualquer posicao da string
- * \warning NAO FUNCIONAL, NAO UTILIZAR
- * @param str   String sem qualquer quebra de linha
- */
-void remove_linebreak(char str[]);
-
-/**
- * Funcao para printar todos os alojs do array
- * @param aloj_array    Array com todos os alojamentos
- * @param array_size    Tamanho do array
- */
-void print_alojs(ALOJ *aloj_array, int array_size);
-
-/**
- * Funcao para retornar a versao em lowercase de um determinado caracter
- * @param C     Caracter em uppercase ou nao
- * @return      Caracter em lowercase
- */
-char get_lower_c(char C);
-
-/**
- * Funcao para retornar a versao upppercase de um caracter
- * @param c     Caracter lowercase ou nao
- * @return      Caracter uppercase
- */
-char get_upper_c(char c);
-
-/**
- * Funcao para retornar a versao lowercase de uma string
- * @param STR       String em uppercase ou nao
- * @return          String em lowercase
- */
-char * get_lower_str(char STR[]);
-
-/**
- * Funcao para retornar a versao uppercase de uma string
- * @param str       String em lowercase ou nao
- * @return          String em uppercase
- */
-char * get_upper_str(char str[]);
-
-/**
- * Funcao para determinar se um caracter é uppercase ou nao
- * @param c     Caracter em questao
- * @return      1 para sim, 0 para nao
- */
-int is_upper_c(char c);
-
-
-
-#endif //UFP_ALOJAMENTOS_GLOBAL_DEFINES_H
+#endif //UFP_ALOJAMENTOS_STRUCTS_H

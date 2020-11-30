@@ -3,7 +3,7 @@
 //
 
 #include "project.h"
-#include "data_reader.h"
+#include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
     int size;
