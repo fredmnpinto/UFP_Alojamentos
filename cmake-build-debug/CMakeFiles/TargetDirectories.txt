@@ -1,3 +1,0 @@
-D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/edit_cache.dir
-D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/UFP_Alojamentos.dir
-D:/Projects/UFP_Alojamentos/cmake-build-debug/CMakeFiles/rebuild_cache.dir
