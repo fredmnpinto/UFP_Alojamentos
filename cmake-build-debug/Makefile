@@ -169,6 +169,87 @@ main.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/main.c.s
 .PHONY : main.c.s
 
+scripts/API/agendas.obj: scripts/API/agendas.c.obj
+
+.PHONY : scripts/API/agendas.obj
+
+# target to build an object file
+scripts/API/agendas.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj
+.PHONY : scripts/API/agendas.c.obj
+
+scripts/API/agendas.i: scripts/API/agendas.c.i
+
+.PHONY : scripts/API/agendas.i
+
+# target to preprocess a source file
+scripts/API/agendas.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.i
+.PHONY : scripts/API/agendas.c.i
+
+scripts/API/agendas.s: scripts/API/agendas.c.s
+
+.PHONY : scripts/API/agendas.s
+
+# target to generate assembly for a file
+scripts/API/agendas.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.s
+.PHONY : scripts/API/agendas.c.s
+
+scripts/API/edificios.obj: scripts/API/edificios.c.obj
+
+.PHONY : scripts/API/edificios.obj
+
+# target to build an object file
+scripts/API/edificios.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj
+.PHONY : scripts/API/edificios.c.obj
+
+scripts/API/edificios.i: scripts/API/edificios.c.i
+
+.PHONY : scripts/API/edificios.i
+
+# target to preprocess a source file
+scripts/API/edificios.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.i
+.PHONY : scripts/API/edificios.c.i
+
+scripts/API/edificios.s: scripts/API/edificios.c.s
+
+.PHONY : scripts/API/edificios.s
+
+# target to generate assembly for a file
+scripts/API/edificios.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.s
+.PHONY : scripts/API/edificios.c.s
+
+scripts/billing.obj: scripts/billing.c.obj
+
+.PHONY : scripts/billing.obj
+
+# target to build an object file
+scripts/billing.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj
+.PHONY : scripts/billing.c.obj
+
+scripts/billing.i: scripts/billing.c.i
+
+.PHONY : scripts/billing.i
+
+# target to preprocess a source file
+scripts/billing.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.i
+.PHONY : scripts/billing.c.i
+
+scripts/billing.s: scripts/billing.c.s
+
+.PHONY : scripts/billing.s
+
+# target to generate assembly for a file
+scripts/billing.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.s
+.PHONY : scripts/billing.c.s
+
 scripts/data_reader.obj: scripts/data_reader.c.obj
 
 .PHONY : scripts/data_reader.obj
@@ -195,33 +276,6 @@ scripts/data_reader.s: scripts/data_reader.c.s
 scripts/data_reader.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.s
 .PHONY : scripts/data_reader.c.s
-
-scripts/global_defines.obj: scripts/global_defines.c.obj
-
-.PHONY : scripts/global_defines.obj
-
-# target to build an object file
-scripts/global_defines.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj
-.PHONY : scripts/global_defines.c.obj
-
-scripts/global_defines.i: scripts/global_defines.c.i
-
-.PHONY : scripts/global_defines.i
-
-# target to preprocess a source file
-scripts/global_defines.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.i
-.PHONY : scripts/global_defines.c.i
-
-scripts/global_defines.s: scripts/global_defines.c.s
-
-.PHONY : scripts/global_defines.s
-
-# target to generate assembly for a file
-scripts/global_defines.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.s
-.PHONY : scripts/global_defines.c.s
 
 scripts/project.obj: scripts/project.c.obj
 
@@ -250,6 +304,33 @@ scripts/project.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.s
 .PHONY : scripts/project.c.s
 
+scripts/utils.obj: scripts/utils.c.obj
+
+.PHONY : scripts/utils.obj
+
+# target to build an object file
+scripts/utils.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj
+.PHONY : scripts/utils.c.obj
+
+scripts/utils.i: scripts/utils.c.i
+
+.PHONY : scripts/utils.i
+
+# target to preprocess a source file
+scripts/utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.i
+.PHONY : scripts/utils.c.i
+
+scripts/utils.s: scripts/utils.c.s
+
+.PHONY : scripts/utils.s
+
+# target to generate assembly for a file
+scripts/utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.s
+.PHONY : scripts/utils.c.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -262,15 +343,24 @@ help:
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... scripts/API/agendas.obj
+	@echo ... scripts/API/agendas.i
+	@echo ... scripts/API/agendas.s
+	@echo ... scripts/API/edificios.obj
+	@echo ... scripts/API/edificios.i
+	@echo ... scripts/API/edificios.s
+	@echo ... scripts/billing.obj
+	@echo ... scripts/billing.i
+	@echo ... scripts/billing.s
 	@echo ... scripts/data_reader.obj
 	@echo ... scripts/data_reader.i
 	@echo ... scripts/data_reader.s
-	@echo ... scripts/global_defines.obj
-	@echo ... scripts/global_defines.i
-	@echo ... scripts/global_defines.s
 	@echo ... scripts/project.obj
 	@echo ... scripts/project.i
 	@echo ... scripts/project.s
+	@echo ... scripts/utils.obj
+	@echo ... scripts/utils.i
+	@echo ... scripts/utils.s
 .PHONY : help
 
 

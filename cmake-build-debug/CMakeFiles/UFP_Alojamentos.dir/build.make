@@ -115,25 +115,67 @@ CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.s"
 	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\data_reader.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\data_reader.c.s
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
-CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj: ../scripts/global_defines.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\global_defines.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\global_defines.c
+CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
+CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj: ../scripts/utils.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\utils.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\utils.c
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.i"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\global_defines.c > CMakeFiles\UFP_Alojamentos.dir\scripts\global_defines.c.i
+CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.i"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\utils.c > CMakeFiles\UFP_Alojamentos.dir\scripts\utils.c.i
 
-CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.s"
-	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\global_defines.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\global_defines.c.s
+CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.s"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\utils.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\utils.c.s
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj: ../scripts/API/agendas.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\API\agendas.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\API\agendas.c
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.i"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\API\agendas.c > CMakeFiles\UFP_Alojamentos.dir\scripts\API\agendas.c.i
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.s"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\API\agendas.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\API\agendas.c.s
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj: ../scripts/API/edificios.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\API\edificios.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\API\edificios.c
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.i"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\API\edificios.c > CMakeFiles\UFP_Alojamentos.dir\scripts\API\edificios.c.i
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.s"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\API\edificios.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\API\edificios.c.s
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj: CMakeFiles/UFP_Alojamentos.dir/flags.make
+CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj: ../scripts/billing.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles\UFP_Alojamentos.dir\scripts\billing.c.obj   -c D:\Projects\UFP_Alojamentos\scripts\billing.c
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.i"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E D:\Projects\UFP_Alojamentos\scripts\billing.c > CMakeFiles\UFP_Alojamentos.dir\scripts\billing.c.i
+
+CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.s"
+	D:\UFP\Mingw2\bin\gcc.exe $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S D:\Projects\UFP_Alojamentos\scripts\billing.c -o CMakeFiles\UFP_Alojamentos.dir\scripts\billing.c.s
 
 # Object files for target UFP_Alojamentos
 UFP_Alojamentos_OBJECTS = \
 "CMakeFiles/UFP_Alojamentos.dir/main.c.obj" \
 "CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj" \
 "CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.obj" \
-"CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj"
+"CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj" \
+"CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj" \
+"CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj" \
+"CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj"
 
 # External object files for target UFP_Alojamentos
 UFP_Alojamentos_EXTERNAL_OBJECTS =
@@ -141,12 +183,15 @@ UFP_Alojamentos_EXTERNAL_OBJECTS =
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/main.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.obj
-UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/global_defines.c.obj
+UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj
+UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/API/agendas.c.obj
+UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.obj
+UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/build.make
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/linklibs.rsp
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/objects1.rsp
 UFP_Alojamentos.exe: CMakeFiles/UFP_Alojamentos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable UFP_Alojamentos.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\Projects\UFP_Alojamentos\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking C executable UFP_Alojamentos.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\UFP_Alojamentos.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
