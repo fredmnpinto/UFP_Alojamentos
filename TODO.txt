@@ -19,7 +19,7 @@ ATENCAO:
 
  ToDo uma lista ligada dos hóspedes e seu histórico de estadias (reservas);
 
- ToDo um array dinâmico de regras de custo para cada política de preços; etc.;
+ DONE um array dinâmico de regras de custo para cada política de preços; etc.;
 
 ========================================================================================================
 ToDo Implementar uma API base de funções para a criação e inserção ordenada, pesquisa
