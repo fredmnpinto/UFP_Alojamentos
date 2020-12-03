@@ -15,7 +15,8 @@
 #include <string.h>
 #include "../API/edificios.h"
 #include "../API/agendas.h"
-#include "./billing/billing.h"
+#include "../billing/billing.h"
+#include "../data_handler/data_reader.h"
 #include "structs.h"
 
 //GLOBAL FUNCTIONS [Usadas ou que podem ser usadas por todos os arquivos]

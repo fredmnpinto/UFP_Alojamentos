@@ -1,7 +1,7 @@
 //
 // Created by Frederico on 30/11/2020.
 //
-
+#define CHAR_LIMIT 1024
 #include "billing.h"
 
 RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
@@ -9,12 +9,12 @@ RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     char delimiter[] = ",";
     *num_rp = get_number_of_lines(fr);
     printf("regras_preco.csv has %d lines\n", *num_rp);
-    RP rp_array[200];           // Guarda somente 200 objetos de Regras
+    RP *rp_array = (RP *) malloc(sizeof(RP) * (*num_rp));           // Guarda somente 200 objetos de Regras
     if (fr == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
-        char answer = (char)getchar();
+        char answer = (char) getchar();
         if (get_lower_c(answer) == 'y') {
             FILE *fw = fopen(".data/regras_preco.csv", "w");
             fprintf(fw, "id,regra,taxa\n");
@@ -61,12 +61,12 @@ RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     }
     fclose(fr);
 
-    RP * dynamic_rp = rp_dyn_arr(rp_array, *num_rp); //Torna-lo em um array dinamico para retornar
+//    RP * dynamic_rp = rp_dyn_arr(rp_array, *num_rp); //Torna-lo em um array dinamico para retornar
 
     printf("Printing all rp that were read\n");
-    print_rp(dynamic_rp, *num_rp); //Puramente por motivos de debug
+    print_rp(rp_array, *num_rp); //Puramente por motivos de debug
 
-    return dynamic_rp;
+    return rp_array;
 }
 
 void print_rp(RP* rp_array, int array_size){
@@ -76,3 +76,4 @@ void print_rp(RP* rp_array, int array_size){
         printf("TAXA: %d\n", rp_array[i].taxa);
     }
 }
+

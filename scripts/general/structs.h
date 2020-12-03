@@ -137,15 +137,5 @@ typedef struct EdificiosQueue{
     void (*insert_to_front)(struct EdificiosQueue*, ED*);
 } ED_QUEUE;
 
-/**
- * @param id              Identificador
- * @param regra           Nome da regra
- * @param taxa            Taxa da regra
- */
-typedef struct Regras_Preco {
-    int id;
-    char regra[STR_MAX];
-    int taxa;
-} RP;
 
 #endif //UFP_ALOJAMENTOS_STRUCTS_H

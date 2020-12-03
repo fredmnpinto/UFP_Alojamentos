@@ -61,13 +61,6 @@ AGENDAS_HANDLER * get_data_agendas_outras();
  */
 ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
 
-/**
- * Funcao para devolver um array dinamico igual ao estatico recebido
- * @param static_array      Array estatico de regras
- * @param size              Numero de objetos no array
- * @return                  Array dinamico
- */
-RP *rp_dyn_arr(RP *static_array, int size);
 
 /**
  * Funcao para ler o numero de linhas em um arquivo
