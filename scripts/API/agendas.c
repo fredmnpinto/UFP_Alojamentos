@@ -4,12 +4,21 @@
 
 #include "agendas.h"
 
+AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
+    AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
+    new_agenda->marcacoes = marc_array;
+    new_agenda->size = size;
+    new_agenda->id = id;
+    new_agenda->path = path;
+    return new_agenda;
+}
+
 AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size){
     AGENDAS_HANDLER *new_outras = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
     new_outras->agendas = agendas;
     new_outras->size = size;
     new_outras->find = _agendas_handler_get_agenda;
-    new_outras->free = _agendas_handler_free_all;
+//    new_outras->free = _agendas_handler_free_all;
     new_outras->print_all = _agendas_handler_print_all;
     return new_outras;
 }

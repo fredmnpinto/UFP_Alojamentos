@@ -22,6 +22,22 @@ void print_agenda(AGENDA* ag);
 AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size);
 
 /**
+ * Funcao para inicializar uma unica agenda
+ * @param marc_array        Array de marcacoes
+ * @param size              Tamanho do array
+ * @param                   Path para a agenda
+ * @return Ponteiro para essa agenda inicializada
+ */
+AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path);
+
+/**
+ * Funcao para checar se a agenda foi inicializada de forma correta
+ * @param agenda
+ * @return
+ */
+int check_init(AGENDA* agenda);
+
+/**
  * Funcao para dar free a agendas handler, assim como todas as agendas do seu respetivo array
  * @param handler   O Obj de Handler que sera deletado
  * @returns         Bool [Retorna 1 se for bem sucedido e 0 se ocorrer um erro]

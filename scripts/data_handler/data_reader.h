@@ -41,10 +41,19 @@ EST* get_data_estudio(int *size);           //ONGOING
 AGENDA* get_data_agenda_master(int id);
 
 /**
- * Funcao para buscar o array dinamico de agendas de outras plataformas
- * @return              Objeto da struct AGENDAS_HANDLER com o array dinamico de todas as agendas de outras plataformas
+ * Funcao para buscar o array dinamico de marcacoes de uma agenda
+ * @param id            Id da agenda a ser buscada
+ * @return              Agenda lida do arquivo ou NULL se ela nao existir
  */
-AGENDAS_HANDLER * get_data_agendas_outras();
+AGENDA * get_data_single_agenda_outra(int id);
+
+/**
+ * Funcao para buscar as agendas de outras plataformas do respectivo estudio
+ * a partir do id do handler dessas agendas
+ * @param handler_id    Id do handler que cuida das agendas desse estudio
+ * @return              Ponteiro para o handler
+ */
+AGENDAS_HANDLER * get_data_agendas_outras(int handler_id);
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -68,6 +77,13 @@ int get_number_of_lines(FILE *fr);
  * @return      Nome do arquivo onde esta guardada a agenda
  */
 char* get_filepath_agenda_master(int id);
+
+/**
+ * Funcao para pegar o path para o arquivo .psv da respetiva agenda
+ * @param id            Id da agenda
+ * @return              Apontador para a string dinamica com o path
+ */
+char* get_filepath_agenda_outra(int id);
 
 /**
  * Funcao para lidar com o input e administrar o que fazer a partir dele

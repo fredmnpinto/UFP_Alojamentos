@@ -3,6 +3,8 @@
 //
 
 #include "billing.h"
+#include "../data_handler/data_reader.h"
+#include "../general/utils.h"
 
 RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     FILE *fr = fopen("./data/regras_preco.csv", "r");
@@ -75,4 +77,9 @@ void print_rp(RP* rp_array, int array_size){
         printf("REGRA: %s\n", rp_array[i].regra);
         printf("TAXA: %d\n", rp_array[i].taxa);
     }
+}
+
+RP * rp_dyn_arr(RP* array, int size){
+    // (...)
+    return NULL;
 }

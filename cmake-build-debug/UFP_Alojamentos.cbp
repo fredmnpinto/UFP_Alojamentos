@@ -89,31 +89,31 @@
 		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/API/edificios.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/billing.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/billing/billing.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/billing.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/billing/billing.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_reader.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_handler/data_reader.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_reader.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/data_handler/data_reader.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/project.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/general/project.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/project.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/general/project.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/structs.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/general/structs.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/utils.c">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/general/utils.c">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
-		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/utils.h">
+		<Unit filename="D:/Projects/UFP_Alojamentos/scripts/general/utils.h">
 			<Option target="UFP_Alojamentos"/>
 		</Unit>
 		<Unit filename="D:/Projects/UFP_Alojamentos/CMakeLists.txt">

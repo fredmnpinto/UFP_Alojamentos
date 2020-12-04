@@ -223,113 +223,113 @@ scripts/API/edificios.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/API/edificios.c.s
 .PHONY : scripts/API/edificios.c.s
 
-scripts/billing.obj: scripts/billing.c.obj
+scripts/billing/billing.obj: scripts/billing/billing.c.obj
 
-.PHONY : scripts/billing.obj
-
-# target to build an object file
-scripts/billing.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.obj
-.PHONY : scripts/billing.c.obj
-
-scripts/billing.i: scripts/billing.c.i
-
-.PHONY : scripts/billing.i
-
-# target to preprocess a source file
-scripts/billing.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.i
-.PHONY : scripts/billing.c.i
-
-scripts/billing.s: scripts/billing.c.s
-
-.PHONY : scripts/billing.s
-
-# target to generate assembly for a file
-scripts/billing.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing.c.s
-.PHONY : scripts/billing.c.s
-
-scripts/data_reader.obj: scripts/data_reader.c.obj
-
-.PHONY : scripts/data_reader.obj
+.PHONY : scripts/billing/billing.obj
 
 # target to build an object file
-scripts/data_reader.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.obj
-.PHONY : scripts/data_reader.c.obj
+scripts/billing/billing.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing/billing.c.obj
+.PHONY : scripts/billing/billing.c.obj
 
-scripts/data_reader.i: scripts/data_reader.c.i
+scripts/billing/billing.i: scripts/billing/billing.c.i
 
-.PHONY : scripts/data_reader.i
+.PHONY : scripts/billing/billing.i
 
 # target to preprocess a source file
-scripts/data_reader.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.i
-.PHONY : scripts/data_reader.c.i
+scripts/billing/billing.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing/billing.c.i
+.PHONY : scripts/billing/billing.c.i
 
-scripts/data_reader.s: scripts/data_reader.c.s
+scripts/billing/billing.s: scripts/billing/billing.c.s
 
-.PHONY : scripts/data_reader.s
+.PHONY : scripts/billing/billing.s
 
 # target to generate assembly for a file
-scripts/data_reader.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_reader.c.s
-.PHONY : scripts/data_reader.c.s
+scripts/billing/billing.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/billing/billing.c.s
+.PHONY : scripts/billing/billing.c.s
 
-scripts/project.obj: scripts/project.c.obj
+scripts/data_handler/data_reader.obj: scripts/data_handler/data_reader.c.obj
 
-.PHONY : scripts/project.obj
+.PHONY : scripts/data_handler/data_reader.obj
 
 # target to build an object file
-scripts/project.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.obj
-.PHONY : scripts/project.c.obj
+scripts/data_handler/data_reader.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler/data_reader.c.obj
+.PHONY : scripts/data_handler/data_reader.c.obj
 
-scripts/project.i: scripts/project.c.i
+scripts/data_handler/data_reader.i: scripts/data_handler/data_reader.c.i
 
-.PHONY : scripts/project.i
+.PHONY : scripts/data_handler/data_reader.i
 
 # target to preprocess a source file
-scripts/project.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.i
-.PHONY : scripts/project.c.i
+scripts/data_handler/data_reader.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler/data_reader.c.i
+.PHONY : scripts/data_handler/data_reader.c.i
 
-scripts/project.s: scripts/project.c.s
+scripts/data_handler/data_reader.s: scripts/data_handler/data_reader.c.s
 
-.PHONY : scripts/project.s
+.PHONY : scripts/data_handler/data_reader.s
 
 # target to generate assembly for a file
-scripts/project.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/project.c.s
-.PHONY : scripts/project.c.s
+scripts/data_handler/data_reader.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/data_handler/data_reader.c.s
+.PHONY : scripts/data_handler/data_reader.c.s
 
-scripts/utils.obj: scripts/utils.c.obj
+scripts/general/project.obj: scripts/general/project.c.obj
 
-.PHONY : scripts/utils.obj
+.PHONY : scripts/general/project.obj
 
 # target to build an object file
-scripts/utils.c.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.obj
-.PHONY : scripts/utils.c.obj
+scripts/general/project.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/project.c.obj
+.PHONY : scripts/general/project.c.obj
 
-scripts/utils.i: scripts/utils.c.i
+scripts/general/project.i: scripts/general/project.c.i
 
-.PHONY : scripts/utils.i
+.PHONY : scripts/general/project.i
 
 # target to preprocess a source file
-scripts/utils.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.i
-.PHONY : scripts/utils.c.i
+scripts/general/project.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/project.c.i
+.PHONY : scripts/general/project.c.i
 
-scripts/utils.s: scripts/utils.c.s
+scripts/general/project.s: scripts/general/project.c.s
 
-.PHONY : scripts/utils.s
+.PHONY : scripts/general/project.s
 
 # target to generate assembly for a file
-scripts/utils.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/utils.c.s
-.PHONY : scripts/utils.c.s
+scripts/general/project.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/project.c.s
+.PHONY : scripts/general/project.c.s
+
+scripts/general/utils.obj: scripts/general/utils.c.obj
+
+.PHONY : scripts/general/utils.obj
+
+# target to build an object file
+scripts/general/utils.c.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/utils.c.obj
+.PHONY : scripts/general/utils.c.obj
+
+scripts/general/utils.i: scripts/general/utils.c.i
+
+.PHONY : scripts/general/utils.i
+
+# target to preprocess a source file
+scripts/general/utils.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/utils.c.i
+.PHONY : scripts/general/utils.c.i
+
+scripts/general/utils.s: scripts/general/utils.c.s
+
+.PHONY : scripts/general/utils.s
+
+# target to generate assembly for a file
+scripts/general/utils.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\UFP_Alojamentos.dir\build.make CMakeFiles/UFP_Alojamentos.dir/scripts/general/utils.c.s
+.PHONY : scripts/general/utils.c.s
 
 # Help Target
 help:
@@ -349,18 +349,18 @@ help:
 	@echo ... scripts/API/edificios.obj
 	@echo ... scripts/API/edificios.i
 	@echo ... scripts/API/edificios.s
-	@echo ... scripts/billing.obj
-	@echo ... scripts/billing.i
-	@echo ... scripts/billing.s
-	@echo ... scripts/data_reader.obj
-	@echo ... scripts/data_reader.i
-	@echo ... scripts/data_reader.s
-	@echo ... scripts/project.obj
-	@echo ... scripts/project.i
-	@echo ... scripts/project.s
-	@echo ... scripts/utils.obj
-	@echo ... scripts/utils.i
-	@echo ... scripts/utils.s
+	@echo ... scripts/billing/billing.obj
+	@echo ... scripts/billing/billing.i
+	@echo ... scripts/billing/billing.s
+	@echo ... scripts/data_handler/data_reader.obj
+	@echo ... scripts/data_handler/data_reader.i
+	@echo ... scripts/data_handler/data_reader.s
+	@echo ... scripts/general/project.obj
+	@echo ... scripts/general/project.i
+	@echo ... scripts/general/project.s
+	@echo ... scripts/general/utils.obj
+	@echo ... scripts/general/utils.i
+	@echo ... scripts/general/utils.s
 .PHONY : help
 
 

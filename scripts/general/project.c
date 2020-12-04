@@ -3,12 +3,13 @@
 //
 
 #include "project.h"
+#include "../API/agendas.h"
+#include "../API/edificios.h"
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-    int size;
-    AGENDA *ag = get_data_agenda_master(1234);
-    print_agenda(ag);
+    AGENDA* agenda = get_data_single_agenda_outra(1);
+    print_agenda(agenda);
     return 0;
 }
 

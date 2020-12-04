@@ -6,6 +6,7 @@
 #define UFP_ALOJAMENTOS_EDIFICIOS_H
 
 #include "../general/utils.h"
+#include "../general/structs.h"
 
 /**
  * Funcao para inicializar uma lista de edificios

@@ -3,6 +3,8 @@
 //
 
 #include "data_reader.h"
+#include "../API/edificios.h"
+#include "../API/agendas.h"
 #define CHAR_LIMIT 1024
 
 void get_data_main(int argc, char* argv[]){
@@ -238,7 +240,7 @@ EST * get_data_estudio(int *size){ // FALTA FAZER AS AGENDAS OUTRAS -- PREGUICA 
                 switch (field_count){   // id, estudio_id, tipo
                     case 0: {
                         est_array[row_count - 2].id = atoi(field);
-
+                        // Lembrando, row_count - 2 chega nesse meio com o valor minimo de 0 (2 - 2)
                         break;
                     }
                     case 1: {
@@ -254,10 +256,11 @@ EST * get_data_estudio(int *size){ // FALTA FAZER AS AGENDAS OUTRAS -- PREGUICA 
                         est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
                         break;
                     }
-                    /*case 4: { //TODO array dinamicos com as outras agendas
-                        est_array[row_count - 2].agendas_outras_id = atoi(field);
+                    case 4: { //TODO array dinamicos com as outras agendas
+
+//                        est_array[row_count - 2].agendas_outras_id = atoi(field);
                         break;
-                    }*/
+                    }
                     default :{
                         printf("WARNING: Possible unreadable data in '%s'\n", file_path);
                     }
@@ -355,15 +358,41 @@ char* get_filepath_agenda_master(int id){
     return file_path;
 }
 
-AGENDAS_HANDLER * get_data_agendas_outras(int id){
-    char *file_path = "./data/agendas/outras_handlers/";
-    strcat(file_path, (const char *) id);
-    strcat(file_path, ".psv");
+char* get_filepath_agenda_outra(int id){
+    char* file_preset1 = "./data/agendas/outras/";
+    char* file_preset2 = "_outra.psv";
+    char fnum[6];
+    itoa(id, fnum, 10);
+    char* file_path = (char*)malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum) + 1));
+    strcpy(&file_path[0], file_preset1);
+    strcpy(&file_path[strlen(file_path)], fnum);
+    strcpy(&file_path[strlen(file_path)], file_preset2);
+    return file_path;
+}
+
+AGENDA * get_data_single_agenda_outra(int id){
+
+    /*
+     *                    <#--- Logica ---#>
+     * Para esse field especifico sera usada a seguinte logica:
+     * No arquivo .psv dos estudios, quanto a isso, somente tera
+     * guardado o id do Agendas Handler, que sera usado para
+     * chegar ao arquivo .psv do dito cujo. Nesse novo arquivo
+     * tera guardado os id's de todas as agendas associadas ao
+     * respectivo estudio sendo lido.
+    */
+    AGENDA* new_agenda;
+
+    char *file_path = get_filepath_agenda_outra(id);// File path configured
+
     FILE *fr = fopen(file_path, "r");
     char delimiter[] = "|";
     int n_lines = get_number_of_lines(fr);
     printf("aloj.csv has %d lines\n", n_lines);
-    EST *est_array = (EST*)malloc((n_lines) * sizeof(EST));
+    // Cria o array de marcacoes dessa agenda
+    MARC *marc_array = (MARC*)malloc((n_lines) * sizeof(MARC));
+
+    // No caso de um erro procurando pelo arquivo
     if (fr == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -371,12 +400,12 @@ AGENDAS_HANDLER * get_data_agendas_outras(int id){
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
             FILE *fw = fopen(".data/estudio.csv", "w");
-            fprintf(fw, "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n");
+            fprintf(fw, "Dia|Mes|Ano|Descricao\n");
             fclose(fw);
         }
     } else {
-        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
-
+        // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+        char *buffer = (char*)malloc(sizeof(char)*CHAR_LIMIT);
         int row_count = 0, field_count;
 
         while(fgets(buffer, CHAR_LIMIT, fr)){
@@ -385,34 +414,36 @@ AGENDAS_HANDLER * get_data_agendas_outras(int id){
             if (row_count == 1)
                 continue;
 
-            char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
-            while (field_count < 5){
+            char *field = strtok(buffer, delimiter);    // HEADER:  Dia  |   Mes |   Ano |   Descricao
+            while (field_count < 4){
 //                printf("%s\t", field);
-                switch (field_count){   // id, estudio_id, tipo
+                switch (field_count){
                     case 0: {
-                        est_array[row_count - 2].id = atoi(field);
-
+                        int field_n = atoi(field);
+                        printf(field_n <= 31 || field_n >= 1 ? NULL : "Erro no dia (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
+                        marc_array[row_count - 2].data.dia = field_n; // Dia
                         break;
                     }
                     case 1: {
-                        est_array[row_count - 2].edificio_id = atoi(field);
+                        int field_n = atoi(field);
+                        printf(field_n <= 12 || field_n >= 1 ? NULL : "Erro no mes (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
+                        marc_array[row_count - 2].data.mes = atoi(field); // Mes
                         break;
                     }
                     case 2: {
-                        strcpy(est_array[row_count - 2].nome, field);
-                        remove_linebreak_on_the_end(est_array[row_count - 2].nome);
+                        int field_n = atoi(field);
+                        printf(field_n < 2100 || field_n > 1900 ? NULL : "Erro no ano (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
+                        marc_array[row_count - 2].data.ano = field_n; // Ano
                         break;
                     }
                     case 3: {
-                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
+                        marc_array[row_count - 2].descricao = (char*)malloc(sizeof(char)* strlen(field));
+                        strcpy(marc_array[row_count - 2].descricao, field);
+                        remove_linebreak_on_the_end(marc_array[row_count - 2].descricao);
                         break;
                     }
-                        /*case 4: { //TODO array dinamicos com as outras agendas
-                            est_array[row_count - 2].agendas_outras_id = atoi(field);
-                            break;
-                        }*/
                     default :{
-                        printf("WARNING: Possible unreadable data in '%s'\n", file_path);
+                        printf("WARNING: Possible unreadable data in line %d of '%s'\n", row_count, file_path);
                     }
 
                 }
@@ -420,10 +451,9 @@ AGENDAS_HANDLER * get_data_agendas_outras(int id){
                 field_count++;
             }
         }
+        new_agenda = init_single_agenda(marc_array, n_lines, id, file_path);
+        free(buffer);
     }
     fclose(fr);
-    return NULL;
+    return new_agenda;
 }
-
-
-
