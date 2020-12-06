@@ -106,7 +106,7 @@ RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
-            FILE *fw = fopen(".data/regras_preco.csv", "w");
+            FILE *fw = fopen("./data/regras_preco.csv", "w");
             fprintf(fw, "id,regra,taxa\n");
             fclose(fw);
         }
@@ -269,6 +269,61 @@ ED_QUEUE * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     return queue;
 }
 
+HOSP_STACK* get_data_hosp() {
+    FILE *fr = fopen("./data/hospedes.csv", "r");
+    HOSP *head = (HOSP*)malloc(sizeof(HOSP));
+    HOSP_STACK *stack = init_guest_stack();
+    char delimiter[] = ",";
+    if (fr == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen(".data/hospedes.csv", "w");
+            fprintf(fw, "id,nome,email\n");
+            fclose(fw);
+        }
+    } else {
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+        int row_count = 0, field_count;
+        printf("\t");
+        while(fgets(buffer, CHAR_LIMIT, fr)) {
+            head = (HOSP*)malloc(sizeof(HOSP));
+            field_count = 0;
+            row_count++;
+            if (row_count == 1) {
+                continue;
+            }
+            char *field = strtok(buffer, delimiter);
+            while (field_count < 3){
+                switch (field_count){   // id, nome, email
+                    case 0: {
+                        head->id = atol(field);
+                        break;
+                    }
+                    case 1: {
+                        strcpy(head->nome, field);
+                        break;
+                    }
+                    case 2: {
+                        strcpy(head->email, field);
+                        break;
+                    }
+                    default :{
+                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                    }
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+            guests_lists_push(stack, head);
+        }
+    }
+    fclose(fr);
+    stack->head = head;
+    return stack;
+}
 
 EST * get_data_estudio(int *size){ // FALTA FAZER AS AGENDAS OUTRAS -- PREGUICA --
     char *file_path = "./data/estudio.psv";

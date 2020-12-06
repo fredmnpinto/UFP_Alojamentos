@@ -26,14 +26,6 @@ void print_alojs(ALOJ* aloj_array, int array_size){
     }
 }
 
-void print_rp(RP* rp_array, int array_size){
-    for (int i = 0; i < array_size; ++i) {
-        printf("ID: %d\n", rp_array[i].id);
-        printf("REGRA: %s\n", rp_array[i].regra);
-        printf("TAXA: %d\n", rp_array[i].taxa);
-    }
-}
-
 int is_upper_c(char c){
     if (c >= 'A' && c <= 'Z')
         return 1;

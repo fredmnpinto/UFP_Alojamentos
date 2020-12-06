@@ -9,7 +9,6 @@
 #include "../general/utils.h"
 
 
-
 /**
  * Pega os dados do arquivo .csv e armazena-os em um array dinamico
  * @num_alojs Numero de alojamentos \attention ENTRA VAZIO, SAI PREENCHIDO \attention
@@ -30,6 +29,8 @@ RP *get_data_rp(int *num_rp);    //DONE
  * @return              Endereco do primeiro elemento da lista (HEAD)
  */
 ED_QUEUE* get_data_edfs();                    //DONE
+
+HOSP_STACK* get_data_hosp();
 
 /**
  * Funcao para pegar os dados do arquivo .psv e armazena-los em um
@@ -60,14 +61,6 @@ AGENDAS_HANDLER * get_data_agendas_outras();
  * @return                  Array dinamico
  */
 ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
-
-/**
- * Funcao para devolver um array dinamico igual ao estatico recebido
- * @param static_array      Array estatico de regras
- * @param size              Numero de objetos no array
- * @return                  Array dinamico
- */
-RP *rp_dyn_arr(RP *static_array, int size);
 
 /**
  * Funcao para ler o numero de linhas em um arquivo

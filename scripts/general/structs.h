@@ -135,17 +135,18 @@ typedef struct EdificiosQueue{
     void (*remove)(struct EdificiosQueue*, ED*);
     void (*free_all)(struct EdificiosQueue*);
     void (*insert_to_front)(struct EdificiosQueue*, ED*);
-} ED_QUEUE;
+}ED_QUEUE;
 
-/**
- * @param id              Identificador
- * @param regra           Nome da regra
- * @param taxa            Taxa da regra
- */
-typedef struct Regras_Preco {
+typedef struct Hospedes{
     int id;
-    char regra[STR_MAX];
-    int taxa;
-} RP;
+    char nome[STR_MAX];
+    char email[STR_MAX];
+    struct Hospedes *next;
+}HOSP;
+
+typedef struct HospedesStack{
+    HOSP * head;
+    HOSP * tail;
+}HOSP_STACK;
 
 #endif //UFP_ALOJAMENTOS_STRUCTS_H

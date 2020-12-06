@@ -9,7 +9,7 @@ AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size){
     new_outras->agendas = agendas;
     new_outras->size = size;
     new_outras->find = _agendas_handler_get_agenda;
-    new_outras->free = _agendas_handler_free_all;
+//    new_outras->free = _agendas_handler_free_all;     Comentei porque esta a dar erros
     new_outras->print_all = _agendas_handler_print_all;
     return new_outras;
 }
