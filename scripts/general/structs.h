@@ -112,6 +112,17 @@ typedef struct Alojamento {
     char tipo[5];
 } ALOJ;
 
+/**
+ * @param id              Identificador
+ * @param regra           Nome da regra
+ * @param taxa            Taxa da regra
+ */
+typedef struct Regras_Preco {
+    int id;
+    char regra[STR_MAX];
+    int taxa;
+} RP;
+
 typedef struct Estadia {
     DATA date;
     char nome_cliente[STR_MAX];
@@ -127,15 +138,5 @@ typedef struct EdificiosQueue{
     void (*insert_to_front)(struct EdificiosQueue*, ED*);
 } ED_LIST;
 
-/**
- * @param id              Identificador
- * @param regra           Nome da regra
- * @param taxa            Taxa da regra
- */
-typedef struct Regras_Preco {
-    int id;
-    char regra[STR_MAX];
-    int taxa;
-} RP;
 
 #endif //UFP_ALOJAMENTOS_STRUCTS_H

@@ -6,6 +6,7 @@
 #define UFP_ALOJAMENTOS_AGENDAS_H
 
 #include "../general/utils.h"
+#include "../general/structs.h"
 
 /**
  * Funcao para printar uma agenda especifica (Por motivos de debug)

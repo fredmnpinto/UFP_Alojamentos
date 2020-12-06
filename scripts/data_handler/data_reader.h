@@ -18,6 +18,13 @@
 ALOJ *get_data_aloj(int *num_alojs);    //DONE
 
 /**
+ * Pega os dados do arquivo .csv e armazena-os em um array dinamico
+ * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
+ * @return Array dinamico com todos as regras do .csv
+ */
+RP *get_data_rp(int *num_rp);    //DONE
+
+/**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
  * lista ligada de structs do tipo ED (struct Edificio)
  * @return              Endereco do primeiro elemento da lista (HEAD)
@@ -62,6 +69,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id); // DONE
  * @return                  Array dinamico
  */
 ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
+
 
 /**
  * Funcao para ler o numero de linhas em um arquivo
