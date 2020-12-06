@@ -12,7 +12,7 @@
  * Funcao para printar uma agenda especifica (Por motivos de debug)
  * @param ag    Agenda a ser printada
  */
-void print_agenda(AGENDA* ag);
+void print_agenda(AGENDA ag);
 
 /**
  * Funcao para inicializar o handler de agendas outras.
@@ -20,7 +20,23 @@ void print_agenda(AGENDA* ag);
  * @param size                  Tamanho do array de agendas
  * @return                      Objeto da struct AGENDA_HANDLER inicializado
  */
-AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size);
+AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id);
+
+/**
+ * Funcao para inicializar uma unica agenda
+ * @param marc_array        Array de marcacoes
+ * @param size              Tamanho do array
+ * @param                   Path para a agenda
+ * @return Ponteiro para essa agenda inicializada
+ */
+AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path);
+
+/**
+ * Funcao para checar se a agenda foi inicializada de forma correta
+ * @param agenda
+ * @return
+ */
+int check_init(AGENDA* agenda);
 
 /**
  * Funcao para dar free a agendas handler, assim como todas as agendas do seu respetivo array
