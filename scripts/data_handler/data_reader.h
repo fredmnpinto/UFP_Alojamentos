@@ -8,6 +8,14 @@
 #include <errno.h>
 #include "../general/utils.h"
 
+/**
+ * Pega os dados do arquivo .csv e armazena-os em um array dinamico
+ * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
+ * @return Array dinamico com todos as regras do .csv
+ */
+RP *get_data_rp(int *num_rp);    //DONE
+
+HOSP_STACK* get_data_hosp();
 
 /**
  * Pega os dados do arquivo .csv e armazena-os em um array dinamico
@@ -17,20 +25,11 @@
 ALOJ *get_data_aloj(int *num_alojs);    //DONE
 
 /**
- * Pega os dados do arquivo .csv e armazena-os em um array dinamico
- * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
- * @return Array dinamico com todos as regras do .csv
- */
-RP *get_data_rp(int *num_rp);    //DONE
-
-/**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
  * lista ligada de structs do tipo ED (struct Edificio)
  * @return              Endereco do primeiro elemento da lista (HEAD)
  */
-ED_QUEUE* get_data_edfs();                    //DONE
-
-HOSP_STACK* get_data_hosp();
+ED_LIST* get_data_edfs();                    //DONE
 
 /**
  * Funcao para pegar os dados do arquivo .psv e armazena-los em um
@@ -46,13 +45,8 @@ EST* get_data_estudio(int *size);           //ONGOING
  * @param id            Id da agenda a ser buscada (primeira parte do nome do arquivo)
  * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
  */
-AGENDA* get_data_agenda_master(int id);
+AGENDA* get_data_agenda_master(int id); // DONE
 
-/**
- * Funcao para buscar o array dinamico de agendas de outras plataformas
- * @return              Objeto da struct AGENDAS_HANDLER com o array dinamico de todas as agendas de outras plataformas
- */
-AGENDAS_HANDLER * get_data_agendas_outras();
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
@@ -61,6 +55,22 @@ AGENDAS_HANDLER * get_data_agendas_outras();
  * @return                  Array dinamico
  */
 ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
+
+
+/**
+ * Funcao para buscar o array dinamico de marcacoes de uma agenda
+ * @param id            Id da agenda a ser buscada
+ * @return              Agenda lida do arquivo ou NULL se ela nao existir
+ */
+AGENDA * get_data_single_agenda_outra(int id); // DONE
+
+/**
+ * Funcao para buscar as agendas de outras plataformas do respectivo estudio
+ * a partir do id do handler dessas agendas
+ * @param handler_id    Id do handler que cuida das agendas desse estudio
+ * @return              Ponteiro para o handler
+ */
+AGENDAS_HANDLER * get_data_agendas_outras(int handler_id); // DONE
 
 /**
  * Funcao para ler o numero de linhas em um arquivo
@@ -76,6 +86,20 @@ int get_number_of_lines(FILE *fr);
  * @return      Nome do arquivo onde esta guardada a agenda
  */
 char* get_filepath_agenda_master(int id);
+
+/**
+ * Funcao para pegar o path para o arquivo .psv da respetiva agenda
+ * @param id            Id da agenda
+ * @return              Apontador para a string dinamica com o path
+ */
+char* get_filepath_agenda_outra(int id);
+
+/**
+ * Funcao para criar o path para o handler de respetivo id
+ * @param handler_id    Id do handler
+ * @return              Ponteiro para a string do path
+ */
+char* get_filepath_agendas_handler(int handler_id);
 
 /**
  * Funcao para lidar com o input e administrar o que fazer a partir dele

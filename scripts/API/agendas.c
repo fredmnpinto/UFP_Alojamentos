@@ -4,6 +4,7 @@
 
 #include "agendas.h"
 
+
 AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size){
     AGENDAS_HANDLER *new_outras = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
     new_outras->agendas = agendas;
@@ -12,11 +13,31 @@ AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size){
 //    new_outras->free = _agendas_handler_free_all;     Comentei porque esta a dar erros
     new_outras->print_all = _agendas_handler_print_all;
     return new_outras;
+
+AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
+    AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
+    new_agenda->marcacoes = marc_array;
+    new_agenda->size = size;
+    new_agenda->id = id;
+    new_agenda->path = path;
+    return new_agenda;
+}
+
+AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id){
+    AGENDAS_HANDLER *newHandler = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
+    newHandler->agendas = agendas;
+    newHandler->id = id;
+    newHandler->size = size;
+    newHandler->find = _agendas_handler_get_agenda;
+    newHandler->free = _agendas_handler_free_all;
+    newHandler->print_all = _agendas_handler_print_all;
+    return newHandler;
 }
 
 void _agendas_handler_print_all(AGENDAS_HANDLER* self){
+    printf("Got to the print\n");
     for (int i = 0; i < self->size; ++i) {
-        print_agenda(&self->agendas[i]);
+        print_agenda(self->agendas[i]);
     }
 }
 
@@ -87,9 +108,23 @@ AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome
     return NULL;
 }
 
-void print_agenda(AGENDA* ag){
-    int n = ag->size;
+void print_agenda(AGENDA ag){
+    int n = ag.size;
     for (int i = 0; i < n; ++i) {
-        printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag->marcacoes[i].data.dia, ag->marcacoes[i].data.mes, ag->marcacoes[i].data.ano, ag->marcacoes[i].descricao);
+        printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag.marcacoes[i].data.dia, ag.marcacoes[i].data.mes, ag.marcacoes[i].data.ano, ag.marcacoes[i].descricao);
     }
+}
+
+int _agendas_handler_free_all(AGENDAS_HANDLER* self){
+    int n = self->size;
+    for (int i = 0; i < n; ++i) {
+        free(self->agendas[i].path);
+        free(self->agendas[i].marcacoes);
+        free(&self->agendas[i]);
+        self->size--;
+    }
+    free(self->agendas);
+    int working = self->size == 0 ? 1 : 0;
+    free(self);
+    return working && !self->agendas && !self? 1 : 0;
 }

@@ -76,3 +76,4 @@ void print_rp(RP* rp_array, int array_size){
         printf("TAXA: %d\n", rp_array[i].taxa);
     }
 }
+

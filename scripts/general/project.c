@@ -3,11 +3,11 @@
 //
 
 #include "project.h"
+#include "../API/agendas.h"
+#include "../API/edificios.h"
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-    HOSP_STACK*stack=get_data_hosp();
-    printStack(stack);
 
     return 0;
 }

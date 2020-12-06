@@ -7,17 +7,14 @@
 
 #define ARR_SMALL 10
 #define STR_MAX 50
+#define CHAR_LIMIT 1024
 #define AGENDA_MAX 365
 #define ALOJ_HEADER "id,estudio_id,tipo"
 
-#include "structs.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "../API/edificios.h"
-#include "../API/agendas.h"
-#include "../billing/billing.h"
-#include "../API/guests_list.h"
+#include "structs.h"
 
 //GLOBAL FUNCTIONS [Usadas ou que podem ser usadas por todos os arquivos]
 //BASICAMENTE FUNCOES UTILITARIAS OU HELPER

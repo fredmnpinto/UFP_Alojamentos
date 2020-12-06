@@ -4,8 +4,8 @@
 
 #include "edificios.h"
 
-ED_QUEUE * init_ed_queue(){
-    ED_QUEUE* queue = (ED_QUEUE*)malloc(sizeof(ED_QUEUE));
+ED_LIST * initEdList(){
+    ED_LIST* queue = (ED_LIST*)malloc(sizeof(ED_LIST));
     queue->print = _edfs_list_print;
     queue->append = _edfs_list_append;
     queue->remove = _edfs_list_remove;
@@ -16,7 +16,7 @@ ED_QUEUE * init_ed_queue(){
     return queue;
 }
 
-void _edfs_list_print(ED_QUEUE *queue){
+void _edfs_list_print(ED_LIST *queue){
     ED *tmp = queue->head;
     while(tmp != NULL){
         printf("\nId: %d\nNome: %s\nEndereco: %s\t(lat: %f longi: %f)\n", tmp->id, tmp->nome, tmp->endereco.endereco, tmp->endereco.lat, tmp->endereco.longi);
@@ -24,13 +24,13 @@ void _edfs_list_print(ED_QUEUE *queue){
     }
 }
 
-void _edfs_list_append(ED_QUEUE* queue, ED* edificio){
+void _edfs_list_append(ED_LIST* queue, ED* edificio){
     queue->tail->next = edificio;
     edificio->next = NULL;
     queue->tail = edificio;
 }
 
-void _edfs_list_remove(ED_QUEUE* queue, ED* edificio){
+void _edfs_list_remove(ED_LIST* queue, ED* edificio){
     ED* current = queue->head;
     while(current != NULL){
         if(current->next->id == edificio->id){
@@ -45,7 +45,7 @@ void _edfs_list_remove(ED_QUEUE* queue, ED* edificio){
     printf("404 - Edificio Not Found withing the list\n");
 }
 
-void _edfs_list_free_all(ED_QUEUE* queue){
+void _edfs_list_free_all(ED_LIST* queue){
     ED* current = queue->head;
     ED* _next;
     while(current != NULL){
@@ -59,8 +59,8 @@ void _edfs_list_free_all(ED_QUEUE* queue){
         printf("Error freeing the list\n");
 }
 
-void _edfs_list_insert_to_front(ED_QUEUE* queue, ED* edificio){
-//    ED* prior_head = queue->head;
-    edificio->next = queue->head;
-    queue->head = edificio;
+void _edfs_list_insert_to_front(ED_LIST* list, ED* edificio){
+//    ED* prior_head = list->head;
+    edificio->next = list->head;
+    list->head = edificio;
 }
