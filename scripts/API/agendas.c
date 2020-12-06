@@ -31,27 +31,39 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
     }
     else {
         // Searches in a specific agenda
-        AGENDA* agenda = _agendas_handler_get_agenda(self, agenda_id, NULL);
+        AGENDA *agenda = _agendas_handler_get_agenda(self, agenda_id, NULL);
         for (int i = 0; i < agenda->size; ++i) {
-            if(comp_date(agenda->marcacoes[i].data, data))
+            if (comp_date(agenda->marcacoes[i].data, data))
                 return 0;
         }
         return 1;
     }
 }
 
-AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index, char* nome_agenda){
+int _agendas_handler_free_all(AGENDAS_HANDLER *self) {
     int n = self->size;
-    if (index > -1){
+    for (int i = 0; i < n; ++i) {
+        AGENDA *agenda = &self->agendas[i];
+        int size_agenda = agenda->size;
+        for (int j = 0; j < size_agenda; ++j) {
+            free(agenda->marcacoes->descricao);
+            free(agenda->marcacoes);
+            free(agenda->path);
+        }
+    }
+    return 1;
+}
+
+AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome_agenda) {
+    int n = self->size;
+    if (index > -1) {
         // TODO Binary search
-        for (int hi = self->size, mid = hi/2, lo = 0; hi > lo; mid = (hi + lo)/ 2) {
-            if (self->agendas[mid].id < index){
+        for (int hi = self->size, mid = hi / 2, lo = 0; hi > lo; mid = (hi + lo) / 2) {
+            if (self->agendas[mid].id < index) {
                 lo = mid;
-            }
-            else if (self->agendas[mid].id > index){
+            } else if (self->agendas[mid].id > index) {
                 hi = mid;
-            }
-            else if (self->agendas[mid].id == index) {
+            } else if (self->agendas[mid].id == index) {
                 return &self->agendas[mid];
             }
         }
