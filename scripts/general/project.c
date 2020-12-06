@@ -8,8 +8,9 @@
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-    AGENDA* agenda = get_data_single_agenda_outra(1);
-    print_agenda(agenda);
+    AGENDAS_HANDLER * handler = get_data_agendas_outras(1234);
+    handler->print_all(handler);
+    handler->free(handler);
     return 0;
 }
 

@@ -9,15 +9,15 @@ ATENCAO:
 
  DONE uma lista ligada para todos os edifícios; [Terminado tanto a estrutura quanto a funcao de leitura do arquivo csv]
 
- ToDo um array dinâmico para os estúdios de cada edifício;
+ DONE um array dinâmico para os estúdios de cada edifício;
 
- ToDo um array dinâmico de dias para cada
+ DONE um array dinâmico de dias para cada
        agenda de cada estúdio;
 
  ToDo uma lista ligada dos eventos de cada dia (e.g. ocupação,
       limpeza, etc.);
 
- ToDo uma lista ligada dos hóspedes e seu histórico de estadias (reservas);
+ DONE uma lista ligada dos hóspedes e seu histórico de estadias (reservas);
 
  ToDo um array dinâmico de regras de custo para cada política de preços; etc.;
 

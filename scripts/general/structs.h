@@ -36,7 +36,7 @@ typedef struct Marcacao {
  */
 typedef struct Agenda {
     MARC *marcacoes;
-    char nome[STR_MAX];
+    char *nome;
     int id;
     int size;
     char *path;
@@ -61,6 +61,7 @@ typedef struct Local {
  */
 typedef struct OutrasAgendasHandler {
     AGENDA *agendas;
+    int id;
     int size;
     AGENDA* (*find)(struct OutrasAgendasHandler* self, int index, char* nome_agenda);
     int (*free)(struct OutrasAgendasHandler*);
@@ -84,7 +85,7 @@ typedef struct Estudio {
     int edificio_id;
     char nome[STR_MAX];
     AGENDA* agenda_master;
-    AGENDA* agendas_outras;
+    AGENDAS_HANDLER * outrasHandler;
     float preco_base;
 } EST;
 
@@ -124,7 +125,7 @@ typedef struct EdificiosQueue{
     void (*remove)(struct EdificiosQueue*, ED*);
     void (*free_all)(struct EdificiosQueue*);
     void (*insert_to_front)(struct EdificiosQueue*, ED*);
-} ED_QUEUE;
+} ED_LIST;
 
 /**
  * @param id              Identificador

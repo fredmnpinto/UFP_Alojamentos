@@ -10,6 +10,10 @@ D:/Projects/UFP_Alojamentos/scripts/API/agendas.h
 ../general/utils.h
 D:/Projects/UFP_Alojamentos/scripts/general/utils.h
 
+D:/Projects/UFP_Alojamentos/scripts/API/edificios.c
+edificios.h
+D:/Projects/UFP_Alojamentos/scripts/API/edificios.h
+
 D:/Projects/UFP_Alojamentos/scripts/API/edificios.h
 ../general/utils.h
 D:/Projects/UFP_Alojamentos/scripts/general/utils.h
@@ -29,6 +33,20 @@ errno.h
 -
 ../general/utils.h
 D:/Projects/UFP_Alojamentos/scripts/general/utils.h
+
+D:/Projects/UFP_Alojamentos/scripts/general/project.c
+project.h
+D:/Projects/UFP_Alojamentos/scripts/general/project.h
+../API/agendas.h
+D:/Projects/UFP_Alojamentos/scripts/API/agendas.h
+../API/edificios.h
+D:/Projects/UFP_Alojamentos/scripts/API/edificios.h
+../data_handler/data_reader.h
+D:/Projects/UFP_Alojamentos/scripts/data_handler/data_reader.h
+
+D:/Projects/UFP_Alojamentos/scripts/general/project.h
+../data_handler/data_reader.h
+D:/Projects/UFP_Alojamentos/scripts/data_handler/data_reader.h
 
 D:/Projects/UFP_Alojamentos/scripts/general/structs.h
 utils.h
