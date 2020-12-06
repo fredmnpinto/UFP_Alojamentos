@@ -8,7 +8,14 @@
 #include <errno.h>
 #include "../general/utils.h"
 
+/**
+ * Pega os dados do arquivo .csv e armazena-os em um array dinamico
+ * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
+ * @return Array dinamico com todos as regras do .csv
+ */
+RP *get_data_rp(int *num_rp);    //DONE
 
+HOSP_STACK* get_data_hosp();
 
 /**
  * Pega os dados do arquivo .csv e armazena-os em um array dinamico
@@ -16,13 +23,6 @@
  * @return Array dinamico com todos os alojamentos do .csv
  */
 ALOJ *get_data_aloj(int *num_alojs);    //DONE
-
-/**
- * Pega os dados do arquivo .csv e armazena-os em um array dinamico
- * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
- * @return Array dinamico com todos as regras do .csv
- */
-RP *get_data_rp(int *num_rp);    //DONE
 
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
@@ -47,6 +47,16 @@ EST* get_data_estudio(int *size);           //ONGOING
  */
 AGENDA* get_data_agenda_master(int id); // DONE
 
+
+/**
+ * Funcao para devolver um array dinamico igual ao estatico recebido
+ * @param static_array      Array estatico de alojamentos
+ * @param size              Numero de objetos no array
+ * @return                  Array dinamico
+ */
+ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
+
+
 /**
  * Funcao para buscar o array dinamico de marcacoes de uma agenda
  * @param id            Id da agenda a ser buscada
@@ -61,15 +71,6 @@ AGENDA * get_data_single_agenda_outra(int id); // DONE
  * @return              Ponteiro para o handler
  */
 AGENDAS_HANDLER * get_data_agendas_outras(int handler_id); // DONE
-
-/**
- * Funcao para devolver um array dinamico igual ao estatico recebido
- * @param static_array      Array estatico de alojamentos
- * @param size              Numero de objetos no array
- * @return                  Array dinamico
- */
-ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
-
 
 /**
  * Funcao para ler o numero de linhas em um arquivo
