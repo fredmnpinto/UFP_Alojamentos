@@ -5,6 +5,7 @@
 #include "data_reader.h"
 #include "../API/edificios.h"
 #include "../API/agendas.h"
+#include "../API/guests_list.h"
 #define CHAR_LIMIT 1024
 
 void get_data_main(int argc, char* argv[]){
@@ -61,7 +62,6 @@ ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DIN
 
             char *field = strtok(buffer, delimiter);
             while (field_count < 3){
-//                printf("%s\t", field);
                 switch (field_count){   // id, estudio_id, tipo
                     case 0: {
                         aloj_array[row_count - 2].id = atol(field);
@@ -140,7 +140,6 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
         char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
         int row_count = 0, field_count;
 
-        printf("\t");
         while(fgets(buffer, CHAR_LIMIT, fr)){
             tail = tmp;
             field_count = 0;
@@ -182,7 +181,6 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
 
                 }
 
-                printf("'%s'\t", field);
                 field = strtok(NULL, delimiter);
                 field_count++;
             }
@@ -213,7 +211,7 @@ EST * get_data_estudio(int *size){
     FILE *fr = fopen(file_path, "r");
     char delimiter[] = "|";
     *size = get_number_of_lines(fr);
-    printf("aloj.csv has %d lines\n", *size);
+    printf("%s has %d lines\n", file_path, *size);
     EST *est_array = (EST*)malloc((*size) * sizeof(EST));
     if (fr == NULL) {
         printf("ERROR: ");
@@ -238,7 +236,6 @@ EST * get_data_estudio(int *size){
 
             char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
             while (field_count < 5){
-//                printf("%s\t", field);
                 switch (field_count){   // id, estudio_id, tipo
                     case 0: {
                         est_array[row_count - 2].id = atoi(field);
@@ -549,17 +546,13 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
                 field_count++;
             }
         }
-        printf("Got here: n_lines = %d\n", n_lines);
-//        agendasHandler = init_outras_handler(agendas_array, n_lines, handler_id);
         // Nesse ponto as agendas foram inicializadas mas nao por inteiro, somente
         // seu id e seu nome ainda precisa-se que pegue os outros parametros dela a partir disso
         // para isso chamamos a funcao get_data_single_agenda(id);
         for (int i = 0; i < n_lines; ++i) {
-            printf("And Here [%d]\n", i);
             // Consegue ler perfeitamente a primeira agenda, mas nem sequer comeca a segunda
             // TODO ARRAY NAO PARECE DINAMICO
             agendasHandler->agendas[i] = *get_data_single_agenda_outra(agendasHandler->agendas[i].id);
-            printf("This file was fine\n");
         }
         free(buffer);
     }
@@ -585,7 +578,6 @@ HOSP_STACK* get_data_hosp() {
     } else {
         char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
         int row_count = 0, field_count;
-        printf("\t");
         while(fgets(buffer, CHAR_LIMIT, fr)) {
             head = (HOSP*)malloc(sizeof(HOSP));
             field_count = 0;

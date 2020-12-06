@@ -5,10 +5,12 @@
 #include "project.h"
 #include "../API/agendas.h"
 #include "../API/edificios.h"
+#include "../API/guests_list.h"
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-
+    AGENDAS_HANDLER * nAgenda = get_data_agendas_outras(1234);
+    nAgenda->print_all(nAgenda);
     return 0;
 }
 

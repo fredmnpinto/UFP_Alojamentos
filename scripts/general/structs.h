@@ -112,22 +112,6 @@ typedef struct Alojamento {
     char tipo[5];
 } ALOJ;
 
-/**
- * @param id              Identificador
- * @param regra           Nome da regra
- * @param taxa            Taxa da regra
- */
-typedef struct Regras_Preco {
-    int id;
-    char regra[STR_MAX];
-    int taxa;
-} RP;
-
-typedef struct Estadia {
-    DATA date;
-    char nome_cliente[STR_MAX];
-}ESTADIA;
-
 typedef struct EdificiosQueue{
     ED * head;
     ED * tail;
@@ -139,12 +123,6 @@ typedef struct EdificiosQueue{
 } ED_LIST;
 
 //Billing
-
-/**
- * @param id              Identificador
- * @param estudio_id     Id do estudio correspondente a esse alojamento
- * @param tipo           O tipo de alojamento (T0, T1, T2, T2+1, ...)
-
 /**
  * @param id              Identificador
  * @param regra           Nome da regra

@@ -4,16 +4,6 @@
 
 #include "agendas.h"
 
-
-AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size){
-    AGENDAS_HANDLER *new_outras = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
-    new_outras->agendas = agendas;
-    new_outras->size = size;
-    new_outras->find = _agendas_handler_get_agenda;
-//    new_outras->free = _agendas_handler_free_all;     Comentei porque esta a dar erros
-    new_outras->print_all = _agendas_handler_print_all;
-    return new_outras;
-
 AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
     AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
     new_agenda->marcacoes = marc_array;
@@ -59,20 +49,6 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         }
         return 1;
     }
-}
-
-int _agendas_handler_free_all(AGENDAS_HANDLER *self) {
-    int n = self->size;
-    for (int i = 0; i < n; ++i) {
-        AGENDA *agenda = &self->agendas[i];
-        int size_agenda = agenda->size;
-        for (int j = 0; j < size_agenda; ++j) {
-            free(agenda->marcacoes->descricao);
-            free(agenda->marcacoes);
-            free(agenda->path);
-        }
-    }
-    return 1;
 }
 
 AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome_agenda) {
