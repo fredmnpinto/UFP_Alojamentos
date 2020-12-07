@@ -22,4 +22,12 @@ RP *rp_dyn_arr(RP *static_array, int size);
  */
 void print_rp(RP* rp_array, int array_size);
 
+/**
+ * Pega os dados do arquivo .csv e armazena-os em um array dinamico
+ * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
+ * @return Array dinamico com todos as regras do .csv
+ */
+RP *get_data_rp(int *num_rp);
+
+
 #endif //UFP_ALOJAMENTOS_BILLING_H

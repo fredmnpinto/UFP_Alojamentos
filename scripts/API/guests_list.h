@@ -37,12 +37,12 @@ int guests_list_size();
  * Funcao para saber se a stack esta vazia ou nao
  * @return  0(Falso) se o size nao for igual a 0, e 1(Verdadeiro) se o size for igual a 0
  */
-int isEmpty();
+int hosp_isEmpty();
 
 /**
  * Funcao que imprime todos os valores da stack
  * @param stack     Ponteiro para a stack
  */
-void printStack(HOSP_STACK* stack);
+void print_hosp_Stack(HOSP_STACK* stack);
 
 #endif //UFP_ALOJAMENTOS_GUESTS_LIST_H
