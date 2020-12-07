@@ -38,6 +38,7 @@ AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path);
  */
 int check_init(AGENDA* agenda);
 
+//region Agendas Methods
 /**
  * Funcao para dar free a agendas handler, assim como todas as agendas do seu respetivo array
  * @param handler   O Obj de Handler que sera deletado
@@ -68,5 +69,55 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
  * @return                      Agenda encontrada ou NULL se nao encontrou nenhuma agenda
  */
 AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index, char* nome_agenda); //DONE, mas nao foi testado
+//endregion
+
+/**
+ * Funcao para juntar duas agendas sem repeticoes
+ * e conseguir um array ordenado com todas as marcacoes delas
+ * @param a1    Uma das agendas
+ * @param a2    A outra agenda
+ * @return      Array ordenado das marcacoes
+ */
+MARC* unifyAgendas(AGENDA a1, AGENDA a2);
+
+/**
+ * Funcao para ordenar o array de uma agenda
+ * @param agenda    Agenda a ser ordenado
+ * @return          Ponteiro para o array de marcacoes ordenado
+ */
+MARC* sortAgenda(AGENDA* agenda);
+
+/**
+ * Funcao para devolver o dia de hoje como struct DATA
+ * @return      Data do dia de hoje
+ */
+DATA get_today();
+
+/**
+ * Iniciar uma data de forma mais pratica
+ * \attention NAO É USADA MEMORIA DINAMICA
+ * @param dia   dia
+ * @param mes   mes
+ * @param ano   ano
+ * @return      Data inserida em forma de DATA
+ */
+DATA init_data(int dia, int mes, int ano);
+
+/**
+ * Funcao para printar uma data
+ * @param d         Data a ser printada
+ * @param format    Formato a ser printado, por exemplo "DD/MM/YYYY"
+ */
+void print_data(DATA d, char* format);
+
+/**
+ * Funcao para comparar duas datas
+ * @param dat1      Primeira data a ser comparada
+ * @param dat2      Segunda data a ser comparada
+ * @return          Retorna -1 se a primeira for mais cedo,
+ *                  1 se a segunda for e 0 se forem iguais
+ */
+int comp_date(DATA dat1, DATA dat2);
+
 
 #endif //UFP_ALOJAMENTOS_AGENDAS_H

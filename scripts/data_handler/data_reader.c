@@ -15,8 +15,8 @@ void get_data_main(int argc, char* argv[]){
     }
     char* types[] = {
       "aloj",
-      "edif",
-      "estu",
+      "ed",
+      "est",
       "agenda",
     };
     void (*read_functions[])(int c, char** v) = {
@@ -31,7 +31,9 @@ void get_data_main(int argc, char* argv[]){
     }while(i < argc);
 }
 
+void read_est(){
 
+}
 
 ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     FILE *fr = fopen("../data/aloj.csv", "r");

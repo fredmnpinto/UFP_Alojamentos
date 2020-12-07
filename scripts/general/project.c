@@ -10,7 +10,9 @@
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-
+    AGENDAS_HANDLER * nAgenda = get_data_agendas_outras(1234);
+    system("cls");
+    nAgenda->print_all(nAgenda);
     return 0;
 }
 
@@ -30,8 +32,7 @@ void main_menu(int argc, char *argv[]) {
 
     printf("- - - - Welcome to %s - - - -\n", proj_name);
     for (int i = 0; i < 4; ++i){
-        if (strcmp(argv[0], commands[i]) == 0) {
+        if (strcmp(argv[0], commands[i]) == 0)
             return functions[0](argc, argv);
-        }
     }
 }

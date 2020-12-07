@@ -2,6 +2,7 @@
 // Created by Frederico on 29/11/2020.
 //
 
+#include <time.h>
 #include "agendas.h"
 
 AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
@@ -104,3 +105,36 @@ int _agendas_handler_free_all(AGENDAS_HANDLER* self) {
     free(self);
     return working && !self->agendas && !self ? 1 : 0;
 }
+
+
+MARC* sortAgenda(AGENDA* agenda){
+    int n = agenda->size;
+
+
+    return NULL;
+}
+
+int comp_date(DATA dat1, DATA dat2){
+    if((dat1.dia < dat2.dia && dat1.mes <= dat2.mes) && dat1.ano <= dat2.ano)
+        return -1;
+    else if ((dat1.dia > dat2.dia && dat1.mes >= dat2.mes) && dat1.ano >= dat2.ano)
+        return 1;
+    return 0;
+}
+
+DATA get_today(){
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    return init_data(tm.tm_mday, tm.tm_mon, tm.tm_year);
+}
+
+DATA init_data(int dia, int mes, int ano){
+    DATA nData;
+    nData.dia = dia;
+    nData.mes = mes;
+    nData.ano = ano;
+    return nData;
+}
+
+
+
