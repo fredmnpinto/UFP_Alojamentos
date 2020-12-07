@@ -3,6 +3,7 @@
 //
 
 #include "utils.h"
+#include <time.h>
 
 void remove_linebreak_on_the_end(char str[]) {
     if (str[strlen(str) - 1] == '\n')
@@ -77,4 +78,18 @@ int comp_date(DATA dat1, DATA dat2){
     if(dat1.dia == dat2.dia && dat1.mes == dat2.mes && dat1.ano == dat2.ano)
         return 1;
     return 0;
+}
+
+DATA get_today(){
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    return init_data(tm.tm_mday, tm.tm_mon, tm.tm_year);
+}
+
+DATA init_data(int dia, int mes, int ano){
+    DATA nData;
+    nData.dia = dia;
+    nData.mes = mes;
+    nData.ano = ano;
+    return nData;
 }

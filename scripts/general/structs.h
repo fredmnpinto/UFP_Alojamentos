@@ -5,7 +5,6 @@
 #ifndef UFP_ALOJAMENTOS_STRUCTS_H
 #define UFP_ALOJAMENTOS_STRUCTS_H
 
-#include "utils.h"
 
 /// STRUCTS TO BE USED IN ALL FILES
 /**

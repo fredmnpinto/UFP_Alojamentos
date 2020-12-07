@@ -83,4 +83,27 @@ int comp_date(DATA dat1, DATA dat2);
  */
 int is_upper_c(char c);
 
+/**
+ * Funcao para devolver o dia de hoje como struct DATA
+ * @return      Data do dia de hoje
+ */
+DATA get_today();
+
+/**
+ * Iniciar uma data de forma mais pratica
+ * \attention NAO É USADA MEMORIA DINAMICA
+ * @param dia   dia
+ * @param mes   mes
+ * @param ano   ano
+ * @return      Data inserida em forma de DATA
+ */
+DATA init_data(int dia, int mes, int ano);
+
+/**
+ * Funcao para printar uma data
+ * @param d         Data a ser printada
+ * @param format    Formato a ser printado, por exemplo "DD/MM/YYYY"
+ */
+void print_data(DATA d, char* format);
+
 #endif //UFP_ALOJAMENTOS_UTILS_H

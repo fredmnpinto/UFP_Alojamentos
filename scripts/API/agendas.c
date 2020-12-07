@@ -21,11 +21,11 @@ AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id){
     newHandler->find = _agendas_handler_get_agenda;
     newHandler->free = _agendas_handler_free_all;
     newHandler->print_all = _agendas_handler_print_all;
+    newHandler->check_availability = _agendas_handler_check_availability;
     return newHandler;
 }
 
 void _agendas_handler_print_all(AGENDAS_HANDLER* self){
-    printf("Got to the print\n");
     for (int i = 0; i < self->size; ++i) {
         print_agenda(self->agendas[i]);
     }
@@ -42,9 +42,9 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
     }
     else {
         // Searches in a specific agenda
-        AGENDA *agenda = _agendas_handler_get_agenda(self, agenda_id, NULL);
-        for (int i = 0; i < agenda->size; ++i) {
-            if (comp_date(agenda->marcacoes[i].data, data))
+        AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id, NULL);
+        for (int i = 0; i < agenda.size; ++i) {
+            if (comp_date(agenda.marcacoes[i].data, data))
                 return 0;
         }
         return 1;

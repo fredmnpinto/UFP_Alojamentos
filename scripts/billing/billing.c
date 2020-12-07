@@ -3,6 +3,7 @@
 //
 #define CHAR_LIMIT 1024
 #include "billing.h"
+#include "../data_handler/data_reader.h"
 
 RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     FILE *fr = fopen("./data/regras_preco.csv", "r");
