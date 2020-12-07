@@ -5,6 +5,7 @@
 #include "data_reader.h"
 #include "../API/edificios.h"
 #include "../API/agendas.h"
+#include "../API/historicoReservas.h"
 #include "../API/guests_list.h"
 #define CHAR_LIMIT 1024
 
