@@ -34,10 +34,10 @@ void get_data_main(int argc, char* argv[]){
 
 
 ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
-    FILE *fr = fopen("./data/aloj.csv", "r");
+    FILE *fr = fopen("../data/aloj.csv", "r");
     char delimiter[] = ",";
     *num_alojs = get_number_of_lines(fr);
-    printf("aloj.csv has %d lines\n", *num_alojs);
+//    printf("aloj.csv has %d lines\n", *num_alojs);
     ALOJ aloj_array[200];           // Guarda somente 200 objetos de Alojamentos
     if (fr == NULL) {
         printf("ERROR: ");
@@ -120,10 +120,10 @@ ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
 }
 
 ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
-    FILE *fr = fopen("./data/edfs.psv", "r");
+    FILE *fr = fopen("../data/edfs.psv", "r");
     ED *head = NULL, *aux, *tail;
     ED *tmp = (ED*)malloc(sizeof(ED));
-    ED_LIST *queue = initEdList();
+    ED_LIST *edList = initEdList();
     char delimiter[] = "|";
     if (fr == NULL) {
         printf("ERROR: ");
@@ -136,7 +136,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
             fclose(fw);
         }
     } else {
-        printf("edfs.psv has %d lines\n", get_number_of_lines(fr));
+//        printf("edfs.psv has %d lines\n", get_number_of_lines(fr));
         char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
         int row_count = 0, field_count;
 
@@ -197,21 +197,21 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
         }
         free(aux);
         tail->next = NULL;
-        queue->tail = tail;
+        edList->tail = tail;
     }
     fclose(fr);
-    queue->head = head;
-    queue->print(queue);
-    return queue;
+    edList->head = head;
+//    edList->print(edList);
+    return edList;
 }
 
 
 EST * get_data_estudio(int *size){
-    char *file_path = "./data/estudio.psv";
+    char *file_path = "../data/estudio.psv";
     FILE *fr = fopen(file_path, "r");
     char delimiter[] = "|";
     *size = get_number_of_lines(fr);
-    printf("%s has %d lines\n", file_path, *size);
+//    printf("%s has %d lines\n", file_path, *size);
     EST *est_array = (EST*)malloc((*size) * sizeof(EST));
     if (fr == NULL) {
         printf("ERROR: ");
@@ -275,12 +275,12 @@ EST * get_data_estudio(int *size){
     return est_array;
 }
 
-AGENDA* get_data_agenda_master(int agenda_id){   //DONE ?
+AGENDA* get_data_agenda_master(int agenda_id){   //DONE
     char *filepath = get_filepath_agenda_master(agenda_id);
     FILE* data = fopen(filepath, "r");
     char delimiter[] = "|";
     int agenda_size = get_number_of_lines(data);
-    printf("%s has %d lines\n", filepath, agenda_size);
+//    printf("%s has %d lines\n", filepath, agenda_size);
     MARC *datas_array = (MARC*)malloc(sizeof(MARC) * agenda_size);
     if (data == NULL) {
         printf("ERROR: ");
@@ -350,7 +350,7 @@ AGENDA* get_data_agenda_master(int agenda_id){   //DONE ?
 }
 
 char* get_filepath_agenda_master(int id){
-    char* file_preset1 = "./data/agendas/masters/";
+    char* file_preset1 = "../data/agendas/masters/";
     char* file_preset2 = "_master.psv";
     char fnum[6];
     itoa(id, fnum, 10);
@@ -362,7 +362,7 @@ char* get_filepath_agenda_master(int id){
 }
 
 char* get_filepath_agenda_outra(int id){
-    char* file_preset1 = "./data/agendas/outras/";
+    char* file_preset1 = "../data/agendas/outras/";
     char* file_preset2 = "_outra.psv";
     char fnum[6];
     itoa(id, fnum, 10);
@@ -391,7 +391,7 @@ AGENDA* get_data_single_agenda_outra(int id){
     FILE *fr = fopen(file_path, "r");
     const char delimiter[] = "|";
     int n_lines = get_number_of_lines(fr);
-    printf("aloj.csv has %d lines\n", n_lines);
+//    printf("aloj.csv has %d lines\n", n_lines);
     // Cria o array de marcacoes dessa agenda
     MARC *marc_array;
     printf("Allocated %d marc slots\nsizeof(MARC) = %d\tsizeof(marc_array) = %d\n", n_lines, sizeof(MARC), sizeof(marc_array));
@@ -421,7 +421,7 @@ AGENDA* get_data_single_agenda_outra(int id){
             row_count++;
             if (row_count == 1)
                 continue;
-            printf("Row_count - 2 = %d\n", row_count - 2);
+//            printf("Row_count - 2 = %d\n", row_count - 2);
             char *field = strtok(buffer, delimiter);    // HEADER:  Dia  |   Mes |   Ano |   Descricao
             while (field_count < 4){
 //                printf("field_count = %d\n", field_count);
@@ -460,7 +460,7 @@ AGENDA* get_data_single_agenda_outra(int id){
                 field_count++;
             }
         }
-        printf("Got here too\n");
+//        printf("Got here too\n");
         new_agenda = init_single_agenda(marc_array, n_lines, id, file_path);
         free(buffer);
     }
@@ -470,7 +470,7 @@ AGENDA* get_data_single_agenda_outra(int id){
 
 char* get_filepath_agendas_handler(int handler_id){
     // data/agendas/outras_handlers/1234_handler.psv
-    char* file_preset1 = "./data/agendas/outras_handlers/";
+    char* file_preset1 = "../data/agendas/outras_handlers/";
     char* file_preset2 = "_handler.psv";
     char fnum[6];
     itoa(handler_id, fnum, 10);
@@ -482,14 +482,11 @@ char* get_filepath_agendas_handler(int handler_id){
 }
 
 AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
-
-
     char *file_path = get_filepath_agendas_handler(handler_id);// File path configured
-
     FILE *fr = fopen(file_path, "r");
-    char delimiter[] = "|";
+    const char delimiter[] = "|";
     const int n_lines = get_number_of_lines(fr);
-    printf("%s has %d lines\n", file_path, n_lines);
+//    printf("%s has %d lines\n", file_path, n_lines);
     // Cria o array de marcacoes dessa agenda
     // inicializando a propria
     AGENDAS_HANDLER* agendasHandler = init_outras_handler(NULL, n_lines, handler_id);
@@ -497,22 +494,21 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
 
     // No caso de um erro procurando pelo arquivo
     if (fr == NULL) {
-        printf("ERROR: ");
-        printf("%s\n", strerror(errno));
-        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        perror("Error: ");
+        printf("Do you wish to create an empty new file on %s?\n[Y]es --- [N]o\n", file_path);
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
             FILE *fw = fopen(file_path, "w");
             fprintf(fw, "outra_id|nome\n");
             fclose(fw);
         }
-        else{
+        else {
             exit(-1);
         }
     } else {
         // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
         char *buffer = (char*)malloc(sizeof(char)*CHAR_LIMIT);
-        printf("n_lines = %d\n", n_lines);
+//        printf("n_lines = %d\n", n_lines);
         int row_count = 0, field_count;
 
         while(fgets(buffer, CHAR_LIMIT, fr)){
@@ -551,7 +547,6 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
         // para isso chamamos a funcao get_data_single_agenda(id);
         for (int i = 0; i < n_lines; ++i) {
             // Consegue ler perfeitamente a primeira agenda, mas nem sequer comeca a segunda
-            // TODO ARRAY NAO PARECE DINAMICO
             agendasHandler->agendas[i] = *get_data_single_agenda_outra(agendasHandler->agendas[i].id);
         }
         free(buffer);
@@ -561,7 +556,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
 }
 
 HOSP_STACK* get_data_hosp() {
-    FILE *fr = fopen("./data/hospedes.csv", "r");
+    FILE *fr = fopen("../data/hospedes.csv", "r");
     HOSP *head = (HOSP*)malloc(sizeof(HOSP));
     HOSP_STACK *stack = init_guest_stack();
     char delimiter[] = ",";

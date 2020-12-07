@@ -10,7 +10,10 @@
 
 int main_proj(int argc, char *argv[]) {
     AGENDAS_HANDLER * nAgenda = get_data_agendas_outras(1234);
+    system("cls");
     nAgenda->print_all(nAgenda);
+
+    getchar();
     return 0;
 }
 
