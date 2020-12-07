@@ -84,14 +84,14 @@ AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome
     return NULL;
 }
 
-void print_agenda(AGENDA ag){
+void print_agenda(AGENDA ag) {
     int n = ag.size;
     for (int i = 0; i < n; ++i) {
         printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag.marcacoes[i].data.dia, ag.marcacoes[i].data.mes, ag.marcacoes[i].data.ano, ag.marcacoes[i].descricao);
     }
 }
 
-int _agendas_handler_free_all(AGENDAS_HANDLER* self){
+int _agendas_handler_free_all(AGENDAS_HANDLER* self) {
     int n = self->size;
     for (int i = 0; i < n; ++i) {
         free(self->agendas[i].path);
@@ -102,5 +102,5 @@ int _agendas_handler_free_all(AGENDAS_HANDLER* self){
     free(self->agendas);
     int working = self->size == 0 ? 1 : 0;
     free(self);
-    return working && !self->agendas && !self? 1 : 0;
+    return working && !self->agendas && !self ? 1 : 0;
 }

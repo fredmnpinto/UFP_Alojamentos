@@ -8,14 +8,15 @@
 #include <errno.h>
 #include "../general/utils.h"
 
-/**
- * Pega os dados do arquivo .csv e armazena-os em um array dinamico
- * @num_rp Numero de regras \attention ENTRA VAZIO, SAI PREENCHIDO \attention
- * @return Array dinamico com todos as regras do .csv
- */
-RP *get_data_rp(int *num_rp);    //DONE
 
+/**
+ * Funcao para pegar os hospedes de um arquivo .csv e armazenalos em uma
+ * lista ligada de structs do tipo HOSP (struct Hospede)
+ * @return              Endereco do primeiro elemento da lista (HEAD)
+ */
 HOSP_STACK* get_data_hosp();
+
+HIST_STACK* get_data_hist();
 
 /**
  * Pega os dados do arquivo .csv e armazena-os em um array dinamico

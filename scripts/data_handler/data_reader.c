@@ -566,7 +566,7 @@ HOSP_STACK* get_data_hosp() {
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
-            FILE *fw = fopen(".data/hospedes.csv", "w");
+            FILE *fw = fopen("../data/hospedes.csv", "w");
             fprintf(fw, "id,nome,email\n");
             fclose(fw);
         }
@@ -603,6 +603,63 @@ HOSP_STACK* get_data_hosp() {
                 field_count++;
             }
             guests_lists_push(stack, head);
+        }
+    }
+    fclose(fr);
+    stack->head = head;
+    return stack;
+}
+
+HIST_STACK* get_data_hist() {
+    FILE *fr = fopen("../data/historico.csv", "r");
+    HIST *head = (HIST*)malloc(sizeof(HIST));
+    HIST_STACK *stack = init_hist_stack();
+    char delimiter[] = ",";
+    if (fr == NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if (get_lower_c(answer) == 'y') {
+            FILE *fw = fopen("..data/historico.csv", "w");
+            fprintf(fw, "id,hospede_id,reserva\n");
+            fclose(fw);
+        }
+    } else {
+        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
+        int row_count = 0, field_count;
+        printf("\t");
+        stack->tail = head;
+        while(fgets(buffer, CHAR_LIMIT, fr)) {
+            head = (HIST*)malloc(sizeof(HIST));
+            field_count = 0;
+            row_count++;
+            if (row_count == 1) {
+                continue;
+            }
+            char *field = strtok(buffer, delimiter);
+            while (field_count < 3){
+                switch (field_count){   // id, hospede_id, reserva
+                    case 0: {
+                        head->id = atol(field);
+                        break;
+                    }
+                    case 1: {
+                        head->hospede_id = atol(field);
+                        break;
+                    }
+                    case 2: {
+                        strcpy(head->reserva, field);
+                        break;
+                    }
+                    default :{
+                        printf("WARNING: Possible unreadable data in 'historico.csv'\n");
+                    }
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+            hist_list_push(stack, head);
         }
     }
     fclose(fr);

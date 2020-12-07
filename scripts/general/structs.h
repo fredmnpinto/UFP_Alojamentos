@@ -150,4 +150,16 @@ typedef struct HospedesStack{
     HOSP * tail;
 }HOSP_STACK;
 
+typedef struct Historico{
+    int id;
+    int hospede_id;
+    char reserva[STR_MAX];
+    struct Historico *next;
+}HIST;
+
+typedef struct HistoricoStack{
+    HIST * head;
+    HIST * tail;
+}HIST_STACK;
+
 #endif //UFP_ALOJAMENTOS_STRUCTS_H
