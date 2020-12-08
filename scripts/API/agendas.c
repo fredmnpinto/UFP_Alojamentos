@@ -101,11 +101,10 @@ int _agendas_handler_free_all(AGENDAS_HANDLER* self) {
         self->size--;
     }
     free(self->agendas);
-    int working = self->size == 0 ? 1 : 0;
+    int working = self->size == 0;
     free(self);
-    return working && !self->agendas && !self ? 1 : 0;
+    return working && !self->agendas && !self;
 }
-
 
 MARC* sortAgenda(AGENDA* agenda){
     int n = agenda->size;
@@ -114,11 +113,47 @@ MARC* sortAgenda(AGENDA* agenda){
     return NULL;
 }
 
-int comp_date(DATA dat1, DATA dat2){
-    if((dat1.dia < dat2.dia && dat1.mes <= dat2.mes) && dat1.ano <= dat2.ano)
+int __comp_date1(const void *p1, const void *p2){
+    MARC* _1 = (MARC*)p1, *_2 = (MARC*)p2;
+    DATA dat1 = _1->data;
+    DATA dat2 = _2->data;
+    
+    if (dat1.ano < dat2.ano)
         return -1;
-    else if ((dat1.dia > dat2.dia && dat1.mes >= dat2.mes) && dat1.ano >= dat2.ano)
+
+    // else if
+    if (dat1.ano > dat2.ano)
         return 1;
+    // else if (ano == ano)
+    if (dat1.mes<dat2.mes)
+        return -1;
+    else if (dat1.mes>dat2.mes)
+        return 1;
+    else if (dat1.dia<dat2.dia)
+        return -1;
+    else if(dat1.dia>dat2.dia)
+        return 1;
+    else
+        return 0;
+}
+
+int __comp_date2(const void *p1, const void *p2){
+    return (-1 * __comp_date1(p1, p2));
+}
+
+int comp_date(DATA dat1, DATA dat2){
+    if (dat1.ano > dat2.ano)
+        return 1;
+    if (dat1.ano < dat2.ano)
+        return -1;
+    if (dat1.mes > dat2.mes)
+        return 1;
+    if (dat1.mes < dat2.mes)
+        return -1;
+    if (dat1.dia > dat2.dia)
+        return 1;
+    if (dat1.dia < dat2.dia)
+        return -1;
     return 0;
 }
 
@@ -136,5 +171,38 @@ DATA init_data(int dia, int mes, int ano){
     return nData;
 }
 
+MARC* sortMarcsAsc(MARC* marcArray, int size){
+    qsort(marcArray, size, sizeof(MARC), __comp_date1);
+    return marcArray;
+}
 
+MARC* sortMarcsDesc(MARC* marcArray, int size){
+    qsort(marcArray, size, sizeof(MARC), __comp_date2);
+    return marcArray;
+}
 
+MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize){
+//    if (a1.id == a2.id)
+//        return a1;
+    *newSize = size1 + size2;
+    printf("newSize = %d\n", *newSize);
+    MARC* uniMarc = (MARC*)malloc(sizeof(MARC) * (*newSize));
+    int i;
+    for (i = 0; i < size1; ++i) {
+//        printf("(%d)\t", i);
+        uniMarc[i].data = a1[i].data;
+        uniMarc[i].descricao = (char*)malloc((strlen(a1[i].descricao) + 1) * sizeof(char));
+        strcpy(uniMarc[i].descricao, a1[i].descricao);
+//        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
+    }
+    for (; i < *newSize; ++i) {
+//        printf("(%d)\t", i);
+        uniMarc[i].data = a2[i - size1].data;
+
+        uniMarc[i].descricao = (char*)malloc((strlen(a2[i - size1].descricao)  + 1) * sizeof(char));
+        strcpy(uniMarc[i].descricao, a2[i - size1].descricao);
+//        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
+
+    }
+    return uniMarc;
+}

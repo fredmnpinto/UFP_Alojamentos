@@ -74,18 +74,42 @@ AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index, char* nome
 /**
  * Funcao para juntar duas agendas sem repeticoes
  * e conseguir um array ordenado com todas as marcacoes delas
+ *
  * @param a1    Uma das agendas
  * @param a2    A outra agenda
  * @return      Array ordenado das marcacoes
  */
-MARC* unifyAgendas(AGENDA a1, AGENDA a2);
+MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize);
+
+/**
+ * Funcao para juntar duas agendas sem repeticoes
+ * e conseguir um array ordenado com todas as
+ * marcacoes delas
+ *
+ * @param a1    Uma das agendas
+ * @param a2    A outra agenda
+ * @return      Agenda contendo o conteudo ordenado
+ *              de todas as duas agendas
+ */
+AGENDA* unifyAgendas(AGENDA a1, AGENDA a2);
 
 /**
  * Funcao para ordenar o array de uma agenda
- * @param agenda    Agenda a ser ordenado
+ * @param marcArray Ponteiro para o array a ser ordenado
  * @return          Ponteiro para o array de marcacoes ordenado
  */
-MARC* sortAgenda(AGENDA* agenda);
+MARC* sortMarcsAsc(MARC* marcArray, int size);
+
+/**
+ * Funcao para fazer o qsort do array de marcacoes
+ * de forma descendente (do mais recente para o mais
+ * antigo)
+ *
+ * @param marcArray Array a ser ordenado
+ * @param size      Tamanho do array
+ * @return          Ponteiro para o array ordenado
+ */
+MARC* sortMarcsDesc(MARC* marcArray, int size);
 
 /**
  * Funcao para devolver o dia de hoje como struct DATA
@@ -112,12 +136,32 @@ void print_data(DATA d, char* format);
 
 /**
  * Funcao para comparar duas datas
- * @param dat1      Primeira data a ser comparada
- * @param dat2      Segunda data a ser comparada
+ * \warning NAO USAR
+ * @param p1        Ponteiro para a primeira data a ser comparada
+ * @param p2        Ponteiro para a segunda data a ser comparada
  * @return          Retorna -1 se a primeira for mais cedo,
  *                  1 se a segunda for e 0 se forem iguais
  */
-int comp_date(DATA dat1, DATA dat2);
+int __comp_date1(const void *p1, const void *p2);
 
+/**
+ * Funcao para comparar duas datas
+ * \warning NAO USAR
+ * @param p1        Ponteiro para a primeira data a ser comparada
+ * @param p2        Ponteiro para a segunda data a ser comparada
+ * @return          Retorna 1 se a primeira for mais cedo,
+ *                  -1 se a segunda for e 0 se forem iguais
+ */
+int __comp_date2(const void *p1, const void *p2);
+
+/**
+ * Mesma funcao que a de cima, porem para nos usarmos
+ * @param dat1      Primeira data a ser comparada
+ * @param dat2      Segunda data a ser comparada
+ * @return          1 se a primeira for depois,
+ *                  -1 se for antes e 0 se forem
+ *                  iguais
+ */
+int comp_date(DATA dat1, DATA dat2);
 
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
