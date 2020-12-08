@@ -69,41 +69,12 @@ char * get_lower_str(char STR[]);
 char * get_upper_str(char str[]);
 
 /**
- * Funcao para comparar duas datas
- * @param dat1      Primeira data a ser comparada
- * @param dat2      Segunda data a ser comparada
- * @return          Retorna 1 se forem iguais e 0 se nao
- */
-int comp_date(DATA dat1, DATA dat2);
-
-/**
  * Funcao para determinar se um caracter é uppercase ou nao
  * @param c     Caracter em questao
  * @return      1 para sim, 0 para nao
  */
 int is_upper_c(char c);
 
-/**
- * Funcao para devolver o dia de hoje como struct DATA
- * @return      Data do dia de hoje
- */
-DATA get_today();
 
-/**
- * Iniciar uma data de forma mais pratica
- * \attention NAO É USADA MEMORIA DINAMICA
- * @param dia   dia
- * @param mes   mes
- * @param ano   ano
- * @return      Data inserida em forma de DATA
- */
-DATA init_data(int dia, int mes, int ano);
-
-/**
- * Funcao para printar uma data
- * @param d         Data a ser printada
- * @param format    Formato a ser printado, por exemplo "DD/MM/YYYY"
- */
-void print_data(DATA d, char* format);
 
 #endif //UFP_ALOJAMENTOS_UTILS_H

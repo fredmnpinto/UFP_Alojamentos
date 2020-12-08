@@ -48,7 +48,6 @@ EST* get_data_estudio(int *size);           //ONGOING
  */
 AGENDA* get_data_agenda_master(int id); // DONE
 
-
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
  * @param static_array      Array estatico de alojamentos

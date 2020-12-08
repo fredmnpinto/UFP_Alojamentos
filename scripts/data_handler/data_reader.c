@@ -5,6 +5,7 @@
 #include "data_reader.h"
 #include "../API/edificios.h"
 #include "../API/agendas.h"
+#include "../API/historicoReservas.h"
 #include "../API/guests_list.h"
 #define CHAR_LIMIT 1024
 
@@ -15,8 +16,8 @@ void get_data_main(int argc, char* argv[]){
     }
     char* types[] = {
       "aloj",
-      "edif",
-      "estu",
+      "ed",
+      "est",
       "agenda",
     };
     void (*read_functions[])(int c, char** v) = {
@@ -31,7 +32,9 @@ void get_data_main(int argc, char* argv[]){
     }while(i < argc);
 }
 
+void read_est(){
 
+}
 
 ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
     FILE *fr = fopen("../data/aloj.csv", "r");
@@ -94,7 +97,7 @@ ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DIN
 
     printf("Printing all alojs that were read\n");
     print_alojs(dynamic_aloj, *num_alojs); //Puramente por motivos de debug
-
+    system("cls");
     return dynamic_aloj;
 }
 
@@ -202,6 +205,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     fclose(fr);
     edList->head = head;
 //    edList->print(edList);
+    system("cls");
     return edList;
 }
 
@@ -272,6 +276,7 @@ EST * get_data_estudio(int *size){
         }
     }
     fclose(fr);
+    system("cls");
     return est_array;
 }
 
@@ -346,6 +351,7 @@ AGENDA* get_data_agenda_master(int agenda_id){   //DONE
     agenda_master->size = agenda_size;
     agenda_master->marcacoes = datas_array;
     agenda_master->path = filepath;
+    system("cls");
     return agenda_master;
 }
 
@@ -465,6 +471,7 @@ AGENDA* get_data_single_agenda_outra(int id){
         free(buffer);
     }
     fclose(fr);
+    system("cls");
     return new_agenda;
 }
 
@@ -552,6 +559,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
         free(buffer);
     }
     fclose(fr);
+    system("cls");
     return agendasHandler;
 }
 

@@ -111,14 +111,14 @@ typedef struct Alojamento {
     char tipo[5];
 } ALOJ;
 
-typedef struct EdificiosQueue{
+typedef struct EdificiosList{
     ED * head;
     ED * tail;
-    void (*print)(struct EdificiosQueue*);
-    void (*append)(struct EdificiosQueue*, ED*);
-    void (*remove)(struct EdificiosQueue*, ED*);
-    void (*free_all)(struct EdificiosQueue*);
-    void (*insert_to_front)(struct EdificiosQueue*, ED*);
+    void (*print)(struct EdificiosList*);
+    void (*append)(struct EdificiosList*, ED*);
+    void (*remove)(struct EdificiosList*, ED*);
+    void (*free_all)(struct EdificiosList*);
+    void (*insert_to_front)(struct EdificiosList*, ED*);
 } ED_LIST;
 
 //Billing

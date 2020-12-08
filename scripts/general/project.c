@@ -10,7 +10,14 @@
 #include "../data_handler/data_reader.h"
 
 int main_proj(int argc, char *argv[]) {
-
+    AGENDA * ag = get_data_single_agenda_outra(1);
+    AGENDA * ag2 = get_data_single_agenda_outra(2);
+    sortMarcsDesc(ag->marcacoes, ag->size);
+    int nSize;
+    MARC* unified = unifyMarcs(ag->marcacoes, ag2->marcacoes, ag->size, ag->size, &nSize);
+//    for (int i = 0; i < nSize; ++i) {
+//        printf("[%d]: %d/%d/%d\n", i, unified[i].data.dia, unified[i].data.mes, unified[i].data.ano);
+//    }
     return 0;
 }
 
@@ -30,8 +37,7 @@ void main_menu(int argc, char *argv[]) {
 
     printf("- - - - Welcome to %s - - - -\n", proj_name);
     for (int i = 0; i < 4; ++i){
-        if (strcmp(argv[0], commands[i]) == 0) {
+        if (strcmp(argv[0], commands[i]) == 0)
             return functions[0](argc, argv);
-        }
     }
 }
