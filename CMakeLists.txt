@@ -45,4 +45,4 @@ add_executable(UFP_Alojamentos
         .gitignore
         main.c
         README.md
-        TODO.txt)
+        TODO.txt scripts/data_handler/data_writer.c scripts/data_handler/data_writer.h scripts/API/estudios.c scripts/API/estudios.h)

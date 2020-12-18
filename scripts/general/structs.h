@@ -4,7 +4,7 @@
 
 #ifndef UFP_ALOJAMENTOS_STRUCTS_H
 #define UFP_ALOJAMENTOS_STRUCTS_H
-
+#define STR_MAX 80
 
 /// STRUCTS TO BE USED IN ALL FILES
 /**
@@ -47,7 +47,7 @@ typedef struct Agenda {
  * @param longi           Longitude do local
  */
 typedef struct Local {
-    char endereco[STR_MAX];
+    char *endereco;
     double lat, longi;
 } LOCAL;
 
@@ -60,6 +60,7 @@ typedef struct Local {
  */
 typedef struct OutrasAgendasHandler {
     AGENDA *agendas;
+    char *filepath;
     int id;
     int size;
     AGENDA* (*find)(struct OutrasAgendasHandler* self, int index, char* nome_agenda);
@@ -82,11 +83,27 @@ typedef struct OutrasAgendasHandler {
 typedef struct Estudio {
     int id;
     int edificio_id;
-    char nome[STR_MAX];
-    AGENDA* agenda_master;
-    AGENDAS_HANDLER * outrasHandler;
+    char *nome;
+    AGENDA *agenda_master;
+    AGENDAS_HANDLER *outrasHandler;
     float preco_base;
 } EST;
+
+/** ESTUDIO HANLDER:
+ * @member id          Nao deve ser preciso
+ * @member estArray    Ponteiro para o array de estudios
+ * @member size        Tamanho do array
+ * @method free        Funcao para fazer free() a todos
+ *                     os elementos do array
+ */
+typedef struct EstudioHandler {
+    int id;
+    EST *estArray;
+    char *header;
+    int size;
+
+    void (*freeSingle)(struct EstudioHandler *handler, int id, char *nome);
+} EST_HANDLER;
 
 /**
  * @param id              Identificador
@@ -96,8 +113,8 @@ typedef struct Estudio {
 typedef struct Edificio {
     int id;
     LOCAL endereco;
-    char nome[STR_MAX];
-    struct Edificio* next;
+    char *nome;
+    struct Edificio *next;
 } ED;
 
 /**
@@ -112,7 +129,8 @@ typedef struct Alojamento {
 } ALOJ;
 
 typedef struct EdificiosList{
-    ED * head;
+    char *fHeader;
+    ED *head;
     ED * tail;
     void (*print)(struct EdificiosList*);
     void (*append)(struct EdificiosList*, ED*);
@@ -121,7 +139,7 @@ typedef struct EdificiosList{
     void (*insert_to_front)(struct EdificiosList*, ED*);
 } ED_LIST;
 
-//Billing
+///Billing
 /**
  * @param id              Identificador
  * @param regra           Nome da regra

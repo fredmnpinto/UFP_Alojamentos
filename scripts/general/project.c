@@ -5,19 +5,15 @@
 #include "project.h"
 #include "../API/agendas.h"
 #include "../API/edificios.h"
+#include "../API/estudios.h"
 #include "../API/guests_list.h"
 #include "../API/historicoReservas.h"
 #include "../data_handler/data_reader.h"
+#include "../data_handler/data_writer.h"
 
 int main_proj(int argc, char *argv[]) {
-    AGENDA * ag = get_data_single_agenda_outra(1);
-    AGENDA * ag2 = get_data_single_agenda_outra(2);
-    sortMarcsDesc(ag->marcacoes, ag->size);
-    int nSize;
-    MARC* unified = unifyMarcs(ag->marcacoes, ag2->marcacoes, ag->size, ag->size, &nSize);
-//    for (int i = 0; i < nSize; ++i) {
-//        printf("[%d]: %d/%d/%d\n", i, unified[i].data.dia, unified[i].data.mes, unified[i].data.ano);
-//    }
+    EST_HANDLER *h = get_data_estudio();
+    saveDataEstudio(h);
     return 0;
 }
 

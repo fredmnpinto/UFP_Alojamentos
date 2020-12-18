@@ -6,7 +6,6 @@
 #define UFP_ALOJAMENTOS_UTILS_H
 
 #define ARR_SMALL 10
-#define STR_MAX 50
 #define CHAR_LIMIT 1024
 #define AGENDA_MAX 365
 #define ALOJ_HEADER "id,estudio_id,tipo"

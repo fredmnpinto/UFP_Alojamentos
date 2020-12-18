@@ -59,8 +59,16 @@ void _edfs_list_free_all(ED_LIST* queue){
         printf("Error freeing the list\n");
 }
 
-void _edfs_list_insert_to_front(ED_LIST* list, ED* edificio){
+void _edfs_list_insert_to_front(ED_LIST *list, ED *edificio) {
 //    ED* prior_head = list->head;
     edificio->next = list->head;
     list->head = edificio;
+}
+
+void freeEdificioByPtr(ED *ed) {
+    if (ed == NULL)
+        return;
+    free(ed->endereco.endereco);
+    free(ed->nome);
+    free(ed);
 }

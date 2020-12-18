@@ -37,7 +37,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         // Iterates through all agendas
         for (int i = 0; i < self->size; ++i)
             for (int j = 0; j < self->agendas[i].size; ++j)
-                if (comp_date(data, self->agendas[i].marcacoes[j].data))
+                if (compDate(data, self->agendas[i].marcacoes[j].data))
                     return 0;
         return 1;
     }
@@ -45,7 +45,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         // Searches in a specific agenda
         AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id, NULL);
         for (int i = 0; i < agenda.size; ++i) {
-            if (comp_date(agenda.marcacoes[i].data, data))
+            if (compDate(agenda.marcacoes[i].data, data))
                 return 0;
         }
         return 1;
@@ -141,7 +141,7 @@ int __comp_date2(const void *p1, const void *p2){
     return (-1 * __comp_date1(p1, p2));
 }
 
-int comp_date(DATA dat1, DATA dat2){
+int compDate(DATA dat1, DATA dat2) {
     if (dat1.ano > dat2.ano)
         return 1;
     if (dat1.ano < dat2.ano)
@@ -199,10 +199,33 @@ MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize){
 //        printf("(%d)\t", i);
         uniMarc[i].data = a2[i - size1].data;
 
-        uniMarc[i].descricao = (char*)malloc((strlen(a2[i - size1].descricao)  + 1) * sizeof(char));
+        uniMarc[i].descricao = (char *) malloc((strlen(a2[i - size1].descricao) + 1) * sizeof(char));
         strcpy(uniMarc[i].descricao, a2[i - size1].descricao);
 //        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
 
     }
     return uniMarc;
+}
+
+
+void print_data(DATA d) {
+    printf("%d/%d/%d\n", d.dia, d.mes, d.ano);
+}
+
+char *dataToString(DATA d) {
+    char *str = (char *) malloc(sizeof(char) * 10);
+    sprintf(str, "%d/%d/%d", d.dia, d.mes, d.ano);
+    return str;
+}
+
+void freeAgendaByPtr(AGENDA *a) {
+    if (a == NULL)
+        return (void) printf("ERROR IN freeAgedendaByPtr(a = NULL)");
+    free(a->nome);
+    free(a->path);
+    for (int i = 0, size = a->size; i < size; ++i) {
+        free(a->marcacoes[i].descricao);
+    }
+    free(a->marcacoes);
+    free(a);
 }

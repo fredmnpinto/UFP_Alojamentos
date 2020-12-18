@@ -36,7 +36,7 @@ AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path);
  * @param agenda
  * @return
  */
-int check_init(AGENDA* agenda);
+int check_init(AGENDA *agenda);
 
 //region Agendas Methods
 /**
@@ -44,13 +44,20 @@ int check_init(AGENDA* agenda);
  * @param handler   O Obj de Handler que sera deletado
  * @returns         Bool [Retorna 1 se for bem sucedido e 0 se ocorrer um erro]
  */
-int _agendas_handler_free_all(AGENDAS_HANDLER* self);
+int _agendas_handler_free_all(AGENDAS_HANDLER *self);
+
+/**
+ * Funcao para liberar o espaco de memoria de uma agenda
+ * a partir de seu ponteiro
+ * @param a         Ponteiro para a agenda
+ */
+void freeAgendaByPtr(AGENDA *a);
 
 /**
  * Funcao para printar todas as agendas de um agendas_handler
  * @param self      O Obj de agendas_handler a ser printado
  */
-void _agendas_handler_print_all(AGENDAS_HANDLER* self); //DONE
+void _agendas_handler_print_all(AGENDAS_HANDLER *self); //DONE
 
 /**
  * Funcao para checar disponibilidade em todas as agendas outras ou em uma especifica
@@ -130,9 +137,15 @@ DATA init_data(int dia, int mes, int ano);
 /**
  * Funcao para printar uma data
  * @param d         Data a ser printada
- * @param format    Formato a ser printado, por exemplo "DD/MM/YYYY"
  */
-void print_data(DATA d, char* format);
+void print_data(DATA d);
+
+/**
+ * Funcao para converter uma DATA em string
+ * @param d     Data a ser convertida
+ * @return      Data em forma "DD/MM/AAAA"
+ */
+char *dataToString(DATA d);
 
 /**
  * Funcao para comparar duas datas
@@ -162,6 +175,6 @@ int __comp_date2(const void *p1, const void *p2);
  *                  -1 se for antes e 0 se forem
  *                  iguais
  */
-int comp_date(DATA dat1, DATA dat2);
+int compDate(DATA dat1, DATA dat2);
 
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
