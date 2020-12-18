@@ -1,2 +1,4 @@
-id|edificio_id|nome|agenda_master_id|outras_agendas_id
-1|1|Flat muito foda|1234|1234
+id|edificio_id|nome             |agenda_master_id|outras_agendas_id
+1 |1          |Flat muito foda  |1234            |1234
+2 |1          |Flat nao tao foda|1234            |1234
+3 |1          |Flat razoavel    |1234            |1234

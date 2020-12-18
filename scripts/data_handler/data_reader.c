@@ -4,6 +4,7 @@
 
 #include "data_reader.h"
 #include "../API/edificios.h"
+#include "../API/estudios.h"
 #include "../API/agendas.h"
 #include "../API/historicoReservas.h"
 #include "../API/guests_list.h"
@@ -149,6 +150,8 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
             row_count++;
 
             if (row_count == 1) {
+                edList->fHeader = (char *) malloc(sizeof(char) * strlen(buffer));
+                strcpy(edList->fHeader, buffer);
                 continue;
             }
 
@@ -160,6 +163,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
                         break;
                     }
                     case 1: {
+                        tmp->endereco.endereco = (char *) malloc(sizeof(char) * (strlen(field) + 1));
                         strcpy(tmp->endereco.endereco, field);
                         break;
                     }
@@ -175,6 +179,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
                     }
                     case 4: {
                         remove_linebreak_on_the_end(field);
+                        tmp->nome = (char *) malloc(sizeof(char) * (strlen(field) + 1));
                         strcpy(tmp->nome, field);
                         break;
                     }
@@ -209,22 +214,24 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     return edList;
 }
 
-
-EST * get_data_estudio(int *size){
+EST_HANDLER *get_data_estudio() {
     char *file_path = "../data/estudio.psv";
     FILE *fr = fopen(file_path, "r");
+    char *header;
     char delimiter[] = "|";
-    *size = get_number_of_lines(fr);
+    int size = get_number_of_lines(fr);
+    int *agendaMasterIds = (int *) malloc(sizeof(int) * (size));
+    int *agendasHandlerIds = (int *) malloc(sizeof(int) * (size));
 //    printf("%s has %d lines\n", file_path, *size);
-    EST *est_array = (EST*)malloc((*size) * sizeof(EST));
+    EST *est_array = (EST *) malloc((size) * sizeof(EST));
+    EST_HANDLER *estHandler = initEstHandler(est_array, size);
     if (fr == NULL) {
-        printf("ERROR: ");
-        printf("%s\n", strerror(errno));
+        perror("get_data_estudio ERROR");
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
-        char answer = (char)getchar();
+        char answer = (char) getchar();
         if (get_lower_c(answer) == 'y') {
-            FILE *fw = fopen(".data/estudio.csv", "w");
-            fprintf(fw, "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n");
+            FILE *fw = fopen(file_path, "w");
+            fprintf(fw, "%s", estHandler->header);
             fclose(fw);
         }
     } else {
@@ -251,21 +258,33 @@ EST * get_data_estudio(int *size){
                         break;
                     }
                     case 2: {
+                        est_array[row_count - 2].nome = (char *) malloc(sizeof(char) * (strlen(field) + 1));
                         strcpy(est_array[row_count - 2].nome, field);
-                        remove_linebreak_on_the_end(est_array[row_count - 2].nome);
                         break;
                     }
                     case 3: {
-                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
+                        /*
+                         * Cuidado! Tanto a funcao em que estamos quanto a que estamos a ver usam o strtok
+                         * Portanto, quando saimos da seguinte funcao, a variavel global que estavamos
+                         * usando para guardar o que sobrou de buffer, ja esta comprometida e com NULL
+                         */
+                        int fieldN = atoi(field);
+//                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
+                        agendaMasterIds[row_count - 2] = fieldN;
                         break;
                     }
-                    case 4: { //TODO array dinamicos com as outras agendas
-                        int field_n = atoi(field);
-                        est_array[row_count - 2].outrasHandler = get_data_agendas_outras(field_n);
-//                        est_array[row_count - 2].agendas_outras_id = atoi(field);
+                    case 4: {
+                        int fieldN = atoi(field);
+                        /*
+                         * Cuidado! Tanto a funcao em que estamos quanto a que estamos a ver usam o strtok
+                         * Portanto, quando saimos da seguinte funcao, a variavel global que estavamos
+                         * usando para guardar o que sobrou de buffer, ja esta comprometida e com NULL
+                         */
+//                        est_array[row_count - 2].outrasHandler = get_data_agendas_outras(fieldN);
+                        agendasHandlerIds[row_count - 2] = fieldN;
                         break;
                     }
-                    default :{
+                    default : {
                         printf("WARNING: Possible unreadable data in '%s'\n", file_path);
                     }
 
@@ -276,8 +295,12 @@ EST * get_data_estudio(int *size){
         }
     }
     fclose(fr);
+    for (int i = 0; i < size; ++i) {
+        estHandler->estArray[i].agenda_master = get_data_agenda_master(agendaMasterIds[i]);
+        estHandler->estArray[i].outrasHandler = get_data_agendas_outras(agendasHandlerIds[i]);
+    }
     system("cls");
-    return est_array;
+    return estHandler;
 }
 
 AGENDA* get_data_agenda_master(int agenda_id){   //DONE
@@ -475,13 +498,14 @@ AGENDA* get_data_single_agenda_outra(int id){
     return new_agenda;
 }
 
-char* get_filepath_agendas_handler(int handler_id){
+char* get_filepath_agendas_handler(int handler_id) {
     // data/agendas/outras_handlers/1234_handler.psv
-    char* file_preset1 = "../data/agendas/outras_handlers/";
-    char* file_preset2 = "_handler.psv";
+    char *file_preset1 = "../data/agendas/outras_handlers/";
+    char *file_preset2 = "_handler.psv";
     char fnum[6];
     itoa(handler_id, fnum, 10);
-    char* file_path = (char*)malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum) + 1));
+    char *file_path;
+    file_path = (char *) malloc(sizeof(char) * (strlen(file_preset1) + strlen(file_preset2) + strlen(fnum) + 1));
     strcpy(&file_path[0], file_preset1);
     strcpy(&file_path[strlen(file_path)], fnum);
     strcpy(&file_path[strlen(file_path)], file_preset2);
@@ -497,11 +521,12 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
     // Cria o array de marcacoes dessa agenda
     // inicializando a propria
     AGENDAS_HANDLER* agendasHandler = init_outras_handler(NULL, n_lines, handler_id);
-    agendasHandler->agendas = (AGENDA*)malloc((n_lines) * sizeof(AGENDA));
+    agendasHandler->agendas = (AGENDA *) malloc((n_lines) * sizeof(AGENDA));
+    agendasHandler->filepath = file_path;
 
     // No caso de um erro procurando pelo arquivo
     if (fr == NULL) {
-        perror("Error: ");
+        perror("get_data_agendas_outras Error oppening file");
         printf("Do you wish to create an empty new file on %s?\n[Y]es --- [N]o\n", file_path);
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {

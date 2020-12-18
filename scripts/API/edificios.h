@@ -39,13 +39,19 @@ void _edfs_list_print(ED_LIST* queue);
  * @param queue     Ponteiro para a lista onde sera feito o append
  * @param edificio  Ponteiro para o edificio que sera adicionado
  */
-void _edfs_list_append(ED_LIST* queue, ED* edificio);
+void _edfs_list_append(ED_LIST *queue, ED *edificio);
 
 /**
  * Funcao para fazer o remove de um edificio especifico da lista de edificios
  * @param queue     Ponteiro para a lista de edificios
  * @param edificio  Edificio a ser removido
  */
-void _edfs_list_remove(ED_LIST* queue, ED* edificio);
+void _edfs_list_remove(ED_LIST *queue, ED *edificio);
+
+/**
+ * Funcao para liberar o espaco de um edificio a partir de seu ponteiro
+ * @param ed        Ponteiro para o edificio a ser liberado
+ */
+void freeEdificioByPtr(ED *ed);
 
 #endif //UFP_ALOJAMENTOS_EDIFICIOS_H

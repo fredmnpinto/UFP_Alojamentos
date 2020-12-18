@@ -30,15 +30,14 @@ ALOJ *get_data_aloj(int *num_alojs);    //DONE
  * lista ligada de structs do tipo ED (struct Edificio)
  * @return              Endereco do primeiro elemento da lista (HEAD)
  */
-ED_LIST* get_data_edfs();                    //DONE
+ED_LIST *get_data_edfs();                    //DONE
 
 /**
  * Funcao para pegar os dados do arquivo .psv e armazena-los em um
  * array dinamico de structs do tipo EST (struct Estudio)
- * @param size          Tamanho do array
- * @return              Endereco do array
+ * @return              Endereco do Handler de estudios
  */
-EST* get_data_estudio(int *size);           //ONGOING
+EST_HANDLER *get_data_estudio();           //ONGOING
 
 /**
  * Funcao para pegar os dados de um arquivo .psv de uma especifica agenda
@@ -46,7 +45,7 @@ EST* get_data_estudio(int *size);           //ONGOING
  * @param id            Id da agenda a ser buscada (primeira parte do nome do arquivo)
  * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
  */
-AGENDA* get_data_agenda_master(int id); // DONE
+AGENDA *get_data_agenda_master(int id); // DONE
 
 /**
  * Funcao para devolver um array dinamico igual ao estatico recebido
