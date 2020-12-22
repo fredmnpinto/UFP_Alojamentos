@@ -229,3 +229,29 @@ void freeAgendaByPtr(AGENDA *a) {
     free(a->marcacoes);
     free(a);
 }
+
+void addMarc(AGENDA *agenda, MARC marc) {
+    agenda->marcacoes = realloc(agenda->marcacoes, ++agenda->size);
+    agenda->marcacoes[agenda->size] = marc;
+}
+
+void remMarc(AGENDA *agenda, MARC marc) {
+    int n = agenda->size;
+    for (int i = 0; i < n; i++) {
+        if (compDate(agenda->marcacoes[i].data, marc.data) != 0 ||
+            strcmp(marc.descricao, agenda->marcacoes[i].descricao))
+            continue;
+        remMarcFromPos(agenda, i);
+    }
+}
+
+void remMarcFromPos(AGENDA *agenda, int index) {
+    MARC *aux = malloc(sizeof(MARC) * (agenda->size - 1));
+    memcpy(aux, agenda->marcacoes, sizeof(EST) * (index + 1));
+    memcpy(aux + index + 1, agenda->marcacoes + index + 1, sizeof(EST) * (agenda->size - index));
+    agenda->size--;
+    free(agenda->marcacoes[index].descricao);
+    free(&agenda->marcacoes[index]);
+    free(agenda->marcacoes);
+    agenda->marcacoes = aux;
+}
