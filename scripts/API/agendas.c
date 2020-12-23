@@ -246,12 +246,11 @@ void remMarc(AGENDA *agenda, MARC marc) {
 }
 
 void remMarcFromPos(AGENDA *agenda, int index) {
-    MARC *aux = malloc(sizeof(MARC) * (agenda->size - 1));
-    memcpy(aux, agenda->marcacoes, sizeof(EST) * (index + 1));
-    memcpy(aux + index + 1, agenda->marcacoes + index + 1, sizeof(EST) * (agenda->size - index));
+//    memcpy(aux, agenda->marcacoes, sizeof(EST) * (index));
+//    memcpy(aux + index, agenda->marcacoes + index + 1, sizeof(EST) * (agenda->size - index));
+    for (int i = index; i + 1 < agenda->size; ++i) {
+        agenda->marcacoes[i] = agenda->marcacoes[i + 1];
+    }
+    agenda->marcacoes = realloc(agenda->marcacoes, (agenda->size - 1) * sizeof(MARC));
     agenda->size--;
-    free(agenda->marcacoes[index].descricao);
-    free(&agenda->marcacoes[index]);
-    free(agenda->marcacoes);
-    agenda->marcacoes = aux;
 }
