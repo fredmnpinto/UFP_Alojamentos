@@ -75,7 +75,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
  * @param nome_agenda           Nome da agenda a ser buscado (SE NAO SOUBER, ESPECIFICAR "" STRING VAZIA)
  * @return                      Agenda encontrada ou NULL se nao encontrou nenhuma agenda
  */
-AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index, char* nome_agenda); //DONE, mas nao foi testado
+AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index); //DONE, mas nao foi testado
 //endregion
 
 /**

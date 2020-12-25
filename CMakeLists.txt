@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.17)
+cmake_minimum_required(VERSION 3.15.3)
 project(UFP_Alojamentos)
 
 set(CMAKE_CXX_STANDARD 14)
@@ -19,7 +19,6 @@ add_executable(UFP_Alojamentos
         data/agendas/outras/1_outra.psv
         data/agendas/outras/2_outra.psv
         data/agendas/outras_handlers/1234_handler.psv
-        data/aloj.csv
         data/edfs.psv
         data/estudio.psv
         data/historico.csv
@@ -45,4 +44,4 @@ add_executable(UFP_Alojamentos
         .gitignore
         main.c
         README.md
-        TODO.txt scripts/data_handler/data_writer.c scripts/data_handler/data_writer.h scripts/API/estudios.c scripts/API/estudios.h)
+        TODO.txt scripts/data_handler/data_writer.c scripts/data_handler/data_writer.h scripts/API/estudios.c scripts/API/estudios.h scripts/API/eventos.c scripts/API/eventos.h scripts/data_handler/report_generator.c scripts/data_handler/report_generator.h)

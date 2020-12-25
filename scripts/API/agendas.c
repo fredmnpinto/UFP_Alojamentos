@@ -7,9 +7,9 @@
 
 AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
     AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
+    new_agenda->id = id;
     new_agenda->marcacoes = marc_array;
     new_agenda->size = size;
-    new_agenda->id = id;
     new_agenda->path = path;
     return new_agenda;
 }
@@ -43,7 +43,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
     }
     else {
         // Searches in a specific agenda
-        AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id, NULL);
+        AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id);
         for (int i = 0; i < agenda.size; ++i) {
             if (compDate(agenda.marcacoes[i].data, data))
                 return 0;
@@ -52,7 +52,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
     }
 }
 
-AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome_agenda) {
+AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index) {
     int n = self->size;
     if (index > -1) {
         // TODO Binary search
@@ -67,13 +67,13 @@ AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome
         }
 
     }
-    else if (strcmp(nome_agenda, "") != 0)
+    /*else if (strcmp(nome_agenda, "") != 0)
     {
         for (int i = 0; i < n; ++i) {
             if(strcmp(self->agendas[i].nome, nome_agenda) == 0)
                 return &self->agendas[i];
         }
-    }
+    }*/
     printf("\n\nINVALID INPUT ON AGENDAS_FIND\n\nMUST ENTER EITHER THE INDEX OR THE NAME OF THE AGENDA WANTED\n\n");
     /*AGENDA* agenda_placeholder = (AGENDA*)malloc(sizeof(AGENDA));
     char* nome = "Placeholder Name";
@@ -88,7 +88,8 @@ AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index, char *nome
 void print_agenda(AGENDA ag) {
     int n = ag.size;
     for (int i = 0; i < n; ++i) {
-        printf("Dia: %d  Mes: %d  Ano: %d\tDesc: %s\n", ag.marcacoes[i].data.dia, ag.marcacoes[i].data.mes, ag.marcacoes[i].data.ano, ag.marcacoes[i].descricao);
+        printf("Dia: %d  Mes: %d  Ano: %d\n", ag.marcacoes[i].data.dia, ag.marcacoes[i].data.mes, ag.marcacoes[i].data.ano);
+        printf("Plataforma: %s  Duracao: %d  Preco: %d  HospedeID: %d\n", ag.marcacoes[i].plataforma, ag.marcacoes[i].duracao, ag.marcacoes[i].preco, ag.marcacoes[i].hospedeID);
     }
 }
 
@@ -191,16 +192,16 @@ MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize){
     for (i = 0; i < size1; ++i) {
 //        printf("(%d)\t", i);
         uniMarc[i].data = a1[i].data;
-        uniMarc[i].descricao = (char*)malloc((strlen(a1[i].descricao) + 1) * sizeof(char));
-        strcpy(uniMarc[i].descricao, a1[i].descricao);
+        uniMarc[i].plataforma = (char*)malloc((strlen(a1[i].plataforma) + 1) * sizeof(char));
+        strcpy(uniMarc[i].plataforma, a1[i].plataforma);
 //        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
     }
     for (; i < *newSize; ++i) {
 //        printf("(%d)\t", i);
         uniMarc[i].data = a2[i - size1].data;
 
-        uniMarc[i].descricao = (char *) malloc((strlen(a2[i - size1].descricao) + 1) * sizeof(char));
-        strcpy(uniMarc[i].descricao, a2[i - size1].descricao);
+        uniMarc[i].plataforma = (char *) malloc((strlen(a2[i - size1].plataforma) + 1) * sizeof(char));
+        strcpy(uniMarc[i].plataforma, a2[i - size1].plataforma);
 //        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
 
     }
@@ -221,10 +222,9 @@ char *dataToString(DATA d) {
 void freeAgendaByPtr(AGENDA *a) {
     if (a == NULL)
         return (void) printf("ERROR IN freeAgedendaByPtr(a = NULL)");
-    free(a->nome);
     free(a->path);
     for (int i = 0, size = a->size; i < size; ++i) {
-        free(a->marcacoes[i].descricao);
+        free(a->marcacoes[i].plataforma);
     }
     free(a->marcacoes);
     free(a);

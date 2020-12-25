@@ -18,12 +18,7 @@ HOSP_STACK* get_data_hosp();
 
 HIST_STACK* get_data_hist();
 
-/**
- * Pega os dados do arquivo .csv e armazena-os em um array dinamico
- * @num_alojs Numero de alojamentos \attention ENTRA VAZIO, SAI PREENCHIDO \attention
- * @return Array dinamico com todos os alojamentos do .csv
- */
-ALOJ *get_data_aloj(int *num_alojs);    //DONE
+EVENT_QUEUE* get_data_event();
 
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma
@@ -46,15 +41,6 @@ EST_HANDLER *get_data_estudio();           //ONGOING
  * @return              Struct do tipo AGENDA com todos os dados lidos do arquivo
  */
 AGENDA *get_data_agenda_master(int id); // DONE
-
-/**
- * Funcao para devolver um array dinamico igual ao estatico recebido
- * @param static_array      Array estatico de alojamentos
- * @param size              Numero de objetos no array
- * @return                  Array dinamico
- */
-ALOJ *aloj_dyn_arr(ALOJ *static_array, int size);
-
 
 /**
  * Funcao para buscar o array dinamico de marcacoes de uma agenda

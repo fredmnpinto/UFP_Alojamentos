@@ -19,24 +19,28 @@ typedef struct Data {
 
 /**
  * @param data            Data de para quando esta marcado
- * @param descricao       Descricao da marcacao (motivo)
- * @param int             Id da agenda onde esta guardada essa marcacao
+ * @param plataforma      Plataforma em que a reserva foi efetuada
+ * @param duracao         Duracao da reserva(em dias)
+ * @param preco           Preco diario da reserva
+ * @param hospedeID       Id do hospede que efetuou a reserva
  */
 typedef struct Marcacao {
     DATA data;
-    char *descricao;
+    char *plataforma;
+    int duracao;
+    int preco;
+    int hospedeID;
 } MARC;
 
 
 /**
- * @param marcacoes       Array de atas ja agendadas e ocupadas
+ * @param marcacoes       Array de datas ja agendadas e ocupadas
  * @param id              Identificador da agenda
  * @param size            Tamanho do array \marcacoes
  */
 typedef struct Agenda {
-    MARC *marcacoes;
-    char *nome;
     int id;
+    MARC *marcacoes;
     int size;
     char *path;
 } AGENDA;
@@ -83,10 +87,10 @@ typedef struct OutrasAgendasHandler {
 typedef struct Estudio {
     int id;
     int edificio_id;
-    char *nome;
+    char *configuracao;
+    int precoDiario_base;
     AGENDA *agenda_master;
     AGENDAS_HANDLER *outrasHandler;
-    float preco_base;
 } EST;
 
 /** ESTUDIO HANLDER:
@@ -117,17 +121,6 @@ typedef struct Edificio {
     struct Edificio *next;
 } ED;
 
-/**
- * @param id              Identificador
- * @param estudio_id     Id do estudio correspondente a esse alojamento
- * @param tipo           O tipo de alojamento (T0, T1, T2, T2+1, ...)
- */
-typedef struct Alojamento {
-    int id;
-    unsigned long int estudio_id;
-    char tipo[5];
-} ALOJ;
-
 typedef struct EdificiosList{
     char *fHeader;
     ED *head;
@@ -156,18 +149,35 @@ typedef struct Estadia {
     char nome_cliente[STR_MAX];
 }ESTADIA;
 
+/**
+ * @param id        ID do hospede
+ * @param nome      Nome do hospede
+ * @param email     E-mail do hospede
+ */
 typedef struct Hospedes{
     int id;
-    char nome[STR_MAX];
-    char email[STR_MAX];
+    char *nome;
+    char *email;
     struct Hospedes *next;
 }HOSP;
 
+/**
+ * @param head      Apontador para o ultimo elemento a ser adicionado na stack
+ * @param tail      Apontador para o primeiro elemento a ser adicionado na stack
+ * @param size      Variavel que controla o tamanho da stack
+ */
 typedef struct HospedesStack{
     HOSP * head;
     HOSP * tail;
+    int size;
 }HOSP_STACK;
 
+/**
+ * @attention Esta struct e apenas um exemplo ainda nao sei bem como vou fazer
+ * @param id            ID do historico
+ * @param hospede_id    ID de um hospede
+ * @param reserva       Reserva
+ */
 typedef struct Historico{
     int id;
     int hospede_id;
@@ -175,9 +185,39 @@ typedef struct Historico{
     struct Historico *next;
 }HIST;
 
+/**
+ * @param head      Apontador para o ultimo elemento a ser adicionado na stack
+ * @param tail      Apontador para o primeiro elemento a ser adicionado na stack
+ * @param size      Variavel que controla o tamanho da stack
+ */
 typedef struct HistoricoStack{
     HIST * head;
     HIST * tail;
+    int size;
 }HIST_STACK;
+
+/**
+ * @attention Esta struct e um teste/exemplo ainda tenho que decidir como vou fazer
+ * @param id        Id do evento
+ * @param tipo      Tipo de evento
+ * @param valor     Valor do evento
+ */
+typedef struct EventosDiarios{
+    int id;
+    char *tipo;
+    int valor;
+    struct EventosDiarios *next;
+}EVENT;
+
+/**
+ * @param first     Apontador para o primeiro elemento(primeiro a ser adicionado) da queue
+ * @param last      Apontador para o ultimo elemento(ultimo a ser adicionado) da queue
+ * @param size      Variavel que controla o tamanho da queue;
+ */
+typedef struct EventosDiariosQueue{
+    EVENT *first;
+    EVENT *last;
+    int size;
+}EVENT_QUEUE;
 
 #endif //UFP_ALOJAMENTOS_STRUCTS_H

@@ -13,27 +13,23 @@ EST_HANDLER *initEstHandler(EST *array, int size) { // Finished
     return nHandler;
 }
 
-void _freeSingleEstudio(EST_HANDLER *handler, int id, char *nome) // Finished
+void _freeSingleEstudio(EST_HANDLER *handler, int id) // Finished
 {
     int size = handler->size;
-    EST *ePtr = _findEstudioInArray(handler, id, nome);
+    EST *ePtr = _findEstudioInArray(handler, id);
     if (ePtr == NULL) {
-        printf("Error in _findEstudioArray(): Returning NULL\nPARAMS{handler of id %d, studio_id = %d, nome = %s}\n",
-               handler->id, id, nome);
+        printf("Error in _findEstudioArray(): Returning NULL\nPARAMS{handler of id %d, studio_id = %d}\n",
+               handler->id, id);
         return;
     }
     free(ePtr->agenda_master->marcacoes);
-    free(ePtr->agenda_master->nome);
     free(ePtr->agenda_master->path);
-    free(ePtr->nome);
     ePtr->outrasHandler->free(ePtr->outrasHandler);
 }
 
 void freeEstudioByPtr(EST *ePtr) { //Finished
     free(ePtr->agenda_master->marcacoes);
-    free(ePtr->agenda_master->nome);
     free(ePtr->agenda_master->path);
-    free(ePtr->nome);
     ePtr->outrasHandler->free(ePtr->outrasHandler);
 }
 
@@ -45,7 +41,7 @@ void freeEstudioArray(EST_HANDLER *handler) { // Finished
     printf(handler->size == 0 ? NULL : "Error on freeEstudioArray(handler->id = %d)\n", handler->id);
 }
 
-EST *_findEstudioInArray(EST_HANDLER *handler, int id, char *nome) // Finished
+EST *_findEstudioInArray(EST_HANDLER *handler, int id) // Finished
 {
     if (id > -1) {
         int size = handler->size;
@@ -60,28 +56,20 @@ EST *_findEstudioInArray(EST_HANDLER *handler, int id, char *nome) // Finished
             else
                 return &handler->estArray[mid];
         }
-    } else if (nome != NULL) {
-        int size = handler->size;
-        for (int i = 0; i < size; ++i) {
-            if (strcmp(nome, handler->estArray[i].nome) == 0)
-                return &handler->estArray[i];
-        }
-        printf("Estudio Not Found: %s\n", nome);
-        return NULL;
     }
     perror("Invalid Input\n");
-    printf(" on _findEstudioArray(handler.id = %d, id = %d, nome = %s)\n", handler->id, id, nome);
+    printf(" on _findEstudioArray(handler.id = %d, id = %d)\n", handler->id, id);
     return NULL;
 }
 
-void _removeEstudioFromArray(EST_HANDLER *handler, int id, char *nome) { // Finished
+void _removeEstudioFromArray(EST_HANDLER *handler, int id) { // Finished
     if (id < 1) {
         perror("Invalid id");
-        printf("in _removeEstudioFromArray(handler.id = %d, id = %d, name = %s)", handler->id, id, nome);
+        printf("in _removeEstudioFromArray(handler.id = %d, id = %d)", handler->id, id);
         return;
     }
     EST *auxArr = (EST *) malloc(sizeof(EST) * (handler->size - 1));
-    int index = getEstudioArrayIndex(handler, id, nome);
+    int index = getEstudioArrayIndex(handler, id);
     freeEstudioByPtr(&handler->estArray[index]);
     memcpy(auxArr, handler->estArray, sizeof(EST) * (index + 1));
     memcpy(auxArr + index + 1, handler->estArray + index + 1, sizeof(EST) * (handler->size - index));
@@ -92,7 +80,7 @@ void _removeEstudioFromArray(EST_HANDLER *handler, int id, char *nome) { // Fini
 }
 
 void printEstudio(EST e) {
-    printf("Nome: %s\tId: %d\nEdificio id: %d\nAgenda master id: %d\n Agenda Handler id: %d\n", e.nome, e.id,
+    printf("Id: %d\nEdificio id: %d\nAgenda master id: %d\n Agenda Handler id: %d\n", e.id,
            e.edificio_id, e.agenda_master->id, e.outrasHandler->id);
 }
 
@@ -101,7 +89,7 @@ void _printAllEstudios(EST_HANDLER *handler) { //Finished
         printEstudio(handler->estArray[i]);
 }
 
-int getEstudioArrayIndex(EST_HANDLER *handler, int id, char *nome) { //Finished
+int getEstudioArrayIndex(EST_HANDLER *handler, int id) { //Finished
     if (id > -1) {
         int size = handler->size;
         int hi = size;
@@ -115,14 +103,6 @@ int getEstudioArrayIndex(EST_HANDLER *handler, int id, char *nome) { //Finished
             else
                 return mid;
         }
-    } else if (nome != NULL && strcmp(nome, "") != 0) {
-        int size = handler->size;
-        for (int i = 0; i < size; ++i) {
-            if (strcmp(nome, handler->estArray[i].nome) == 0)
-                return i;
-        }
-        printf("Estudio Not Found: %s\n", nome);
-        return -1;
     }
     perror("Invalid Input\n");
     printf("Error on getEstudioArrayIndex(handler.id = %d, id = %d)\n", handler->id, id);

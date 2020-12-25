@@ -8,6 +8,7 @@
 #include "../API/agendas.h"
 #include "../API/historicoReservas.h"
 #include "../API/guests_list.h"
+#include "../API/eventos.h"
 #define CHAR_LIMIT 1024
 
 void get_data_main(int argc, char* argv[]){
@@ -37,71 +38,6 @@ void read_est(){
 
 }
 
-ALOJ *get_data_aloj(int *num_alojs) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
-    FILE *fr = fopen("../data/aloj.csv", "r");
-    char delimiter[] = ",";
-    *num_alojs = get_number_of_lines(fr);
-//    printf("aloj.csv has %d lines\n", *num_alojs);
-    ALOJ aloj_array[200];           // Guarda somente 200 objetos de Alojamentos
-    if (fr == NULL) {
-        printf("ERROR: ");
-        printf("%s\n", strerror(errno));
-        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
-        char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
-            FILE *fw = fopen(".data/aloj.csv", "w");
-            fprintf(fw, "id,estudio_id,tipo\n");
-            fclose(fw);
-        }
-    } else {
-        char buffer[CHAR_LIMIT];    // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
-
-        int row_count = 0, field_count;
-
-        while(fgets(buffer, CHAR_LIMIT, fr)){
-            field_count = 0;
-            row_count++;
-            if (row_count == 1)
-                continue;
-
-            char *field = strtok(buffer, delimiter);
-            while (field_count < 3){
-                switch (field_count){   // id, estudio_id, tipo
-                    case 0: {
-                        aloj_array[row_count - 2].id = atol(field);
-
-                        break;
-                    }
-                    case 1: {
-                        aloj_array[row_count - 2].estudio_id = atol(field);
-                        break;
-                    }
-                    case 2: {
-                        strcpy(aloj_array[row_count - 2].tipo, field);
-                        remove_linebreak_on_the_end(aloj_array[row_count - 2].tipo);
-                        break;
-                    }
-                    default :{
-                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
-                    }
-
-                }
-                field = strtok(NULL, delimiter);
-                field_count++;
-            }
-        }
-
-    }
-    fclose(fr);
-
-    ALOJ * dynamic_aloj = aloj_dyn_arr(aloj_array, *num_alojs); //Torna-lo em um array dinamico para retornar
-
-    printf("Printing all alojs that were read\n");
-    print_alojs(dynamic_aloj, *num_alojs); //Puramente por motivos de debug
-    system("cls");
-    return dynamic_aloj;
-}
-
 int get_number_of_lines(FILE *fr){
     int result = 0;
     for (char c = getc(fr); c != EOF ; c = getc(fr)) {
@@ -110,17 +46,6 @@ int get_number_of_lines(FILE *fr){
     }
     rewind(fr);
     return result - 1;
-}
-
-ALOJ *aloj_dyn_arr(ALOJ *static_array, int size){
-    ALOJ * new_array = malloc(sizeof(ALOJ) * size); // Array dinamico declarado
-
-    for (int i = 0; i < size; ++i) {    // Preenchendo array dinamico com os valores do array estatico
-        new_array[i].id = static_array[i].id;
-        new_array[i].estudio_id = static_array[i].estudio_id;
-        strcpy(new_array[i].tipo, static_array[i].tipo);
-    }
-    return new_array;
 }
 
 ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
@@ -245,9 +170,9 @@ EST_HANDLER *get_data_estudio() {
             if (row_count == 1)
                 continue;
 
-            char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | nome | agenda_master_id | outras_agendas_id
-            while (field_count < 5){
-                switch (field_count){   // id, estudio_id, tipo
+            char *field = strtok(buffer, delimiter);    // HEADER: id | edificio_id | configuracao | precoDiario_base | agenda_master_id | outras_agendas_id
+            while (field_count < 6){
+                switch (field_count){
                     case 0: {
                         est_array[row_count - 2].id = atoi(field);
                         // Lembrando, row_count - 2 chega nesse meio com o valor minimo de 0 (2 - 2)
@@ -258,22 +183,26 @@ EST_HANDLER *get_data_estudio() {
                         break;
                     }
                     case 2: {
-                        est_array[row_count - 2].nome = (char *) malloc(sizeof(char) * (strlen(field) + 1));
-                        strcpy(est_array[row_count - 2].nome, field);
+                        est_array[row_count - 2].configuracao = (char *) malloc(sizeof(char) * (strlen(field) + 1));
+                        strcpy(est_array[row_count - 2].configuracao, field);
                         break;
                     }
                     case 3: {
+                        est_array[row_count-2].precoDiario_base = atoi(field);
+                        break;
+                    }
+                    case 4: {
                         /*
                          * Cuidado! Tanto a funcao em que estamos quanto a que estamos a ver usam o strtok
                          * Portanto, quando saimos da seguinte funcao, a variavel global que estavamos
                          * usando para guardar o que sobrou de buffer, ja esta comprometida e com NULL
                          */
                         int fieldN = atoi(field);
-//                        est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
+//                      est_array[row_count - 2].agenda_master = get_data_agenda_master(atoi(field));
                         agendaMasterIds[row_count - 2] = fieldN;
                         break;
                     }
-                    case 4: {
+                    case 5: {
                         int fieldN = atoi(field);
                         /*
                          * Cuidado! Tanto a funcao em que estamos quanto a que estamos a ver usam o strtok
@@ -303,13 +232,13 @@ EST_HANDLER *get_data_estudio() {
     return estHandler;
 }
 
-AGENDA* get_data_agenda_master(int agenda_id){   //DONE
+AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
     char *filepath = get_filepath_agenda_master(agenda_id);
     FILE* data = fopen(filepath, "r");
     char delimiter[] = "|";
     int agenda_size = get_number_of_lines(data);
 //    printf("%s has %d lines\n", filepath, agenda_size);
-    MARC *datas_array = (MARC*)malloc(sizeof(MARC) * agenda_size);
+    MARC *reservas_array = (MARC*)malloc(sizeof(MARC) * agenda_size);
     if (data == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -317,7 +246,7 @@ AGENDA* get_data_agenda_master(int agenda_id){   //DONE
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
             FILE *fw = fopen(filepath, "w");
-            fprintf(fw, "dia|mes|ano|descricao\n");
+            fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospededID\n");
             fclose(fw);
         }
         else {
@@ -335,44 +264,53 @@ AGENDA* get_data_agenda_master(int agenda_id){   //DONE
                 continue;
 
             char *field = strtok(buffer, delimiter);
-            while (field_count < 4) {
+            while (field_count<7) {
                 remove_linebreak_on_the_end(field);
 //                printf("%s\t", field);
-                switch (field_count){   // dia|mes|ano|descricao
+                switch (field_count) {   // dia|mes|ano|descricao
                     case 0: {
-                        datas_array[row_count - 2].data.dia = atoi(field);
-
+                        reservas_array[row_count - 2].data.dia = atoi(field);
                         break;
                     }
                     case 1: {
-                        datas_array[row_count - 2].data.mes = atoi(field);
+                        reservas_array[row_count - 2].data.mes = atoi(field);
                         break;
                     }
                     case 2: {
-                        datas_array[row_count - 2].data.ano = atoi(field);
+                        reservas_array[row_count - 2].data.ano = atoi(field);
                         break;
                     }
                     case 3: {
-                        datas_array[row_count - 2].descricao = (char*)malloc(sizeof(char)*strlen(field) + 1);
-                        strcpy(datas_array[row_count - 2].descricao, field);
+                        reservas_array[row_count - 2].plataforma = (char *)malloc(sizeof(char) * strlen(field) + 1);
+                        strcpy(reservas_array[row_count - 2].plataforma, field);
                         break;
                     }
-                    default :{
-                        printf("WARNING: Possible unreadable data in 'aloj.csv'\n");
+                    case 4: {
+                        reservas_array[row_count - 2].duracao = atoi(field);
+                        break;
                     }
-
+                    case 5: {
+                        reservas_array[row_count - 2].preco = atoi(field);
+                        break;
+                    }
+                    case 6: {
+                        reservas_array[row_count-2].hospedeID = atoi(field);
+                        break;
+                    }
+                    default : {
+                        printf("WARNING: Possible unreadable data in '%s.psv'\n", filepath);
+                    }
                 }
                 field = strtok(NULL, delimiter);
                 field_count++;
             }
         }
-
     }
     fclose(data);
     AGENDA *agenda_master = (AGENDA*)malloc(sizeof(AGENDA));
     agenda_master->id = agenda_id;
     agenda_master->size = agenda_size;
-    agenda_master->marcacoes = datas_array;
+    agenda_master->marcacoes = reservas_array;
     agenda_master->path = filepath;
     system("cls");
     return agenda_master;
@@ -475,9 +413,9 @@ AGENDA* get_data_single_agenda_outra(int id){
                         break;
                     }
                     case 3: {
-                        marc_array[row_count - 2].descricao = (char*)malloc(sizeof(char)* (strlen(field) + 1));
-                        strcpy(marc_array[row_count - 2].descricao, field);
-                        remove_linebreak_on_the_end(marc_array[row_count - 2].descricao);
+                        marc_array[row_count - 2].plataforma = (char*)malloc(sizeof(char)* (strlen(field) + 1));
+                        strcpy(marc_array[row_count - 2].plataforma, field);
+                        remove_linebreak_on_the_end(marc_array[row_count - 2].plataforma);
                         break;
                     }
                     default : {
@@ -550,7 +488,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
                 continue;
 
             char *field = strtok(buffer, delimiter);    // HEADER:  id  |   nome
-            while (field_count < 2){
+            while (field_count < 1){
 //                printf("%s\t", field);
                 switch (field_count){
                     case 0: {
@@ -559,12 +497,12 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
                         agendasHandler->agendas[row_count - 2].id = field_n; // Id
                         break;
                     }
-                    case 1: {
+                    /*case 1: {
                         agendasHandler->agendas[row_count - 2].nome = (char*)malloc(sizeof(char) * (strlen(field) + 1));
                         strcpy(agendasHandler->agendas[row_count - 2].nome, field);
                         remove_linebreak_on_the_end(agendasHandler->agendas[row_count - 2].nome);
                         break;
-                    }
+                    }*/
                     default :{
                         printf("WARNING: Possible unreadable data in line %d of '%s'\n", row_count, file_path);
                     }
@@ -621,10 +559,12 @@ HOSP_STACK* get_data_hosp() {
                         break;
                     }
                     case 1: {
+                        head->nome = (char*)malloc(sizeof(char)*strlen(field));
                         strcpy(head->nome, field);
                         break;
                     }
                     case 2: {
+                        head->email = (char*)malloc(sizeof(char)*strlen(field));
                         strcpy(head->email, field);
                         break;
                     }
@@ -698,4 +638,67 @@ HIST_STACK* get_data_hist() {
     fclose(fr);
     stack->head = head;
     return stack;
+}
+
+EVENT_QUEUE* get_data_event() {
+    FILE *fr = fopen("../data/eventos.psv", "r");
+    EVENT_QUEUE* queue = init_event_queue();
+    EVENT *last;
+    char delimiter[] = "|";
+    if(fr==NULL) {
+        printf("ERROR: ");
+        printf("%s\n", strerror(errno));
+        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
+        char answer = (char)getchar();
+        if(get_lower_c(answer)=='y') {
+            FILE *fw = fopen("..data/eventos.psv", "w");
+            fprintf(fw, "id | tipo | valor\n");
+            fclose(fw);
+        }
+    }else{
+        char buffer[CHAR_LIMIT];
+        int row_count = 0, field_count;
+        printf("\t");
+        while(fgets(buffer, CHAR_LIMIT, fr)) {
+            last = (EVENT*)malloc(sizeof(EVENT));
+            field_count=0;
+            row_count++;
+            if(row_count==1) {
+                continue;
+            }
+            char *field= strtok(buffer, delimiter);
+            while(field_count<3) {
+                switch(field_count) {
+                    case 0: {
+                        last->id = atoi(field);
+                        break;
+                    }
+                    case 1: {
+                        last->tipo = (char*)malloc(sizeof(char) * (strlen(field)+1));
+                        strcpy(last->tipo, field);
+                        remove_linebreak_on_the_end(last->tipo);
+                        break;
+                    }
+                    case 2: {
+                        last->valor = atoi(field);
+                        break;
+                    }
+                    default: {
+                        printf("WARNING: Possible unreadable data in 'eventos.psv'");
+                    }
+                }
+                field = strtok(NULL, delimiter);
+                field_count++;
+            }
+            if(queue->first == NULL) {
+                queue->first = last;
+                queue->last = last;
+                queue->size++;
+            }else{
+                event_list_enqueue(queue, last);
+            }
+        }
+    }
+    fclose(fr);
+    return queue;
 }
