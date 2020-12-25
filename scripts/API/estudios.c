@@ -68,15 +68,14 @@ void _removeEstudioFromArray(EST_HANDLER *handler, int id) { // Finished
         printf("in _removeEstudioFromArray(handler.id = %d, id = %d)", handler->id, id);
         return;
     }
+
     EST *auxArr = (EST *) malloc(sizeof(EST) * (handler->size - 1));
     int index = getEstudioArrayIndex(handler, id);
+
     freeEstudioByPtr(&handler->estArray[index]);
-    memcpy(auxArr, handler->estArray, sizeof(EST) * (index + 1));
-    memcpy(auxArr + index + 1, handler->estArray + index + 1, sizeof(EST) * (handler->size - index));
-    int newSize = handler->size - 1;
-    freeEstudioArray(handler);
-    handler->estArray = auxArr;
-    handler->size = newSize;
+    for (int i = index; i + 1 < handler->size; ++i) {
+        handler->estArray[i] = handler->estArray[i + 1];
+    }
 }
 
 void printEstudio(EST e) {
