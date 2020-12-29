@@ -19,6 +19,7 @@ void saveDataEstudio(EST_HANDLER *handler) { // Tested
                     aux->outrasHandler->id);
             freeEstudioByPtr(aux);
         }
+        fclose(fw);
     } else {
         perror("ERROR OPPENING FILE");
     }
@@ -43,6 +44,7 @@ void saveDataEdificios(ED_LIST *list) {
         list->head = NULL;
         list->tail = NULL;
         printf("Saved!\n");
+        fclose(fw);
     } else {
         perror("ERROR in saveDataEdificios");
     }
@@ -64,7 +66,8 @@ void saveDataSingleAgenda(AGENDA *agenda) {
         for (int i = 0, size = agenda->size; i < size; ++i) {
             fprintf(fw, "%d|%d|%d|%s\n", a[i].data.dia, a[i].data.mes, a[i].data.ano, a[i].plataforma);
         }
-        return freeAgendaByPtr(agenda);
+        freeAgendaByPtr(agenda);
+        fclose(fw);
     } else {
         perror("ERROR in saveDataSingleAgenda");
     }
@@ -76,16 +79,19 @@ void saveDataAgendasOutras(AGENDAS_HANDLER *handler) {
     printf("Oppening %s\n...\n", filepath);
     if (fw != NULL) {
         fprintf(fw, "outra_id|nome");
-        if (handler == NULL)
-            return (void) printf("HANDLER cannot be NULL\n");
-
+        if (handler == NULL) {
+            printf("HANDLER cannot be NULL\n");
+            return;
+        }
         for (int i = 0, size = handler->size; i < size; ++i) {
             fprintf(fw, "%d\n", handler->agendas[i].id);
+
             freeAgendaByPtr(&handler->agendas[i]);
         }
         free(handler->filepath);
         free(handler->agendas);
         printf("Saved!\n");
+        fclose(fw);
     } else {
         perror("ERROR in saveDataAgendasOutras");
     }

@@ -178,4 +178,24 @@ int __comp_date2(const void *p1, const void *p2);
  */
 int compDate(DATA dat1, DATA dat2);
 
+/**
+ * Funcao para adicionar uma marcacao a uma respectiva agenda
+ * @param agenda
+ * @param marc
+ */
+void addMarc(AGENDA *agenda, MARC marc);
+
+/**
+ * Funcao para remover uma marcacao da agenda
+ * @param agenda
+ */
+void remMarc(AGENDA *agenda, MARC marc);
+
+/**
+ * Funcao para remover a marcacao do array com base na posicao do array
+ * @param agenda
+ * @param index
+ */
+void remMarcFromPos(AGENDA *agenda, int index);
+
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
