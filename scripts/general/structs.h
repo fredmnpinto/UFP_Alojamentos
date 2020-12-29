@@ -32,15 +32,25 @@ typedef struct Marcacao {
     int hospedeID;
 } MARC;
 
+/**
+ * @param data          Data
+ * @param marcacao      Apontador para uma marcacao nessa data (NULL se nao houver)
+ * @param Eventos       Apontador para uma lista ligada de eventos desse dia (NULL se nao houver)
+ */
+typedef struct Calendario {
+    DATA data;
+    MARC *marcacao;
+    struct EventosDiariosStack *Eventos;
+}CALEND;
 
 /**
- * @param marcacoes       Array de datas ja agendadas e ocupadas
  * @param id              Identificador da agenda
+ * @param calendario      Apontador para o calendario da agenda
  * @param size            Tamanho do array \marcacoes
  */
 typedef struct Agenda {
     int id;
-    MARC *marcacoes;
+    CALEND *calendario;
     int size;
     char *path;
 } AGENDA;
@@ -197,27 +207,22 @@ typedef struct HistoricoStack{
 }HIST_STACK;
 
 /**
- * @attention Esta struct e um teste/exemplo ainda tenho que decidir como vou fazer
- * @param id        Id do evento
- * @param tipo      Tipo de evento
- * @param valor     Valor do evento
+ * @param descricao         Descricao do evento
  */
 typedef struct EventosDiarios{
-    int id;
-    char *tipo;
-    int valor;
+    char *descricao;
     struct EventosDiarios *next;
 }EVENT;
 
 /**
- * @param first     Apontador para o primeiro elemento(primeiro a ser adicionado) da queue
- * @param last      Apontador para o ultimo elemento(ultimo a ser adicionado) da queue
- * @param size      Variavel que controla o tamanho da queue;
+ * @param head              Apontador para a head da stack
+ * @param tail              Apontador para a tail da stack
+ * @param size              Tamanho da stack
  */
-typedef struct EventosDiariosQueue{
-    EVENT *first;
-    EVENT *last;
+typedef struct EventosDiariosStack{
+    EVENT *head;
+    EVENT *tail;
     int size;
-}EVENT_QUEUE;
+}EVENT_STACK;
 
 #endif //UFP_ALOJAMENTOS_STRUCTS_H

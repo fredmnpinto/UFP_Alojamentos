@@ -5,24 +5,27 @@
 #include <time.h>
 #include "agendas.h"
 
-AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path){
+AGENDA* init_single_agenda(CALEND *calendario, int size, int id, char* path){
     AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
     new_agenda->id = id;
-    new_agenda->marcacoes = marc_array;
+    new_agenda->calendario = calendario;
     new_agenda->size = size;
     new_agenda->path = path;
     return new_agenda;
 }
 
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
+ */
 AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id){
     AGENDAS_HANDLER *newHandler = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
     newHandler->agendas = agendas;
     newHandler->id = id;
     newHandler->size = size;
-    newHandler->find = _agendas_handler_get_agenda;
+    //newHandler->find = _agendas_handler_get_agenda;
     newHandler->free = _agendas_handler_free_all;
     newHandler->print_all = _agendas_handler_print_all;
-    newHandler->check_availability = _agendas_handler_check_availability;
+//    newHandler->check_availability = _agendas_handler_check_availability;
     return newHandler;
 }
 
@@ -37,7 +40,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         // Iterates through all agendas
         for (int i = 0; i < self->size; ++i)
             for (int j = 0; j < self->agendas[i].size; ++j)
-                if (compDate(data, self->agendas[i].marcacoes[j].data))
+                if (compDate(data, self->agendas[i].calendario[j].data))
                     return 0;
         return 1;
     }
@@ -45,7 +48,7 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         // Searches in a specific agenda
         AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id);
         for (int i = 0; i < agenda.size; ++i) {
-            if (compDate(agenda.marcacoes[i].data, data))
+            if (compDate(agenda.calendario[i].marcacao->data, data))
                 return 0;
         }
         return 1;
@@ -67,37 +70,30 @@ AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index) {
         }
 
     }
-    /*else if (strcmp(nome_agenda, "") != 0)
-    {
-        for (int i = 0; i < n; ++i) {
-            if(strcmp(self->agendas[i].nome, nome_agenda) == 0)
-                return &self->agendas[i];
-        }
-    }*/
-    printf("\n\nINVALID INPUT ON AGENDAS_FIND\n\nMUST ENTER EITHER THE INDEX OR THE NAME OF THE AGENDA WANTED\n\n");
-    /*AGENDA* agenda_placeholder = (AGENDA*)malloc(sizeof(AGENDA));
-    char* nome = "Placeholder Name";
 
-    strcpy(agenda_placeholder->nome, nome);
-    agenda_placeholder->size = 0;
-    agenda_placeholder->id = -1;
-    agenda_placeholder->path = "Path/to/placeholder.txt";*/
     return NULL;
 }
+
 
 void print_agenda(AGENDA ag) {
     int n = ag.size;
     for (int i = 0; i < n; ++i) {
-        printf("Dia: %d  Mes: %d  Ano: %d\n", ag.marcacoes[i].data.dia, ag.marcacoes[i].data.mes, ag.marcacoes[i].data.ano);
-        printf("Plataforma: %s  Duracao: %d  Preco: %d  HospedeID: %d\n", ag.marcacoes[i].plataforma, ag.marcacoes[i].duracao, ag.marcacoes[i].preco, ag.marcacoes[i].hospedeID);
+        printf("Dia: %d  Mes: %d  Ano: %d\n", ag.calendario[i].data.dia, ag.calendario[i].data.mes, ag.calendario[i].data.ano);
+        printf("Plataforma: %s  Duracao: %d  Preco: %d HospedeID: %d\n", ag.calendario[i].marcacao->plataforma, ag.calendario[i].marcacao->duracao, ag.calendario[i].marcacao->preco, ag.calendario[i].marcacao->hospedeID);
+        if(ag.calendario[i].Eventos!=NULL) {
+            printf("Eventos:\t");
+            print_event_stack(ag.calendario[i].Eventos);
+        }
+        printf("\n\n");
     }
 }
+
 
 int _agendas_handler_free_all(AGENDAS_HANDLER* self) {
     int n = self->size;
     for (int i = 0; i < n; ++i) {
         free(self->agendas[i].path);
-        free(self->agendas[i].marcacoes);
+        free(self->agendas[i].calendario);
         free(&self->agendas[i]);
         self->size--;
     }
@@ -182,32 +178,31 @@ MARC* sortMarcsDesc(MARC* marcArray, int size){
     return marcArray;
 }
 
-MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize){
+CALEND* unifyMarcs(CALEND* a1, CALEND* a2, int size1, int size2, int* newSize){
 //    if (a1.id == a2.id)
 //        return a1;
     *newSize = size1 + size2;
     printf("newSize = %d\n", *newSize);
-    MARC* uniMarc = (MARC*)malloc(sizeof(MARC) * (*newSize));
+    CALEND* uniMarc = (CALEND*)malloc(sizeof(CALEND) * (*newSize));
     int i;
     for (i = 0; i < size1; ++i) {
 //        printf("(%d)\t", i);
-        uniMarc[i].data = a1[i].data;
-        uniMarc[i].plataforma = (char*)malloc((strlen(a1[i].plataforma) + 1) * sizeof(char));
-        strcpy(uniMarc[i].plataforma, a1[i].plataforma);
+        uniMarc[i].marcacao->data = a1[i].marcacao->data;
+        uniMarc[i].marcacao->plataforma = (char*)malloc((strlen(a1->marcacao->plataforma) + 1) * sizeof(char));
+        strcpy(uniMarc[i].marcacao->plataforma, a1[i].marcacao->plataforma);
 //        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
     }
     for (; i < *newSize; ++i) {
 //        printf("(%d)\t", i);
-        uniMarc[i].data = a2[i - size1].data;
+        uniMarc[i].marcacao->data = a2[i - size1].marcacao->data;
 
-        uniMarc[i].plataforma = (char *) malloc((strlen(a2[i - size1].plataforma) + 1) * sizeof(char));
-        strcpy(uniMarc[i].plataforma, a2[i - size1].plataforma);
+        uniMarc[i].marcacao->plataforma = (char *) malloc((strlen(a2[i - size1].marcacao->plataforma) + 1) * sizeof(char));
+        strcpy(uniMarc[i].marcacao->plataforma, a2[i - size1].marcacao->plataforma);
 //        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
 
     }
     return uniMarc;
 }
-
 
 void print_data(DATA d) {
     printf("%d/%d/%d\n", d.dia, d.mes, d.ano);
@@ -224,8 +219,9 @@ void freeAgendaByPtr(AGENDA *a) {
         return (void) printf("ERROR IN freeAgedendaByPtr(a = NULL)");
     free(a->path);
     for (int i = 0, size = a->size; i < size; ++i) {
-        free(a->marcacoes[i].plataforma);
+        free(a->calendario[i].marcacao->plataforma);
     }
-    free(a->marcacoes);
+    free(a->calendario->marcacao);
+    free(a->calendario);
     free(a);
 }

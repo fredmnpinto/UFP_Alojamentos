@@ -14,7 +14,7 @@ ATENCAO:
  DONE um array dinâmico de dias para cada
        agenda de cada estúdio;
 
- ToDo uma lista ligada dos eventos de cada dia (e.g. ocupação,
+ DONE uma lista ligada dos eventos de cada dia (e.g. ocupação,
       limpeza, etc.);
 
  DONE uma lista ligada dos hóspedes e seu histórico de estadias (reservas);

@@ -16,9 +16,12 @@
  */
 HOSP_STACK* get_data_hosp();
 
+/**
+ * Funcao para pegar o historico de um arquivo .psv e armazenalos em uma
+ * lista ligada de structs do tipo HIST (struct Historico)
+ * @return              Endereco do primeiro elemento da lista (HEAD)
+ */
 HIST_STACK* get_data_hist();
-
-EVENT_QUEUE* get_data_event();
 
 /**
  * Funcao para pegar os estudios de um arquivo .csv e armazena-los em uma

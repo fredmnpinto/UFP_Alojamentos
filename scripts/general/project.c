@@ -15,19 +15,8 @@
 #include "../data_handler/report_generator.h"
 
 int main_proj(int argc, char *argv[]) {
-    DATA inicio, final;
-    inicio.dia = 1;
-    inicio.mes = 1;
-    inicio.ano = 2000;
-
-    final.dia = 16;
-    final.mes = 11;
-    final.ano = 2020;
-
-    EST_HANDLER *array = get_data_estudio();
-    ED_LIST *edflist = get_data_edfs();
-    EST estudio = array->estArray[0];
-    generate_all_billing(array, inicio, final, 0);
+    AGENDA* agenda = get_data_agenda_master(1234);
+    print_agenda(*agenda);
 }
 
 void main_menu(int argc, char *argv[]) {
