@@ -31,7 +31,7 @@ void _freeEstudios(EST_HANDLER *handler);
  * @param handler   Handler dos estudios
  * @param id        Id do estudio a ser liberado
  */
-void _freeSingleEstudio(EST_HANDLER *handler, int id, char *nome);
+void _freeSingleEstudio(EST_HANDLER *handler, int id);
 
 /**
  * Funcao para liberar um unico estudio pelo seu ponteiro
@@ -50,7 +50,7 @@ void _addEstudioToArray(EST_HANDLER *handler, EST *estudio);
  * @param id        Id do estudio a ser removido    [Caso nao saiba, passar -1]
  * @param nome      Nome do estudio a ser removido  [Caso nao saiba, passar NULL]
  */
-void _removeEstudioFromArray(EST_HANDLER *handler, int id, char *nome);
+void _removeEstudioFromArray(EST_HANDLER *handler, int id);
 
 /**
  * Funcao para buscar em pesquisa binaria um Estudio dentro do array
@@ -59,7 +59,7 @@ void _removeEstudioFromArray(EST_HANDLER *handler, int id, char *nome);
  * @param nome      Nome do estudio [Caso nao saiba, passar NULL]
  * @return          Ponteiro para o estudio
  */
-EST *_findEstudioInArray(EST_HANDLER *handler, int id, char *nome);
+EST *_findEstudioInArray(EST_HANDLER *handler, int id);
 
 /**
  * Funcao para printar todos os estudios do array
@@ -80,6 +80,6 @@ void printEstudio(EST e);
  * @param id            Id do Estudio buscado
  * @return              Index do estudio
  */
-int getEstudioArrayIndex(EST_HANDLER *handler, int id, char *nome);
+int getEstudioArrayIndex(EST_HANDLER *handler, int id);
 
 #endif //UFP_ALOJAMENTOS_ESTUDIOS_H

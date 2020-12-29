@@ -31,13 +31,13 @@ void guests_list_pop(HOSP_STACK* stack, HOSP* currHead);
  * Funcao para saber o tamanho da lista de hospede
  * @return  O tamanho da lista
  */
-int guests_list_size();
+int guests_list_size(HOSP_STACK* stack);
 
 /**
  * Funcao para saber se a stack esta vazia ou nao
  * @return  0(Falso) se o size nao for igual a 0, e 1(Verdadeiro) se o size for igual a 0
  */
-int hosp_isEmpty();
+int hosp_isEmpty(HOSP_STACK* stack);
 
 /**
  * Funcao que imprime todos os valores da stack

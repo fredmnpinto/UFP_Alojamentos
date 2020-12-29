@@ -33,13 +33,6 @@ void remove_linebreak_on_the_end(char str[]);
 void remove_linebreak(char str[]);
 
 /**
- * Funcao para printar todos os alojs do array
- * @param aloj_array    Array com todos os alojamentos
- * @param array_size    Tamanho do array
- */
-void print_alojs(ALOJ *aloj_array, int array_size);
-
-/**
  * Funcao para retornar a versao em lowercase de um determinado caracter
  * @param C     Caracter em uppercase ou nao
  * @return      Caracter em lowercase

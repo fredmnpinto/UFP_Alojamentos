@@ -45,7 +45,7 @@ ToDo Implementar a geração de relatórios (para o ecrã e ficheiro) com as est
   ser ordenados por campos a determinar (e.g. por ordem alfabética do nome do estúdio
   e edifício, por taxa de ocupação crescente ou decrescente, etc.);
 
-ToDo Implementar a geração de relatórios (ecrã e ficheiro) com a faturação por estúdio, por
+DONE Implementar a geração de relatórios (ecrã e ficheiro) com a faturação por estúdio, por
   edifício ou na totalidade do parque de edifícios. Deverá ser possível escolher o período
   do relatório a gerar e a ordem de ordenação (crescente ou decrescente);
 

@@ -8,13 +8,26 @@
 #include "../API/estudios.h"
 #include "../API/guests_list.h"
 #include "../API/historicoReservas.h"
+#include "../API/eventos.h"
+#include "../billing/billing.h"
 #include "../data_handler/data_reader.h"
 #include "../data_handler/data_writer.h"
+#include "../data_handler/report_generator.h"
 
 int main_proj(int argc, char *argv[]) {
-    EST_HANDLER *h = get_data_estudio();
-    saveDataEstudio(h);
-    return 0;
+    DATA inicio, final;
+    inicio.dia = 1;
+    inicio.mes = 1;
+    inicio.ano = 2000;
+
+    final.dia = 16;
+    final.mes = 11;
+    final.ano = 2020;
+
+    EST_HANDLER *array = get_data_estudio();
+    ED_LIST *edflist = get_data_edfs();
+    EST estudio = array->estArray[0];
+    generate_all_billing(array, inicio, final, 0);
 }
 
 void main_menu(int argc, char *argv[]) {
