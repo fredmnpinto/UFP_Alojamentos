@@ -7,6 +7,7 @@
 
 #include "../general/utils.h"
 #include "../general/structs.h"
+#include "./eventos.h"
 
 /**
  * Funcao para printar uma agenda especifica (Por motivos de debug)
@@ -29,7 +30,7 @@ AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id);
  * @param                   Path para a agenda
  * @return Ponteiro para essa agenda inicializada
  */
-AGENDA* init_single_agenda(MARC* marc_array, int size, int id, char* path);
+AGENDA* init_single_agenda(CALEND* calendario, int size, int id, char* path);
 
 /**
  * Funcao para checar se a agenda foi inicializada de forma correta
@@ -86,7 +87,7 @@ AGENDA* _agendas_handler_get_agenda(AGENDAS_HANDLER* self, int index); //DONE, m
  * @param a2    A outra agenda
  * @return      Array ordenado das marcacoes
  */
-MARC* unifyMarcs(MARC* a1, MARC* a2, int size1, int size2, int* newSize);
+CALEND* unifyMarcs(CALEND* a1, CALEND* a2, int size1, int size2, int* newSize);
 
 /**
  * Funcao para juntar duas agendas sem repeticoes

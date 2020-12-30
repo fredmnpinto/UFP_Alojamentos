@@ -1,8 +1,4 @@
-dia|mes|ano|plataforma|duracao|preco|hospedeID
-22|05|2001|A|12|321|1
-16|11|2020|A|12|12|1
-01|01|2020|B|31|123|2
-04|03|2002|B|12|31|3
-31|12|2020|C|2|1|4
-13|05|2007|C|1|3131|3
-29|10|2015|C|13|1331|3
+dia|mes|ano|plataforma|duracao|preco|hospedeID|eventos
+22|05|2001|A|12|321|1|Ocupado
+16|11|2020|A|12|12|1|
+01|01|2020|B|31|123|2|Ocupado, Limpo

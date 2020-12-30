@@ -50,6 +50,10 @@ void saveDataEdificios(ED_LIST *list) {
     }
 }
 
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODFIICADA
+ */
+ /*
 void saveDataSingleAgenda(AGENDA *agenda) {
     char *filepath = agenda->path;
     FILE *fw = fopen(filepath, "w");
@@ -67,7 +71,7 @@ void saveDataSingleAgenda(AGENDA *agenda) {
     } else {
         perror("ERROR in saveDataSingleAgenda");
     }
-}
+}*/
 
 void saveDataAgendasOutras(AGENDAS_HANDLER *handler) {
     char *filepath = handler->filepath;

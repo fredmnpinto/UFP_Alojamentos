@@ -22,13 +22,13 @@ void _freeSingleEstudio(EST_HANDLER *handler, int id) // Finished
                handler->id, id);
         return;
     }
-    free(ePtr->agenda_master->marcacoes);
+    free(ePtr->agenda_master->calendario);
     free(ePtr->agenda_master->path);
     ePtr->outrasHandler->free(ePtr->outrasHandler);
 }
 
 void freeEstudioByPtr(EST *ePtr) { //Finished
-    free(ePtr->agenda_master->marcacoes);
+    free(ePtr->agenda_master->calendario);
     free(ePtr->agenda_master->path);
     ePtr->outrasHandler->free(ePtr->outrasHandler);
 }

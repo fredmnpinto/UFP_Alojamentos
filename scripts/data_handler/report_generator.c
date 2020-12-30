@@ -8,7 +8,10 @@
 int main_report_generator(int argc, char *argv[]) {
 
 }
-
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
+ */
+ /*
 void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, int ordem) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
@@ -24,12 +27,12 @@ void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, int ordem) 
     MARC* marcacoes = NULL;
     printf("%d-%d-%d\nRelatorio de faturacao do estudio: \n\tID: %d      Configuracao: %s\n\n", hoje.ano, hoje.mes, hoje.dia, estudio->id, estudio->configuracao);
     fprintf(fw, "%d-%d-%d\nRelatorio de faturacao do estudio: \n\tID: %d      Configuracao: %s\n\n", hoje.ano, hoje.mes, hoje.dia, estudio->id, estudio->configuracao);
-    Total+=return_estudio_selected_data(estudio, marcacoes, fw, inicio, final, ordem);
+//    Total+=return_estudio_selected_data(estudio, marcacoes, fw, inicio, final, ordem);
     printf("-------------------\n");
     printf("Total:  %d\n", Total);
     fprintf(fw, "-------------------\n");
     fprintf(fw, "Total:  %d\n", Total);
-}
+}*/
 
 char* create_filepath_est_report(EST *estudio, DATA hoje) {
     char* file_preset1= "../data/reports/";
@@ -66,7 +69,10 @@ char* create_filepath_edf_report(ED *edificio, DATA hoje) {
     strcpy(&file_path[strlen(file_path)],file_preset2);
     return file_path;
 }
-
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
+ */
+ /*
 void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, int ordem) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
@@ -96,11 +102,15 @@ void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA in
     fprintf(fw, "-------------------\n");
     fprintf(fw, "Total:  %d\n", Total);
 }
-
+*/
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
+ */
+ /*
 int return_estudio_selected_data(EST *estudio, MARC *marcacoes, FILE *fw, DATA inicio, DATA final, int ordem) {
     int Total=0;
     if(ordem == 0) {
-        marcacoes = sortMarcsAsc(estudio->agenda_master->marcacoes, estudio->agenda_master->size);
+        marcacoes = sortMarcsAsc(estudio->agenda_master->calendario, estudio->agenda_master->size);
     }else if(ordem == 1) {
         marcacoes = sortMarcsDesc(estudio->agenda_master->marcacoes, estudio->agenda_master->size);
     }else{
@@ -117,7 +127,7 @@ int return_estudio_selected_data(EST *estudio, MARC *marcacoes, FILE *fw, DATA i
         }
     }
     return Total;
-}
+}*/
 
 char *create_filepath_all_report(DATA hoje) {
     char* file_preset1= "../data/reports/";
@@ -135,6 +145,10 @@ char *create_filepath_all_report(DATA hoje) {
     return file_path;
 }
 
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
+ */
+ /*
 void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
@@ -161,4 +175,4 @@ void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, i
     printf("Total:  %d\n", Total);
     fprintf(fw, "-------------------\n");
     fprintf(fw, "Total:  %d\n", Total);
-}
+}*/

@@ -37,6 +37,6 @@ void print_hist_Stack(HIST_STACK* stack) {
     while(!hist_isEmpty(stack)) {
         tmp = stack->head;
         printf("\nId: %d\nHospede_id: %d\nReserva: %s\n", tmp->id, tmp->hospede_id, tmp->reserva);
-        hist_list_pop(stack, tmp);
+        hist_list_pop(stack);
     }
 }

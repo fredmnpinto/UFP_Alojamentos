@@ -149,7 +149,7 @@ EST_HANDLER *get_data_estudio() {
     int *agendasHandlerIds = (int *) malloc(sizeof(int) * (size));
 //    printf("%s has %d lines\n", file_path, *size);
     EST *est_array = (EST *) malloc((size) * sizeof(EST));
-    EST_HANDLER *estHandler = initEstHandler(est_array, size);
+    EST_HANDLER *estHandler = NULL;//initEstHandler(est_array, size);
     if (fr == NULL) {
         perror("get_data_estudio ERROR");
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
@@ -238,7 +238,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
     char delimiter[] = "|";
     int agenda_size = get_number_of_lines(data);
 //    printf("%s has %d lines\n", filepath, agenda_size);
-    MARC *reservas_array = (MARC*)malloc(sizeof(MARC) * agenda_size);
+    CALEND *calendario = (CALEND*)malloc(sizeof(CALEND) * agenda_size);
     if (data == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
@@ -246,7 +246,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
         char answer = (char)getchar();
         if (get_lower_c(answer) == 'y') {
             FILE *fw = fopen(filepath, "w");
-            fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospededID\n");
+            fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospededID|eventos\n");
             fclose(fw);
         }
         else {
@@ -260,48 +260,80 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
         while(fgets(buffer, CHAR_LIMIT, data)){
             field_count = 0;
             row_count++;
-            if (row_count == 1)
+            if (row_count == 1) {
                 continue;
-
-            char *field = strtok(buffer, delimiter);
-            while (field_count<7) {
+            }
+            calendario[row_count-2].Eventos = init_event_stack();
+            calendario[row_count-2].marcacao = (MARC*)malloc(sizeof(MARC));
+            char* saveF;
+            char *field = strtok_r(buffer, delimiter, &saveF);
+            while (field_count<8) {
                 remove_linebreak_on_the_end(field);
 //                printf("%s\t", field);
-                switch (field_count) {   // dia|mes|ano|descricao
+                switch (field_count) {   // dia|mes|ano|plataforma|duracao|preco|hospedeID|eventos
                     case 0: {
-                        reservas_array[row_count - 2].data.dia = atoi(field);
+                        calendario[row_count - 2].data.dia = atoi(field);
                         break;
                     }
                     case 1: {
-                        reservas_array[row_count - 2].data.mes = atoi(field);
+                        calendario[row_count - 2].data.mes = atoi(field);
                         break;
                     }
                     case 2: {
-                        reservas_array[row_count - 2].data.ano = atoi(field);
+                        calendario[row_count - 2].data.ano = atoi(field);
                         break;
                     }
                     case 3: {
-                        reservas_array[row_count - 2].plataforma = (char *)malloc(sizeof(char) * strlen(field) + 1);
-                        strcpy(reservas_array[row_count - 2].plataforma, field);
+                        if(strcmp(field, "")==0) {
+                            calendario[row_count-2].marcacao = NULL;
+                            free(calendario[row_count-2].marcacao);
+                        }else{
+                            calendario[row_count-2].marcacao->plataforma = (char*)malloc(sizeof(char)*strlen(field));
+                            strcpy(calendario[row_count-2].marcacao->plataforma, field);
+                        }
                         break;
                     }
                     case 4: {
-                        reservas_array[row_count - 2].duracao = atoi(field);
+                        if(strcmp(field,"")==0) {
+                            calendario[row_count-2].marcacao = NULL;
+                            free(calendario[row_count-2].marcacao);
+                        }else{
+                            calendario[row_count-2].marcacao->duracao = atoi(field);
+                        }
                         break;
                     }
                     case 5: {
-                        reservas_array[row_count - 2].preco = atoi(field);
+                        if(strcmp(field,"")==0) {
+                            calendario[row_count-2].marcacao = NULL;
+                            free(calendario[row_count-2].marcacao);
+                        }else{
+                           calendario[row_count-2].marcacao->preco = atoi(field);
+                        }
                         break;
                     }
                     case 6: {
-                        reservas_array[row_count-2].hospedeID = atoi(field);
+                        if(strcmp(field,"")==0) {
+                            calendario[row_count-2].marcacao = NULL;
+                            free(calendario[row_count-2].marcacao);
+                        }else{
+                            calendario[row_count-2].marcacao->hospedeID = atoi(field);
+                        }
+                        break;
+                    }
+                    case 7: {
+                        if(strcmp(field,"")==0) {
+                            calendario[row_count-2].Eventos = NULL;
+                            free(calendario[row_count-2].Eventos);
+                        }else{
+                            calendario[row_count-2].Eventos = add_data_event(field,calendario[row_count-2].Eventos);
+                        }
                         break;
                     }
                     default : {
                         printf("WARNING: Possible unreadable data in '%s.psv'\n", filepath);
                     }
                 }
-                field = strtok(NULL, delimiter);
+                field = strtok_r(saveF, delimiter, &saveF);
                 field_count++;
             }
         }
@@ -310,7 +342,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
     AGENDA *agenda_master = (AGENDA*)malloc(sizeof(AGENDA));
     agenda_master->id = agenda_id;
     agenda_master->size = agenda_size;
-    agenda_master->marcacoes = reservas_array;
+    agenda_master->calendario = calendario;
     agenda_master->path = filepath;
     system("cls");
     return agenda_master;
@@ -638,67 +670,4 @@ HIST_STACK* get_data_hist() {
     fclose(fr);
     stack->head = head;
     return stack;
-}
-
-EVENT_QUEUE* get_data_event() {
-    FILE *fr = fopen("../data/eventos.psv", "r");
-    EVENT_QUEUE* queue = init_event_queue();
-    EVENT *last;
-    char delimiter[] = "|";
-    if(fr==NULL) {
-        printf("ERROR: ");
-        printf("%s\n", strerror(errno));
-        printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
-        char answer = (char)getchar();
-        if(get_lower_c(answer)=='y') {
-            FILE *fw = fopen("..data/eventos.psv", "w");
-            fprintf(fw, "id | tipo | valor\n");
-            fclose(fw);
-        }
-    }else{
-        char buffer[CHAR_LIMIT];
-        int row_count = 0, field_count;
-        printf("\t");
-        while(fgets(buffer, CHAR_LIMIT, fr)) {
-            last = (EVENT*)malloc(sizeof(EVENT));
-            field_count=0;
-            row_count++;
-            if(row_count==1) {
-                continue;
-            }
-            char *field= strtok(buffer, delimiter);
-            while(field_count<3) {
-                switch(field_count) {
-                    case 0: {
-                        last->id = atoi(field);
-                        break;
-                    }
-                    case 1: {
-                        last->tipo = (char*)malloc(sizeof(char) * (strlen(field)+1));
-                        strcpy(last->tipo, field);
-                        remove_linebreak_on_the_end(last->tipo);
-                        break;
-                    }
-                    case 2: {
-                        last->valor = atoi(field);
-                        break;
-                    }
-                    default: {
-                        printf("WARNING: Possible unreadable data in 'eventos.psv'");
-                    }
-                }
-                field = strtok(NULL, delimiter);
-                field_count++;
-            }
-            if(queue->first == NULL) {
-                queue->first = last;
-                queue->last = last;
-                queue->size++;
-            }else{
-                event_list_enqueue(queue, last);
-            }
-        }
-    }
-    fclose(fr);
-    return queue;
 }
