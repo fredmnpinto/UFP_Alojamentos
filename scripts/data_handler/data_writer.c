@@ -15,7 +15,7 @@ void saveDataEstudio(EST_HANDLER *handler) { // Tested
 
         for (int i = 0; i < size; ++i) {
             EST *aux = &handler->estArray[i];
-            fprintf(fw, "%d|%d|%s|%d|%d\n", aux->id, aux->edificio_id, aux->nome, aux->agenda_master->id,
+            fprintf(fw, "%d|%d|%s|%d|%d\n", aux->id, aux->edificio_id, aux->configuracao, aux->precoDiario_base, aux->agenda_master->id,
                     aux->outrasHandler->id);
             freeEstudioByPtr(aux);
         }
@@ -50,6 +50,10 @@ void saveDataEdificios(ED_LIST *list) {
     }
 }
 
+/**
+ * @warning ESTA FUNCAO TERA QUE SER MODFIICADA
+ */
+ /*
 void saveDataSingleAgenda(AGENDA *agenda) {
     char *filepath = agenda->path;
     FILE *fw = fopen(filepath, "w");
@@ -60,14 +64,14 @@ void saveDataSingleAgenda(AGENDA *agenda) {
             return;
         MARC *a = agenda->marcacoes;
         for (int i = 0, size = agenda->size; i < size; ++i) {
-            fprintf(fw, "%d|%d|%d|%s\n", a[i].data.dia, a[i].data.mes, a[i].data.ano, a[i].descricao);
+            fprintf(fw, "%d|%d|%d|%s\n", a[i].data.dia, a[i].data.mes, a[i].data.ano, a[i].plataforma);
         }
         freeAgendaByPtr(agenda);
         fclose(fw);
     } else {
         perror("ERROR in saveDataSingleAgenda");
     }
-}
+}*/
 
 void saveDataAgendasOutras(AGENDAS_HANDLER *handler) {
     char *filepath = handler->filepath;
@@ -80,8 +84,8 @@ void saveDataAgendasOutras(AGENDAS_HANDLER *handler) {
             return;
         }
         for (int i = 0, size = handler->size; i < size; ++i) {
-            fprintf(fw, "%d|%s\n", handler->agendas[i].id, handler->agendas->nome);
-            saveDataSingleAgenda(&handler->agendas[i]);
+            fprintf(fw, "%d\n", handler->agendas[i].id);
+
             freeAgendaByPtr(&handler->agendas[i]);
         }
         free(handler->filepath);

@@ -1,0 +1,24 @@
+2020-12-25
+Relatorio de faturacao do estudio: 
+	ID: 1      Configuracao: T2
+
+Data: 2001-5-22
+Preco: 321
+
+Data: 2002-3-4
+Preco: 31
+
+Data: 2007-5-13
+Preco: 3131
+
+Data: 2015-10-29
+Preco: 1331
+
+Data: 2020-1-1
+Preco: 123
+
+Data: 2020-11-16
+Preco: 12
+
+-------------------
+Total:  4949

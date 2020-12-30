@@ -18,14 +18,6 @@ void remove_linebreak(char str[]) {
     }
 }
 
-void print_alojs(ALOJ* aloj_array, int array_size){
-    for (int i = 0; i < array_size; ++i) {
-        printf("ID: %d\n", aloj_array[i].id);
-        printf("ESTUDIO ID: %lu\n", aloj_array[i].estudio_id);
-        printf("TIPO DE ALOJAMENTO: %s\n", aloj_array[i].tipo);
-    }
-}
-
 int is_upper_c(char c){
     if (c >= 'A' && c <= 'Z')
         return 1;

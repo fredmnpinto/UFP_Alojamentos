@@ -1,0 +1,63 @@
+2020-12-25
+Relatorio de faturacao dos parques de edifcio: 
+
+
+-------------------
+Edificio_ID: 1        Estudio_ID: 1
+Data: 2001-5-22
+Preco: 321
+
+Data: 2002-3-4
+Preco: 31
+
+Data: 2007-5-13
+Preco: 3131
+
+Data: 2015-10-29
+Preco: 1331
+
+Data: 2020-1-1
+Preco: 123
+
+Data: 2020-11-16
+Preco: 12
+
+-------------------
+Edificio_ID: 1        Estudio_ID: 2
+Data: 2001-3-12
+Preco: 132
+
+Data: 2003-9-31
+Preco: 22
+
+Data: 2004-12-4
+Preco: 56
+
+Data: 2005-10-11
+Preco: 42
+
+Data: 2008-1-23
+Preco: 234
+
+-------------------
+Edificio_ID: 3        Estudio_ID: 3
+Data: 2001-5-22
+Preco: 321
+
+Data: 2002-3-4
+Preco: 31
+
+Data: 2007-5-13
+Preco: 3131
+
+Data: 2015-10-29
+Preco: 1331
+
+Data: 2020-1-1
+Preco: 123
+
+Data: 2020-11-16
+Preco: 12
+
+-------------------
+Total:  10384

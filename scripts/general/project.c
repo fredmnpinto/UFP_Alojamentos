@@ -8,13 +8,15 @@
 #include "../API/estudios.h"
 #include "../API/guests_list.h"
 #include "../API/historicoReservas.h"
+#include "../API/eventos.h"
+#include "../billing/billing.h"
 #include "../data_handler/data_reader.h"
 #include "../data_handler/data_writer.h"
+#include "../data_handler/report_generator.h"
 
 int main_proj(int argc, char *argv[]) {
-    EST_HANDLER *h = get_data_estudio();
-    saveDataEstudio(h);
-    return 0;
+    AGENDA* agenda = get_data_agenda_master(1234);
+    print_agenda(*agenda);
 }
 
 void main_menu(int argc, char *argv[]) {

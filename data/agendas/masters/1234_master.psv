@@ -1,8 +1,4 @@
-dia|mes|ano|descricao
-22|05|2001|birthday
-16|11|2020|today
-01|01|2020|D-Day
-04|03|2002|Bday-2
-31|12|2020|Finnaly
-13|05|2007|Nothing
-29|10|2015|Nope
+dia|mes|ano|plataforma|duracao|preco|hospedeID|eventos
+22|05|2001|A|12|321|1|Ocupado
+16|11|2020|A|12|12|1|
+01|01|2020|B|31|123|2|Ocupado, Limpo
