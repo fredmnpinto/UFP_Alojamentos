@@ -250,3 +250,31 @@ void remMarcFromPos(AGENDA *agenda, int index) {
     agenda->marcacoes = realloc(agenda->marcacoes, (agenda->size - 1) * sizeof(MARC));
     agenda->size--;
 }
+
+void updateMarcFromPos(AGENDA *agenda, int index, DATA *newData, char *newDesc) {
+    if (newDesc != NULL)
+        strcpy(agenda->marcacoes[index].descricao, newDesc);
+    if (newData != NULL)
+        agenda->marcacoes[index].data = *newData;
+}
+
+int getMarcIndex(AGENDA *agenda, DATA data) {
+    int size = agenda->size;
+    int hi = size, lo = 0;
+    if (compDate(agenda->marcacoes[agenda->size].data, data) < 0 || compDate(data, agenda->marcacoes[0].data) < 0)
+        return -1;
+    while (1) {
+        int mid = (hi + lo) / 2;
+        if (compDate(agenda->marcacoes[mid].data, data) > 0)
+            lo = mid;
+        else if (compDate(agenda->marcacoes[mid].data, data) < 0)
+            hi = mid;
+        else
+            return mid;
+    }
+}
+
+MARC getMarc(AGENDA *agenda, DATA data) {
+    int index = getMarcIndex(agenda, data);
+    return agenda->marcacoes[index];
+}

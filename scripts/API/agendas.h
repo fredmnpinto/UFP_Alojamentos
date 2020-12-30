@@ -198,4 +198,31 @@ void remMarc(AGENDA *agenda, MARC marc);
  */
 void remMarcFromPos(AGENDA *agenda, int index);
 
+/**
+ * Funcao para fazer o update de uma marcacao de index: {index}
+ * na respectiva agenda. No caso de querer manter algum dado antigo,
+ * basta passar NULL ao respectivo parametro
+ * @param agenda    Agenda
+ * @param index     index da marcacao
+ * @param newData   Nova data para a marcacao
+ * @param newDesc   Nova descricao para a marcacao
+ */
+void updateMarcFromPos(AGENDA *agenda, int index, DATA *newData, char *newDesc);
+
+/**
+ * Funcao para selecionar o index de uma marcacao a partir da sua data
+ * @param agenda    Agenda onde ela esta
+ * @param data      Data da marcacao
+ * @return          Index da marcacao ou -1 se nao for encontrado
+ */
+int getMarcIndex(AGENDA *agenda, DATA data);
+
+/**
+ * Funcao para conseguir uma marcacao a partir da sua data
+ * @param agenda    Agenda onde ela esta
+ * @param data      Data da marcacao
+ * @return          Marcacao desejada
+ */
+MARC getMarc(AGENDA *agenda, DATA data);
+
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
