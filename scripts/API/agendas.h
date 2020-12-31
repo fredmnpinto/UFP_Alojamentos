@@ -106,7 +106,7 @@ AGENDA* unifyAgendas(AGENDA a1, AGENDA a2);
  * @param marcArray Ponteiro para o array a ser ordenado
  * @return          Ponteiro para o array de marcacoes ordenado
  */
-MARC* sortMarcsAsc(MARC* marcArray, int size);
+CALEND* sortCalendAsc(CALEND* calendArray, int size);
 
 /**
  * Funcao para fazer o qsort do array de marcacoes
@@ -117,7 +117,7 @@ MARC* sortMarcsAsc(MARC* marcArray, int size);
  * @param size      Tamanho do array
  * @return          Ponteiro para o array ordenado
  */
-MARC* sortMarcsDesc(MARC* marcArray, int size);
+CALEND* sortCalendDesc(CALEND* calendArray, int size);
 
 /**
  * Funcao para devolver o dia de hoje como struct DATA
@@ -183,20 +183,13 @@ int compDate(DATA dat1, DATA dat2);
  * @param agenda
  * @param marc
  */
-void addMarc(AGENDA *agenda, MARC marc);
+AGENDA* addMarc(AGENDA *agenda, MARC *marc, DATA data);
 
 /**
  * Funcao para remover uma marcacao da agenda
  * @param agenda
  */
-void remMarc(AGENDA *agenda, MARC marc);
-
-/**
- * Funcao para remover a marcacao do array com base na posicao do array
- * @param agenda
- * @param index
- */
-void remMarcFromPos(AGENDA *agenda, int index);
+void remMarc(AGENDA *agenda, DATA data);
 
 /**
  * Funcao para fazer o update de uma marcacao de index: {index}

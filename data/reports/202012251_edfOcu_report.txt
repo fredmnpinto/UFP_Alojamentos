@@ -1,0 +1,28 @@
+2020-12-25
+Relatorio de taxa de faturacao do edificio: 
+	ID: 1      Nome: Chitao Martins Barbershop & Equipe
+
+-------------------
+Estudio_ID: 1
+Data: 2001-5-22
+Ocupado
+
+Data: 2020-1-1
+Ocupado
+
+Data: 2020-11-16
+Nao ocupado
+
+-------------------
+Estudio_ID: 2
+Data: 2001-5-22
+Ocupado
+
+Data: 2020-1-1
+Ocupado
+
+Data: 2020-11-16
+Nao ocupado
+
+-------------------
+Total:  0.666667

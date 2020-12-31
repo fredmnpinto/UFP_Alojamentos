@@ -47,6 +47,14 @@ int event_isEmpty(EVENT_STACK *stack);
 void print_event_stack(EVENT_STACK *stack);
 
 /**
+ * Funcao que pega numa lista de eventos e percorre-a ate chegar ao evento que procuramos, ou ate ao final da lista
+ * @param stack             Apontador para a lista de eventos
+ * @param eventSearchFor    String com a descricao do evento que procuramos
+ * @return                  1 se encontramos o evento na lista de eventos           -1 se nao encontrarmos
+ */
+int check_event(EVENT_STACK* stack, char eventSearchFor[]);
+
+/**
  * Funcao que preenche uma stack de eventos com os evento no array "eventos[]"
  * @param eventos           Array com eventos
  * @param listaEventos      Apontador para a stack a ser preenchida

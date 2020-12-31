@@ -1,33 +1,39 @@
 2020-12-25
-Relatorio de faturacao dos parques de edifcio: 
+Relatorio de taxa de ocupacao dos parques de edifcio: 
 
 
 -------------------
 Edificio_ID: 1        Estudio_ID: 1
 Data: 2001-5-22
-Preco: 321
+Ocupado
 
 Data: 2020-1-1
-Preco: 123
+Ocupado
+
+Data: 2020-11-16
+Nao ocupado
 
 -------------------
 Edificio_ID: 1        Estudio_ID: 2
 Data: 2001-5-22
-Preco: 321
+Ocupado
 
 Data: 2020-1-1
-Preco: 123
+Ocupado
 
 Data: 2020-11-16
-Preco: 333
+Nao ocupado
 
 -------------------
 Edificio_ID: 3        Estudio_ID: 3
 Data: 2001-5-22
-Preco: 321
+Ocupado
 
 Data: 2020-1-1
-Preco: 123
+Ocupado
+
+Data: 2020-11-16
+Nao ocupado
 
 -------------------
-Total:  1665
+Total:  0.666667

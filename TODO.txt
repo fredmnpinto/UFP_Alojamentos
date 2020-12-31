@@ -36,10 +36,10 @@ ToDo Implementar uma API de funções de leitura e escrita de ficheiros de texto
   decrescente); políticas de preços e respectivas regras de custo e prioridades de
   aplicação;
 
-Todo Implementar uma API de funções de leitura e escrita de texto e binário para cada
+DONE Implementar uma API de funções de leitura e escrita de texto e binário para cada
   agenda, com os respectivos eventos registados;
 
-ToDo Implementar a geração de relatórios (para o ecrã e ficheiro) com as estatísticas das
+DONE Implementar a geração de relatórios (para o ecrã e ficheiro) com as estatísticas das
   taxas de ocupação por estúdio, por edifício ou na totalidade do parque de edifícios.
   Deverá ser possível escolher o período do relatório a gerar; os dados do relatório devem
   ser ordenados por campos a determinar (e.g. por ordem alfabética do nome do estúdio
