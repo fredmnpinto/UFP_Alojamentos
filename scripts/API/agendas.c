@@ -79,7 +79,9 @@ void print_agenda(AGENDA ag) {
     int n = ag.size;
     for (int i = 0; i < n; ++i) {
         printf("Dia: %d  Mes: %d  Ano: %d\n", ag.calendario[i].data.dia, ag.calendario[i].data.mes, ag.calendario[i].data.ano);
-        printf("Plataforma: %s  Duracao: %d  Preco: %d HospedeID: %d\n", ag.calendario[i].marcacao->plataforma, ag.calendario[i].marcacao->duracao, ag.calendario[i].marcacao->preco, ag.calendario[i].marcacao->hospedeID);
+        if(ag.calendario[i].marcacao!=NULL) {
+            printf("Plataforma: %s  Duracao: %d  Preco: %d HospedeID: %d\n", ag.calendario[i].marcacao->plataforma, ag.calendario[i].marcacao->duracao, ag.calendario[i].marcacao->preco, ag.calendario[i].marcacao->hospedeID);
+        }
         if(ag.calendario[i].Eventos!=NULL) {
             printf("Eventos:\t");
             print_event_stack(ag.calendario[i].Eventos);
@@ -168,14 +170,14 @@ DATA init_data(int dia, int mes, int ano){
     return nData;
 }
 
-MARC* sortMarcsAsc(MARC* marcArray, int size){
-    qsort(marcArray, size, sizeof(MARC), __comp_date1);
-    return marcArray;
+CALEND* sortCalendAsc(CALEND* calendArray, int size){
+    qsort(calendArray, size, sizeof(CALEND), __comp_date1);
+    return calendArray;
 }
 
-MARC* sortMarcsDesc(MARC* marcArray, int size){
-    qsort(marcArray, size, sizeof(MARC), __comp_date2);
-    return marcArray;
+CALEND* sortCalendDesc(CALEND* calendArray, int size){
+    qsort(calendArray, size, sizeof(CALEND), __comp_date2);
+    return calendArray;
 }
 
 CALEND* unifyMarcs(CALEND* a1, CALEND* a2, int size1, int size2, int* newSize){
@@ -226,48 +228,41 @@ void freeAgendaByPtr(AGENDA *a) {
     free(a);
 }
 
-void addMarc(AGENDA *agenda, MARC marc) {
-    agenda->marcacoes = realloc(agenda->marcacoes, ++agenda->size);
-    agenda->marcacoes[agenda->size] = marc;
+AGENDA* addMarc(AGENDA *agenda, MARC *marc, DATA data) {
+    int index = getMarcIndex(agenda, data);
+    agenda->calendario[index].marcacao = (MARC*)malloc(sizeof(MARC));
+    agenda->calendario[index].marcacao = marc;
+
+    return agenda;
 }
 
-void remMarc(AGENDA *agenda, MARC marc) {
-    int n = agenda->size;
-    for (int i = 0; i < n; i++) {
-        if (compDate(agenda->marcacoes[i].data, marc.data) != 0 ||
-            strcmp(marc.descricao, agenda->marcacoes[i].descricao))
-            continue;
-        remMarcFromPos(agenda, i);
-    }
+void remMarc(AGENDA *agenda, DATA data) {
+    int index = getMarcIndex(agenda, data);
+    free(agenda->calendario[index].marcacao->plataforma);
+    free(agenda->calendario[index].marcacao);
 }
 
-void remMarcFromPos(AGENDA *agenda, int index) {
-//    memcpy(aux, agenda->marcacoes, sizeof(EST) * (index));
-//    memcpy(aux + index, agenda->marcacoes + index + 1, sizeof(EST) * (agenda->size - index));
-    for (int i = index; i + 1 < agenda->size; ++i) {
-        agenda->marcacoes[i] = agenda->marcacoes[i + 1];
-    }
-    agenda->marcacoes = realloc(agenda->marcacoes, (agenda->size - 1) * sizeof(MARC));
-    agenda->size--;
-}
-
+/**
+ * \warning TEM QUE SER REFEITA PARA FUNCIONAR
+ */
+ /*
 void updateMarcFromPos(AGENDA *agenda, int index, DATA *newData, char *newDesc) {
     if (newDesc != NULL)
         strcpy(agenda->marcacoes[index].descricao, newDesc);
     if (newData != NULL)
         agenda->marcacoes[index].data = *newData;
-}
+}*/
 
 int getMarcIndex(AGENDA *agenda, DATA data) {
     int size = agenda->size;
     int hi = size, lo = 0;
-    if (compDate(agenda->marcacoes[agenda->size].data, data) < 0 || compDate(data, agenda->marcacoes[0].data) < 0)
+    if (compDate(agenda->calendario[agenda->size].data, data) < 0 || compDate(data, agenda->calendario[0].data) < 0)
         return -1;
     while (1) {
         int mid = (hi + lo) / 2;
-        if (compDate(agenda->marcacoes[mid].data, data) > 0)
+        if (compDate(agenda->calendario[mid].data, data) > 0)
             lo = mid;
-        else if (compDate(agenda->marcacoes[mid].data, data) < 0)
+        else if (compDate(agenda->calendario[mid].data, data) < 0)
             hi = mid;
         else
             return mid;
@@ -276,5 +271,5 @@ int getMarcIndex(AGENDA *agenda, DATA data) {
 
 MARC getMarc(AGENDA *agenda, DATA data) {
     int index = getMarcIndex(agenda, data);
-    return agenda->marcacoes[index];
+    return *agenda->calendario[index].marcacao;
 }

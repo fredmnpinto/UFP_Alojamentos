@@ -47,6 +47,17 @@ void print_event_stack(EVENT_STACK *stack) {
     }
 }
 
+int check_event(EVENT_STACK *stack, char eventSearchFor[]) {
+    EVENT* start = stack->head;
+    for(int i=0; i<stack->size; i++) {
+        if(strcmp(start->descricao, eventSearchFor)==0) {
+            return 1;
+        }
+        start = start->next;
+    }
+    return -1;
+}
+
 EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
     char *savefield = (char*)malloc(sizeof(char)*strlen(eventos));
     strcpy(savefield, eventos);

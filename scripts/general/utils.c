@@ -5,8 +5,9 @@
 #include "utils.h"
 
 void remove_linebreak_on_the_end(char str[]) {
-    if (str[strlen(str) - 1] == '\n')
-        str[strlen(str) - 1] = '\0';
+        if (str[strlen(str) - 1] == '\n') {
+            str[strlen(str) - 1] = '\0';
+        }
 }
 
 void remove_linebreak(char str[]) {

@@ -15,8 +15,7 @@
 #include "../data_handler/report_generator.h"
 
 int main_proj(int argc, char *argv[]) {
-    AGENDA* agenda = get_data_agenda_master(1234);
-    print_agenda(*agenda);
+
 }
 
 void main_menu(int argc, char *argv[]) {

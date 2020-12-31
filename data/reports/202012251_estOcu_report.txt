@@ -1,0 +1,15 @@
+2020-12-25
+Relatorio da taxa de ocupacao do estudio: 
+	ID: 1      Configuracao: T2
+
+Data: 2001-5-22
+Ocupado
+
+Data: 2020-1-1
+Ocupado
+
+Data: 2020-11-16
+Nao ocupado
+
+-------------------
+Total:  0.666667

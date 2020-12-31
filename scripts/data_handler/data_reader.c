@@ -149,7 +149,7 @@ EST_HANDLER *get_data_estudio() {
     int *agendasHandlerIds = (int *) malloc(sizeof(int) * (size));
 //    printf("%s has %d lines\n", file_path, *size);
     EST *est_array = (EST *) malloc((size) * sizeof(EST));
-    EST_HANDLER *estHandler = NULL;//initEstHandler(est_array, size);
+    EST_HANDLER *estHandler = initEstHandler(est_array, size);
     if (fr == NULL) {
         perror("get_data_estudio ERROR");
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
@@ -284,7 +284,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 3: {
-                        if(strcmp(field, "")==0) {
+                        if(strcmp(field, " ")==0) {
                             calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
                         }else{
@@ -294,7 +294,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 4: {
-                        if(strcmp(field,"")==0) {
+                        if(strcmp(field," ")==0) {
                             calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
                         }else{
@@ -303,7 +303,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 5: {
-                        if(strcmp(field,"")==0) {
+                        if(strcmp(field," ")==0) {
                             calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
                         }else{
@@ -312,7 +312,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 6: {
-                        if(strcmp(field,"")==0) {
+                        if(strcmp(field," ")==0) {
                             calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
                         }else{
@@ -321,7 +321,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 7: {
-                        if(strcmp(field,"")==0) {
+                        if(strcmp(field," ")==0) {
                             calendario[row_count-2].Eventos = NULL;
                             free(calendario[row_count-2].Eventos);
                         }else{
@@ -392,10 +392,10 @@ AGENDA* get_data_single_agenda_outra(int id){
     int n_lines = get_number_of_lines(fr);
 //    printf("aloj.csv has %d lines\n", n_lines);
     // Cria o array de marcacoes dessa agenda
-    MARC *marc_array;
-    printf("Allocated %d marc slots\nsizeof(MARC) = %d\tsizeof(marc_array) = %d\n", n_lines, sizeof(MARC), sizeof(marc_array));
+    CALEND *calendario;
+    printf("Allocated %d CALEND slots\nsizeof(CALEND) = %d\tsizeof(calendario) = %d\n", n_lines, sizeof(CALEND), sizeof(calendario));
 //    n_lines = 10;
-    marc_array = (MARC*)malloc((n_lines) * sizeof(MARC));
+    calendario = (CALEND*)malloc((n_lines) * sizeof(CALEND));
     // No caso de um erro procurando pelo arquivo
     if (fr == NULL) {
         printf("ERROR: ");
@@ -420,6 +420,7 @@ AGENDA* get_data_single_agenda_outra(int id){
             row_count++;
             if (row_count == 1)
                 continue;
+            calendario[row_count-2].marcacao = (MARC*)malloc(sizeof(MARC));
 //            printf("Row_count - 2 = %d\n", row_count - 2);
             char *field = strtok(buffer, delimiter);    // HEADER:  Dia  |   Mes |   Ano |   Descricao
             while (field_count < 4){
@@ -429,25 +430,30 @@ AGENDA* get_data_single_agenda_outra(int id){
                     case 0: {
                         int field_n = atoi(field);
                         printf(field_n <= 31 || field_n >= 1 ? NULL : "Erro no dia (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
-                        marc_array[row_count - 2].data.dia = field_n; // Dia
+                        calendario[row_count-2].data.dia = field_n; // Dia
                         break;
                     }
                     case 1: {
                         int field_n = atoi(field);
                         printf(field_n <= 12 || field_n >= 1 ? NULL : "Erro no mes (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
-                        marc_array[row_count - 2].data.mes = atoi(field); // Mes
+                        calendario[row_count - 2].data.mes = atoi(field); // Mes
                         break;
                     }
                     case 2: {
                         int field_n = atoi(field);
                         printf(field_n < 2100 || field_n > 1900 ? NULL : "Erro no ano (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
-                        marc_array[row_count - 2].data.ano = field_n; // Ano
+                        calendario[row_count - 2].data.ano = field_n; // Ano
                         break;
                     }
                     case 3: {
-                        marc_array[row_count - 2].plataforma = (char*)malloc(sizeof(char)* (strlen(field) + 1));
-                        strcpy(marc_array[row_count - 2].plataforma, field);
-                        remove_linebreak_on_the_end(marc_array[row_count - 2].plataforma);
+                        if(strcmp(field,"")==0) {
+                            calendario[row_count-2].marcacao = NULL;
+                            free(calendario[row_count-2].marcacao);
+                        }else{
+                            calendario[row_count - 2].marcacao->plataforma = (char*)malloc(sizeof(char)* (strlen(field) + 1));
+                            strcpy(calendario[row_count - 2].marcacao->plataforma, field);
+                            remove_linebreak_on_the_end(calendario[row_count - 2].marcacao->plataforma);
+                        }
                         break;
                     }
                     default : {
@@ -460,7 +466,7 @@ AGENDA* get_data_single_agenda_outra(int id){
             }
         }
 //        printf("Got here too\n");
-        new_agenda = init_single_agenda(marc_array, n_lines, id, file_path);
+        new_agenda = init_single_agenda(calendario, n_lines, id, file_path);
         free(buffer);
     }
     fclose(fr);
