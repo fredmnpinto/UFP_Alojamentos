@@ -16,7 +16,7 @@ RP *get_data_rp(int *num_rp) {   /// TEMPLATE PARA GET_DATA EM ARRAYS DINAMICOS
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char) getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(".data/regras_preco.csv", "w");
             fprintf(fw, "id,regra,taxa\n");
             fclose(fw);

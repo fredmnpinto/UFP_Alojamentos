@@ -59,7 +59,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(".data/edfs.psv", "w");
             fprintf(fw, "id,estudio_id,tipo\n");
             fclose(fw);
@@ -154,7 +154,7 @@ EST_HANDLER *get_data_estudio() {
         perror("get_data_estudio ERROR");
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char) getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(file_path, "w");
             fprintf(fw, "%s", estHandler->header);
             fclose(fw);
@@ -244,12 +244,11 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(filepath, "w");
             fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospededID|eventos\n");
             fclose(fw);
-        }
-        else {
+        } else {
             exit(-1);
         }
     } else {
@@ -402,14 +401,13 @@ AGENDA* get_data_single_agenda_outra(int id){
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(".data/estudio.csv", "w");
             fprintf(fw, "Dia|Mes|Ano|Descricao\n");
             fclose(fw);
-        }
-        else {
+        } else {
             exit(-1);
-            }
+        }
     } else {
         // Guarda somente os primeiros CHAR_LIMIT caracteres, nesse primeiro momento 1024, por exemplo
         char *buffer = (char*)malloc(sizeof(char)*CHAR_LIMIT);
@@ -505,12 +503,11 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
         perror("get_data_agendas_outras Error oppening file");
         printf("Do you wish to create an empty new file on %s?\n[Y]es --- [N]o\n", file_path);
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(file_path, "w");
             fprintf(fw, "outra_id|nome\n");
             fclose(fw);
-        }
-        else {
+        } else {
             exit(-1);
         }
     } else {
@@ -574,7 +571,7 @@ HOSP_STACK* get_data_hosp() {
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen("../data/hospedes.csv", "w");
             fprintf(fw, "id,nome,email\n");
             fclose(fw);
@@ -631,7 +628,7 @@ HIST_STACK* get_data_hist() {
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
-        if (get_lower_c(answer) == 'y') {
+        if (toLowerC(answer) == 'y') {
             FILE *fw = fopen("..data/historico.csv", "w");
             fprintf(fw, "id,hospede_id,reserva\n");
             fclose(fw);

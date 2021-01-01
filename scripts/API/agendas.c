@@ -185,25 +185,26 @@ CALEND* unifyMarcs(CALEND* a1, CALEND* a2, int size1, int size2, int* newSize){
 //        return a1;
     *newSize = size1 + size2;
     printf("newSize = %d\n", *newSize);
-    CALEND* uniMarc = (CALEND*)malloc(sizeof(CALEND) * (*newSize));
+    CALEND *uniCalendario = (CALEND *) malloc(sizeof(CALEND) * (*newSize));
     int i;
     for (i = 0; i < size1; ++i) {
 //        printf("(%d)\t", i);
-        uniMarc[i].marcacao->data = a1[i].marcacao->data;
-        uniMarc[i].marcacao->plataforma = (char*)malloc((strlen(a1->marcacao->plataforma) + 1) * sizeof(char));
-        strcpy(uniMarc[i].marcacao->plataforma, a1[i].marcacao->plataforma);
-//        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
+        uniCalendario[i].marcacao->data = a1[i].marcacao->data;
+        uniCalendario[i].marcacao->plataforma = (char *) malloc((strlen(a1->marcacao->plataforma) + 1) * sizeof(char));
+        strcpy(uniCalendario[i].marcacao->plataforma, a1[i].marcacao->plataforma);
+//        printf("[%d]: %d/%d/%d\t%s\n", i, uniCalendario[i].data.dia, uniCalendario[i].data.mes, uniCalendario[i].data.ano, uniCalendario[i].descricao);
     }
     for (; i < *newSize; ++i) {
 //        printf("(%d)\t", i);
-        uniMarc[i].marcacao->data = a2[i - size1].marcacao->data;
+        uniCalendario[i].marcacao->data = a2[i - size1].marcacao->data;
 
-        uniMarc[i].marcacao->plataforma = (char *) malloc((strlen(a2[i - size1].marcacao->plataforma) + 1) * sizeof(char));
-        strcpy(uniMarc[i].marcacao->plataforma, a2[i - size1].marcacao->plataforma);
-//        printf("[%d]: %d/%d/%d\t%s\n", i, uniMarc[i].data.dia, uniMarc[i].data.mes, uniMarc[i].data.ano, uniMarc[i].descricao);
+        uniCalendario[i].marcacao->plataforma = (char *) malloc(
+                (strlen(a2[i - size1].marcacao->plataforma) + 1) * sizeof(char));
+        strcpy(uniCalendario[i].marcacao->plataforma, a2[i - size1].marcacao->plataforma);
+//        printf("[%d]: %d/%d/%d\t%s\n", i, uniCalendario[i].data.dia, uniCalendario[i].data.mes, uniCalendario[i].data.ano, uniCalendario[i].descricao);
 
     }
-    return uniMarc;
+    return uniCalendario;
 }
 
 void print_data(DATA d) {
@@ -267,9 +268,61 @@ int getMarcIndex(AGENDA *agenda, DATA data) {
         else
             return mid;
     }
-}
+ }
 
 MARC getMarc(AGENDA *agenda, DATA data) {
     int index = getMarcIndex(agenda, data);
     return *agenda->calendario[index].marcacao;
+}
+
+int dataInDays(DATA data) {
+    int days = data.dia;
+    if (data.mes == 2) {
+        int diasMes = isLeapYear(data.ano) ? 29 : 28;
+        days += diasMes;
+    } else {
+        days += daysInMonth(data.mes);
+    }
+    days += daysInYear(data.ano);
+    return days;
+}
+
+int daysInMonth(int mes) {
+    if (mes < 1 || mes > 12) {
+        perror("Mes Invalido");
+        return -1;
+    }
+    if (mes == 2)
+        return 28;
+    switch (mes) {
+        case 1:
+        case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            return 31;
+        default:
+            return 30;
+    }
+}
+
+int daysInYear(int ano) {
+    return (ano - 1) * 365;
+}
+
+int isLeapYear(int ano) {
+    if (ano % 400 == 0) {
+        return 1;
+    } else if (ano % 100 == 0) {
+        return 0;
+    } else if (ano % 4 == 0) {
+        return 1;
+    }
+    return 0;
+}
+
+int howCloseToData(DATA data1, DATA data2) {
+    return dataInDays(data1) - dataInDays(data2);
 }

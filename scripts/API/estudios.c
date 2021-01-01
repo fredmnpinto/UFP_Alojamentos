@@ -79,8 +79,9 @@ void _removeEstudioFromArray(EST_HANDLER *handler, int id) { // Finished
 }
 
 void printEstudio(EST e) {
-    printf("Id: %d\nEdificio id: %d\nAgenda master id: %d\n Agenda Handler id: %d\n", e.id,
-           e.edificio_id, e.agenda_master->id, e.outrasHandler->id);
+    printf("Id: %d\nEdificio id: %d\nAgenda master id: %d\n Agenda Handler id: %d\n Preco Base: %d\tConfiguracao: %s\n",
+           e.id,
+           e.edificio_id, e.agenda_master->id, e.outrasHandler->id, e.precoDiario_base, e.configuracao);
 }
 
 void _printAllEstudios(EST_HANDLER *handler) { //Finished
@@ -106,4 +107,61 @@ int getEstudioArrayIndex(EST_HANDLER *handler, int id) { //Finished
     perror("Invalid Input\n");
     printf("Error on getEstudioArrayIndex(handler.id = %d, id = %d)\n", handler->id, id);
     return -1;
+}
+
+EST *getEstudioAvailableFromConfig(EST_HANDLER handler, char *config) {
+    int size = handler.size;
+    int estsWithConfigSize = 10;
+    int j = 0;
+    EST *estsWithConfig = (EST *) malloc(sizeof(EST) * estsWithConfigSize);
+    for (int i = 0; i < size; ++i) {
+        if (strcmp(handler.estArray[i].configuracao, config) == 0) {
+            if (j == estsWithConfigSize) {
+                estsWithConfig += 10;
+                estsWithConfig = realloc(estsWithConfig, sizeof(EST) * estsWithConfigSize);
+            }
+            estsWithConfig[j++] = handler.estArray[i];
+        }
+    }
+    if (j <= 0)
+        return NULL;
+    EST *eClosest = &handler.estArray[0];
+    DATA dClosest = getEstudioClosestAvailability(handler.estArray[0]);
+    int eWithConfig = 0;
+    for (int i = 0; i < size; ++i) {
+        DATA dAvailable = getEstudioClosestAvailability(handler.estArray[i]);
+        if (compDate(dClosest, dAvailable) > 0) {
+            dClosest = dAvailable;
+            eClosest = &handler.estArray[i];
+            eWithConfig++;
+        }
+    }
+    return eWithConfig > 0 ? eClosest : NULL;
+}
+
+DATA getEstudioClosestAvailability(EST estudio) {
+    int size = estudio.agenda_master->size;
+    AGENDA a = *estudio.agenda_master;
+    DATA hoje = get_today();
+    DATA closest = a.calendario[0].data;
+    int dClosest = 99999;
+    for (int i = 0; i < size;) {
+        if (a.calendario[i].marcacao != NULL) {
+            int d = howCloseToData(hoje, a.calendario[i].data);
+            if (d < dClosest && d > 0) {
+                dClosest = d;
+                closest = a.calendario[i].data;
+            }
+            i += a.calendario[i].marcacao->duracao;
+        } else
+            i++;
+    }
+    return closest;
+}
+
+EST *getEstudioFromIndex(EST_HANDLER *handler, int index) {
+    int size = handler->size;
+    if (index > size || index < 0)
+        return NULL;
+    return &handler->estArray[index];
 }

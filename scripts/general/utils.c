@@ -31,18 +31,18 @@ int is_lower_c(char c){
     return 1;
 }
 
-char get_lower_c(char C){
+char toLowerC(char C) {
     if (!is_upper_c(C))
         return C;
     int offset = 'A' - 'a';
-    return (char)(C - offset);
+    return (char) (C - offset);
 }
 
-char get_upper_c(char C){
-    if (is_upper_c(C))
-        return C;
+char toUpperC(char c) {
+    if (is_upper_c(c))
+        return c;
     int offset = 'A' - 'a';
-    return (char)(C + offset);
+    return (char) (c + offset);
 }
 
 char * get_lower_str(char STR[]){
@@ -50,7 +50,7 @@ char * get_lower_str(char STR[]){
     char STR2[n]; strcpy(STR2, STR);
     for (int i = 0; i < n; ++i) {
         if (is_upper_c(STR2[i]))
-            STR2[i] = get_lower_c(STR2[i]);
+            STR2[i] = toLowerC(STR2[i]);
     }
     return STR;
 }
@@ -61,7 +61,30 @@ char * get_upper_str(char str[]){
     strcpy(str2, str);
     for (int i = 0; i < n; ++i) {
         if (!is_upper_c(str2[i]))
-            str2[i] = get_lower_c(str2[i]);
+            str2[i] = toLowerC(str2[i]);
     }
     return str;
+}
+
+int isNumStr(char *str) {
+    for (int i = 0; i < strlen(str); ++i) {
+        if (!isNumC(str[i]))
+            return 0;
+    }
+    return 1;
+}
+
+int isNumC(char c) {
+    return !(c < '0' || c > '9');
+}
+
+int isEstConfig(char *str) {
+    // Formato T(x)+(y) ou T(x)
+    if (toUpperC(str[0]) != 'T')
+        return 0;
+    if (!isNumC(str[1]))
+        return 0;
+    if (strlen(str) == 2)
+        return 1;
+    return strlen(str) == 4 && isNumC(str[4]);
 }

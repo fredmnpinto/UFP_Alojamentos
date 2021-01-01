@@ -218,4 +218,44 @@ int getMarcIndex(AGENDA *agenda, DATA data);
  */
 MARC getMarc(AGENDA *agenda, DATA data);
 
+/**
+ * Funcao para determinar o quao proximas sao duas datas
+ * @param data1     Primeira data
+ * @param data2     Segunda data
+ * @return          o numero de dias que se diferem
+ * \attention       Se a primeira data for antes, retorna um num positivo, se nao negativo
+ */
+int howCloseToData(DATA data1, DATA data2);
+
+/**
+ * Funcao para converter uma data para dias
+ * @param data      Data desejada
+ * @return          Numero de dias a que ela corresponde
+ */
+int dataInDays(DATA data);
+
+/**
+ * Quantidade de dias que ha em um dado mes
+ * Por exemplo: Janeiro = 31, Novembro = 30
+ * \attention Nao funciona em fevereiro vai sempre retornar 28
+ * @param mes       Mes desejado (de 1 a 12)
+ * @return          Numero de dias
+ */
+int daysInMonth(int mes);
+
+/**
+ * Funcao para conseguir o numero de dias que ocorreram ate aquele ano
+ * @param ano       Ano desejado
+ * @return          Numero de dias
+ * \attention       Placeholder, nao muito preciso no numero de dias
+ */
+int daysInYear(int ano);
+
+/**
+ * Funcao para checar se o ano é bissexto
+ * @param ano       ano
+ * @return          1 ou 0, V ou F
+ */
+int isLeapYear(int ano);
+
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
