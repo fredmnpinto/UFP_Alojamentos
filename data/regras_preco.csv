@@ -1,6 +1,6 @@
 id,regra,taxa
-1,estudio duplex,200
-2,estudio com terraco,150
+1,T2,50
+2,T3,150
 3,1 mes,60
 4,3 meses,20
 5,6 meses,10
@@ -18,3 +18,4 @@ id,regra,taxa
 17,>65% de ocupacao,50
 18,25%<ocupacao<65%,10
 19,<25% de ocupacao,0
+20,T3D,400

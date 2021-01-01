@@ -25,8 +25,11 @@ void event_list_push(EVENT_STACK *stack, EVENT *newEvent) {
 
 void event_list_pop(EVENT_STACK *stack) {
     if(!event_isEmpty(stack)) {
-        stack->head = stack->head->next;
+        EVENT* elementToPop = stack->head;
+        stack->head = elementToPop->next;
         stack->size--;
+        free(elementToPop->descricao);
+        free(elementToPop);
     }
 }
 
@@ -58,6 +61,16 @@ int check_event(EVENT_STACK *stack, char eventSearchFor[]) {
     return -1;
 }
 
+EVENT_STACK* change_event(EVENT_STACK *listaEventos, char eventSearchFor[], char newChangedEvent[]) {
+    EVENT* start = listaEventos->head;
+    for(int i=0; i<listaEventos->size; i++) {
+        if(strcmp(start->descricao, eventSearchFor)==0) {
+            start->descricao = newChangedEvent;
+        }
+        start = start->next;
+    }
+}
+
 EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
     char *savefield = (char*)malloc(sizeof(char)*strlen(eventos));
     strcpy(savefield, eventos);
@@ -70,4 +83,10 @@ EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
     }while((field=strtok_r(savefield, ",", &savefield)));
 
     return listaEventos;
+}
+
+EVENT_STACK* freeAll(EVENT_STACK* stack) {
+    while(!event_isEmpty(stack)) {
+        event_list_pop(stack);
+    }
 }

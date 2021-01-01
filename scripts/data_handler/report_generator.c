@@ -196,6 +196,24 @@ float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw
     return Total;
 }
 
+float return_estudioOcu(EST *estudio, CALEND *calendario, DATA inicio, DATA final) {
+    float Total=0;
+    for(int i=0; i<estudio->agenda_master->size; i++) {
+        if(calendario[i].Eventos!=NULL) {
+            if(check_event(calendario[i].Eventos, "Ocupado")) {
+                int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
+                int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
+                if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+                    Total++;
+                    continue;
+                }
+            }
+        }
+    }
+    Total = Total / (float)estudio->agenda_master->size;
+    return Total;
+}
+
 int return_estudiobill_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, int ordem) {
     int Total=0;
     if(ordem == 0) {
