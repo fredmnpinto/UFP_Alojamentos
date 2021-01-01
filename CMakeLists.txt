@@ -21,7 +21,7 @@ add_executable(UFP_Alojamentos
         data/agendas/outras_handlers/1234_handler.psv
         data/edfs.psv
         data/estudio.psv
-        data/historico.csv
+        data/historico.psv
         data/hospedes.csv
         data/regras_preco.csv
         scripts/API/agendas.c
