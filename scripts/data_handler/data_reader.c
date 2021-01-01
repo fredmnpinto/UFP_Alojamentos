@@ -619,18 +619,18 @@ HOSP_STACK* get_data_hosp() {
 }
 
 HIST_STACK* get_data_hist() {
-    FILE *fr = fopen("../data/historico.csv", "r");
+    FILE *fr = fopen("../data/historico.psv", "r");
     HIST *head = (HIST*)malloc(sizeof(HIST));
     HIST_STACK *stack = init_hist_stack();
-    char delimiter[] = ",";
+    char delimiter[] = "|";
     if (fr == NULL) {
         printf("ERROR: ");
         printf("%s\n", strerror(errno));
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
         if (toLowerC(answer) == 'y') {
-            FILE *fw = fopen("..data/historico.csv", "w");
-            fprintf(fw, "id,hospede_id,reserva\n");
+            FILE *fw = fopen("..data/historico.psv", "w");
+            fprintf(fw, "dia|mes|ano|estudio_id|hospede_id|plataforma|duracao|preco\n");
             fclose(fw);
         }
     } else {
@@ -639,25 +639,47 @@ HIST_STACK* get_data_hist() {
         printf("\t");
         stack->tail = head;
         while(fgets(buffer, CHAR_LIMIT, fr)) {
-            head = (HIST*)malloc(sizeof(HIST));
             field_count = 0;
             row_count++;
             if (row_count == 1) {
                 continue;
             }
+            head = (HIST*)malloc(sizeof(HIST));
+            head->marcacao = (MARC*)malloc(sizeof(MARC));
             char *field = strtok(buffer, delimiter);
-            while (field_count < 3){
-                switch (field_count){   // id, hospede_id, reserva
+            while (field_count < 8){
+                switch (field_count){   // dia, mes, ano, estudio_id, hospede_id, plataforma, duracao, preco
                     case 0: {
-                        head->id = atol(field);
+                        head->data.dia = atoi(field);
                         break;
                     }
                     case 1: {
-                        head->hospede_id = atol(field);
+                        head->data.mes = atoi(field);
                         break;
                     }
                     case 2: {
-                        strcpy(head->reserva, field);
+                        head->data.ano = atoi(field);
+                        break;
+                    }
+                    case 3: {
+                        head->estudio_id = atoi(field);
+                        break;
+                    }
+                    case 4: {
+                        head->marcacao->hospedeID = atoi(field);
+                        break;
+                    }
+                    case 5: {
+                        head->marcacao->plataforma = (char*)malloc(sizeof(char)*strlen(field));
+                        strcpy(head->marcacao->plataforma, field);
+                        break;
+                    }
+                    case 6: {
+                        head->marcacao->duracao = atoi(field);
+                        break;
+                    }
+                    case 7: {
+                        head->marcacao->preco = atoi(field);
                         break;
                     }
                     default :{

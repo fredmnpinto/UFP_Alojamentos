@@ -36,7 +36,7 @@ void print_hist_Stack(HIST_STACK* stack) {
     HIST* tmp;
     while(!hist_isEmpty(stack)) {
         tmp = stack->head;
-        printf("\nId: %d\nHospede_id: %d\nReserva: %s\n", tmp->id, tmp->hospede_id, tmp->reserva);
+        printf("\nData: %d-%d-%d\nEdificio_id: %d\nHospede_id: %d\nPlataforma: %s\nPreco: %d\nDuracao: %d", tmp->data.dia, tmp->data.mes, tmp->data.ano, tmp->estudio_id,tmp->marcacao->hospedeID, tmp->marcacao->plataforma, tmp->marcacao->preco, tmp->marcacao->preco);
         hist_list_pop(stack);
     }
 }
