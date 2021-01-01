@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <string.h>
 #include "../general/structs.h"
+#include "agendas.h"
 
 
 /**
@@ -81,5 +82,31 @@ void printEstudio(EST e);
  * @return              Index do estudio
  */
 int getEstudioArrayIndex(EST_HANDLER *handler, int id);
+
+/**
+ * Funcao para buscar o estudio no index especificado
+ * @param handler       Handler
+ * @param index         Index
+ * @return              Estudio naquele index
+ */
+EST *getEstudioFromIndex(EST_HANDLER *handler, int index);
+
+/**
+ * Funcao para buscar o estudio com a disponibilidade mais proxima
+ * com a respectiva configuracao
+ * @param handler       Handler de estudios
+ * @param config        Configuracao desejada
+ * @return              Ponteiro para o estudio encontrado
+ *                      ou NULL se nao encontrar com a config
+ */
+EST *getEstudioAvailableFromConfig(EST_HANDLER handler, char *config);
+
+/**
+ * Funcao para buscar a data com a sua disponibilidade
+ * mais proxima do dia de hoje
+ * @param master
+ * @return
+ */
+DATA getEstudioClosestAvailability(EST estudio);
 
 #endif //UFP_ALOJAMENTOS_ESTUDIOS_H

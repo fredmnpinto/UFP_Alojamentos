@@ -8,6 +8,8 @@
 #include "../data_handler/data_reader.h"
 
 //Functions
+int main_proj(int argc, char *argv[]);
+
 void main_menu(int argc, char *argv[]);
 
 /**
@@ -27,6 +29,5 @@ DATA string_to_date(char str_date[]);
  */
 int checar_disponibilidade(int agenda_id, DATA data);
 
-int main_proj(int argc, char *argv[]);
 
 #endif //UFP_ALOJAMENTOS_PROJECT_H

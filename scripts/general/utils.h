@@ -37,14 +37,14 @@ void remove_linebreak(char str[]);
  * @param C     Caracter em uppercase ou nao
  * @return      Caracter em lowercase
  */
-char get_lower_c(char C);
+char toLowerC(char C);
 
 /**
  * Funcao para retornar a versao upppercase de um caracter
  * @param c     Caracter lowercase ou nao
  * @return      Caracter uppercase
  */
-char get_upper_c(char c);
+char toUpperC(char c);
 
 /**
  * Funcao para retornar a versao lowercase de uma string
@@ -67,6 +67,25 @@ char * get_upper_str(char str[]);
  */
 int is_upper_c(char c);
 
+/**
+ * Funcao que checa se uma string é um número
+ * @param str   A string
+ * @return      1 ou 0, V ou F
+ */
+int isNumStr(char *str);
 
+/**
+ * Funcao que checa se um char é um número
+ * @param c     Char que se quer checar
+ * @return      1 ou 0, V ou F
+ */
+int isNumC(char c);
+
+/**
+ * Funcao para verificar se uma string corresponde
+ * @param str   String a verificar
+ * @return      1 ou 0, V ou F
+ */
+int isEstConfig(char *str);
 
 #endif //UFP_ALOJAMENTOS_UTILS_H

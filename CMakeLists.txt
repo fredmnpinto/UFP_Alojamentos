@@ -44,4 +44,4 @@ add_executable(UFP_Alojamentos
         .gitignore
         main.c
         README.md
-        TODO.txt scripts/data_handler/data_writer.c scripts/data_handler/data_writer.h scripts/API/estudios.c scripts/API/estudios.h scripts/API/eventos.c scripts/API/eventos.h scripts/data_handler/report_generator.c scripts/data_handler/report_generator.h)
+        TODO.txt scripts/data_handler/data_writer.c scripts/data_handler/data_writer.h scripts/API/estudios.c scripts/API/estudios.h scripts/API/eventos.c scripts/API/eventos.h scripts/data_handler/report_generator.c scripts/data_handler/report_generator.h scripts/general/commandLineHandler.c scripts/general/commandLineHandler.h)
