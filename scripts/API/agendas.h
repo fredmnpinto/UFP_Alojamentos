@@ -218,4 +218,11 @@ int getMarcIndex(AGENDA *agenda, DATA data);
  */
 MARC getMarc(AGENDA *agenda, DATA data);
 
+/**
+ * Funcao que retorna a diferenca entre duas datas (data1 e data2)
+ * @param data1     DATA data1
+ * @param data2     DATA data2
+ * @return          struct DATA com a diferenca entre a data1 e a data2
+ */
+DATA return_data_difference(DATA data1, DATA data2);
 #endif //UFP_ALOJAMENTOS_AGENDAS_H

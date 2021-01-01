@@ -154,11 +154,6 @@ typedef struct Regras_Preco {
     int taxa;
 } RP;
 
-typedef struct Estadia {
-    DATA date;
-    char nome_cliente[STR_MAX];
-}ESTADIA;
-
 /**
  * @param id        ID do hospede
  * @param nome      Nome do hospede
@@ -189,9 +184,9 @@ typedef struct HospedesStack{
  * @param reserva       Reserva
  */
 typedef struct Historico{
-    int id;
-    int hospede_id;
-    char reserva[STR_MAX];
+    int estudio_id;
+    MARC* marcacao;
+    DATA data;
     struct Historico *next;
 }HIST;
 

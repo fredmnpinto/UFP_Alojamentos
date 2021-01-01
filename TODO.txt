@@ -26,11 +26,11 @@ ToDo Implementar uma API base de funções para a criação e inserção ordenad
     binária, remoção e alteração de informação de cada entidade registada no sistema,
     nomeadamente: edifício, estúdio, hóspede, política de preços e regras de custo, etc.;
 
-ToDo Implementar uma API de funções de criação/inserção, pesquisa, remoção e alteração
+DONE Implementar uma API de funções de criação/inserção, pesquisa, remoção e alteração
     de eventos em cada agenda de cada estúdio (e.g. reservas, limpezas, manutenção,
     etc.);
 
-ToDo Implementar uma API de funções de leitura e escrita de ficheiros de texto e binário das
+DONE Implementar uma API de funções de leitura e escrita de ficheiros de texto e binário das
   diversas entidades: edifícios e respectivos estúdios; hóspedes e histórico de estadias (a
   tabela poderá ser ordenada por um dos campos (e.g. nome, data crescente ou
   decrescente); políticas de preços e respectivas regras de custo e prioridades de

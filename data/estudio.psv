@@ -1,4 +1,4 @@
 id|edificio_id|configuracao|precoDiario_base|master_agendas_id|outras_agendas_id
 1|1|T2|20|1234|1234
-2|1|T3|50|5678|1234
+2|2|T3|50|5678|1234
 3|3|T3D|100|1234|1234

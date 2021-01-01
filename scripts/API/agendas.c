@@ -222,15 +222,18 @@ void freeAgendaByPtr(AGENDA *a) {
     free(a->path);
     for (int i = 0, size = a->size; i < size; ++i) {
         free(a->calendario[i].marcacao->plataforma);
+        free(a->calendario[i].marcacao);
+        freeAll(a->calendario[i].Eventos);
+        free(a->calendario[i].Eventos);
     }
-    free(a->calendario->marcacao);
     free(a->calendario);
+    free(a->path);
     free(a);
 }
 
 AGENDA* addMarc(AGENDA *agenda, MARC *marc, DATA data) {
     int index = getMarcIndex(agenda, data);
-    agenda->calendario[index].marcacao = (MARC*)malloc(sizeof(MARC));
+    //FUNCAO QUE VERIFIQUE SE NAO TENHA JA NENHUMA MARCACAO NA DATA DA AGENDA SELECIONADA
     agenda->calendario[index].marcacao = marc;
 
     return agenda;
@@ -240,6 +243,11 @@ void remMarc(AGENDA *agenda, DATA data) {
     int index = getMarcIndex(agenda, data);
     free(agenda->calendario[index].marcacao->plataforma);
     free(agenda->calendario[index].marcacao);
+    freeAll(agenda->calendario[index].Eventos);
+    free(agenda->calendario[index].Eventos);
+    for(int i=index; i<agenda->size-1; i++) {
+        agenda->calendario[i] = agenda->calendario[i++];
+    }
 }
 
 /**
@@ -272,4 +280,33 @@ int getMarcIndex(AGENDA *agenda, DATA data) {
 MARC getMarc(AGENDA *agenda, DATA data) {
     int index = getMarcIndex(agenda, data);
     return *agenda->calendario[index].marcacao;
+}
+
+DATA return_data_difference(DATA data1, DATA data2) {
+    DATA diff;
+    if(data1.dia>=data2.dia)
+        diff.dia = data1.dia-data2.dia;
+    else
+    {
+        data1.dia+=30;
+        data1.mes-=1;
+        diff.dia = data1.dia-data2.dia;
+    }
+
+    if(data1.mes>=data2.mes)
+        diff.mes = data1.mes-data2.mes;
+    else
+    {
+        data1.mes+=12;
+        data1.ano-=1;
+        diff.mes = data1.mes-data2.mes;
+    }
+
+    if(data1.ano>=data2.ano) {
+        diff.ano = data1.ano-data2.ano;
+    }else{
+        diff.ano = data2.ano-data1.ano;
+    }
+
+    return diff;
 }

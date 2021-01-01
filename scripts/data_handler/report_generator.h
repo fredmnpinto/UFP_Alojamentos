@@ -112,4 +112,14 @@ void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA
  */
 void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem);
 
+/**
+ * Funcao que retorna a taxa de ocupacao de um estudio num intervalo de data especifico
+ * @param estudio               Apontador para o estudio selecionado
+ * @param calendario            Apontador para o calendario desse estudio
+ * @param inicio                Primeira data do intervalo de datas a pesquisar marcacoes
+ * @param final                 Ultima data do intervalo de datas a pesquisar marcacoes
+ * @return                      Taxa de ocupacao do estudio para as datas definidas
+ */
+float return_estudioOcu(EST *estudio, CALEND *calendario, DATA inicio, DATA final);
+
 #endif //UFP_ALOJAMENTOS_REPORT_GENERATOR_H

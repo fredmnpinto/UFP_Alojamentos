@@ -62,4 +62,19 @@ int check_event(EVENT_STACK* stack, char eventSearchFor[]);
  */
 EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos);
 
+/**
+ * Funcao que da free em todos os eventos da stack
+ * @param stack             Apontador para a stack
+ * @return                  Apontador para uma stack sem qualquer elemento
+ */
+EVENT_STACK* freeAll(EVENT_STACK* stack);
+
+/**
+ * Funcao que altera um evento selecionado da lista de eventos
+ * @param listaEventos      Apontadar para a lista ligada de eventos
+ * @param eventSearchFor    String com o evento a ser alterado
+ * @param newChangedEvent   String com o novo evento
+ * @return                  Apontador para a lista de eventos alterada
+ */
+EVENT_STACK* change_event(EVENT_STACK *listaEventos, char eventSearchFor[], char newChangedEvent[]);
 #endif //UFP_ALOJAMENTOS_EVENTOS_H
