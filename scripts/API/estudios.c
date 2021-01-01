@@ -9,7 +9,6 @@ EST_HANDLER *initEstHandler(EST *array, int size) { // Finished
     nHandler->estArray = array;
     nHandler->size = size;
     nHandler->header = "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n";
-    nHandler->freeSingle = _freeSingleEstudio;
     return nHandler;
 }
 
