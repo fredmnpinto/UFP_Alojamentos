@@ -135,7 +135,7 @@ void readEstudios(int argc, char *argv[]) {
         DATA dAvailable = getEstudioClosestAvailability(*estudio);
         char *dString = dataToString(dAvailable);
         printf("Vago no dia %s\n", dString);
-    } else if (strcmp(argv[3], "*") == 0) {
+    } else if (strcmp(argv[3], "*") == 0 || strcmp(argv[3], "*\n")) {
         // Faz print a todos os estudios e as suas datas com disponibilidade mais proxima
         printf("Reading all estudios\n...\n");
     }
