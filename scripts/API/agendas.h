@@ -266,3 +266,10 @@ int isLeapYear(int ano);
  */
 DATA return_data_difference(DATA data1, DATA data2);
 #endif //UFP_ALOJAMENTOS_AGENDAS_H
+
+/**
+ * Converte uma string em formato de data, numa struct DATA
+ * @param str       String com o formato data
+ * @return          Retorna struct DATA com o conteudo da string
+ */
+DATA convertStringDATA(char str[]);

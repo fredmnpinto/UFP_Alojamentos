@@ -4,36 +4,12 @@ Relatorio de taxa de ocupacao dos parques de edifcio:
 
 -------------------
 Edificio_ID: 1        Estudio_ID: 1
-Data: 2001-5-22
-Ocupado
-
-Data: 2020-1-1
-Ocupado
-
-Data: 2020-11-16
+-------------------
+Edificio_ID: 2        Estudio_ID: 2
+Data: 2005-11-27
 Nao ocupado
 
 -------------------
-Edificio_ID: 1        Estudio_ID: 2
-Data: 2001-5-22
-Ocupado
-
-Data: 2020-1-1
-Ocupado
-
-Data: 2020-11-16
-Nao ocupado
-
+Edificio_ID: 1        Estudio_ID: 3
 -------------------
-Edificio_ID: 3        Estudio_ID: 3
-Data: 2001-5-22
-Ocupado
-
-Data: 2020-1-1
-Ocupado
-
-Data: 2020-11-16
-Nao ocupado
-
--------------------
-Total:  0.666667
+Total:  0.000000

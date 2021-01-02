@@ -6,6 +6,7 @@
 #define UFP_ALOJAMENTOS_REPORT_GENERATOR_H
 
 #include "../general/utils.h"
+#include "../data_handler/data_reader.h"
 
 /**
  * Funcao que gera o relatorio de faturacao de um estudio
@@ -14,7 +15,7 @@
  * @param final             Ultima data do intervalo de datas a pesquisar nas marcacoes
  * @param ordem             Ordem(data) com que as marcacoes aparecem     0 de forma crescente   1 de forma decrescente
  */
-void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, int ordem);
+void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que cria um filepath para guardar o relatorio de faturacao do estudio
@@ -40,7 +41,7 @@ char* create_filepath_edf_report(ED *edificio, DATA hoje, char file_preset2[]);
  * @param final              Ultima data do intervalo de datas a pesquisar marcacoes
  * @param ordem              Ordem(data) com que as marcacoes aparecem     0 de forma crescente   1 de forma decrescente
  */
-void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, int ordem);
+void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que pega num estudio especifico e escreve/imprime todas as suas datas de marcacoes e precos(dentro do intervalo [inicio-final]
@@ -53,7 +54,7 @@ void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA in
  * @param ordem               Ordem(data) com que as marcacoes aparecem     0 de forma crescente    1 de forma decrescente
  * @return                    Preco Total das marcacoes nos dias selecionados do estudio escolhido
  */
-int return_estudiobill_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, int ordem);
+int return_estudiobill_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que cria um filepath para guardar o relatorio de faturacao de todos os edificios e seus respetivos estudios
@@ -69,7 +70,7 @@ char *create_filepath_all_report(DATA hoje, char file_preset2[]);
  * @param final                 Ultima data do intervalo de datas a pesquisar marcacoes
  * @param ordem                 Ordem(data) com que as marcacoes aparecem     0 de forma crescente    1 de forma decrescente
  */
-void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem);
+void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que pega num estudio especifico e escreve/imprime todas as suas datas de marcacoes e a sua ocupacao(dentro do intervalo [inicio-final]
@@ -82,7 +83,7 @@ void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, i
  * @param ordem                 Ordem(data) com que as marcacoes aparecem     0 de forma crescente    1 de forma decrescente
  * @return                      Taxa total de ocupacao do estudio selecionado
  */
-float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, int ordem);
+float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que gera o relatorio de taxa de ocupacao de um estudio
@@ -91,7 +92,7 @@ float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw
  * @param final             Ultima data do intervalo de datas a pesquisar nas marcacoes
  * @param ordem             Ordem(data) com que as marcacoes aparecem     0 de forma crescente   1 de forma decrescente
  */
-void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, int ordem);
+void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que gera o relatorio de taxa de ocupacao de um edificio
@@ -101,7 +102,7 @@ void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, int orde
  * @param final              Ultima data do intervalo de datas a pesquisar marcacoes
  * @param ordem              Ordem(data) com que as marcacoes aparecem     0 de forma crescente   1 de forma decrescente
  */
-void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, int ordem);
+void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que gera o relatorio de taxa de ocupacao de todos os edificios
@@ -110,7 +111,7 @@ void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA
  * @param final                 Ultima data do intervalo de datas a pesquisar marcacoes
  * @param ordem                 Ordem(data) com que as marcacoes aparecem     0 de forma crescente    1 de forma decrescente
  */
-void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem);
+void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, char ordem[]);
 
 /**
  * Funcao que retorna a taxa de ocupacao de um estudio num intervalo de data especifico

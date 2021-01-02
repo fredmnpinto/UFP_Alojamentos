@@ -26,7 +26,7 @@ char* create_filepath_report(EST *estudio, DATA hoje, char file_preset2[]) {
     return file_path;
 }
 
-void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, int ordem) {
+void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 
@@ -48,7 +48,7 @@ void generate_estudio_occupation(EST *estudio, DATA inicio, DATA final, int orde
     fprintf(fw, "Total:  %f\n", Total);
 }
 
-void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, int ordem) {
+void generate_estudio_billing(EST *estudio, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 
@@ -105,7 +105,7 @@ char* create_filepath_edf_report(ED *edificio, DATA hoje, char file_preset2[]) {
     return file_path;
 }
 
-void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, int ordem) {
+void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 
@@ -136,7 +136,7 @@ void generate_edificio_occupation(EST_HANDLER *arrayEstudios, ED *edificio, DATA
     fprintf(fw, "Total:  %f\n", Total);
 }
 
-void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, int ordem) {
+void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 
@@ -166,31 +166,31 @@ void generate_edificio_billing(EST_HANDLER *arrayEstudios, ED *edificio, DATA in
     fprintf(fw, "Total:  %d\n", Total);
 }
 
-float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, int ordem) {
+float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, char ordem[]) {
     float Total=0;
-    if(ordem == 0) {
+    if(strcmp(ordem, "crescente") == 0) {
         calendario = sortCalendAsc(estudio->agenda_master->calendario, estudio->agenda_master->size);
-    }else if(ordem == 1) {
+    }else if(strcmp(ordem, "decrescente") == 1) {
         calendario = sortCalendDesc(estudio->agenda_master->calendario, estudio->agenda_master->size);
     }else{
-        printf("ERROR: Invalid order mode. Please select 0 for increasing and 1 for decreasing.\n");
+        printf("ERROR: Invalid order mode. Please type 'crescente' for increasing and 'decrescente for decreasing.\n");
         exit(-1);
     }
     for(int i=0; i<estudio->agenda_master->size; i++) {
-        if(calendario[i].Eventos!=NULL) {
-            if(check_event(calendario[i].Eventos, "Ocupado")) {
-                int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
-                int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
-                if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+        int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
+        int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
+        if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+            if(calendario[i].Eventos!=NULL) {
+                if(check_event(calendario[i].Eventos, "Ocupado")==1) {
                     printf("Data: %d-%d-%d\nOcupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
                     fprintf(fw, "Data: %d-%d-%d\nOcupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
                     Total++;
                     continue;
                 }
             }
+            printf("Data: %d-%d-%d\nNao ocupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
+            fprintf(fw, "Data: %d-%d-%d\nNao ocupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
         }
-        printf("Data: %d-%d-%d\nNao ocupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
-        fprintf(fw, "Data: %d-%d-%d\nNao ocupado\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia);
     }
     Total = Total / (float)estudio->agenda_master->size;
     return Total;
@@ -199,11 +199,11 @@ float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw
 float return_estudioOcu(EST *estudio, CALEND *calendario, DATA inicio, DATA final) {
     float Total=0;
     for(int i=0; i<estudio->agenda_master->size; i++) {
-        if(calendario[i].Eventos!=NULL) {
-            if(check_event(calendario[i].Eventos, "Ocupado")) {
-                int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
-                int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
-                if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+        int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
+        int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
+        if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+            if(calendario[i].Eventos!=NULL) {
+                if(check_event(calendario[i].Eventos, "Ocupado")==1) {
                     Total++;
                     continue;
                 }
@@ -214,21 +214,21 @@ float return_estudioOcu(EST *estudio, CALEND *calendario, DATA inicio, DATA fina
     return Total;
 }
 
-int return_estudiobill_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, int ordem) {
+int return_estudiobill_selected_data(EST *estudio, CALEND *calendario, FILE *fw, DATA inicio, DATA final, char ordem[]) {
     int Total=0;
-    if(ordem == 0) {
+    if(strcmp(ordem, "crescente") == 0) {
         calendario = sortCalendAsc(estudio->agenda_master->calendario, estudio->agenda_master->size);
-    }else if(ordem == 1) {
+    }else if(strcmp(ordem, "decrescente") == 1) {
         calendario = sortCalendDesc(estudio->agenda_master->calendario, estudio->agenda_master->size);
     }else{
-        printf("ERROR: Invalid order mode. Please select 0 for increasing and 1 for decreasing.\n");
+        printf("ERROR: Invalid order mode. Please type 'crescente' for increasing and 'decrescente' for decreasing.\n");
         exit(-1);
     }
     for(int i=0; i<estudio->agenda_master->size; i++) {
-        if(calendario[i].marcacao != NULL) {
-            int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
-            int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
-            if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+        int comp1 = compDate(calendario[i].data, inicio);        //Compara a data da marcacao com a data inicio   1 se for depois da inicio  0 se for igual  e -1 se for antes
+        int comp2 = compDate(final, calendario[i].data);         //Compara a data final com a data da marcacao    1 se for depois da marcacao   0 se for igual   e -1 se for antes
+        if((comp1 == 1 || comp1 == 0) && (comp2 == 1 || comp2 == 0)) {
+            if(calendario[i].marcacao != NULL) {
                 printf("Data: %d-%d-%d\nPreco: %d\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia, calendario[i].marcacao->preco);
                 fprintf(fw, "Data: %d-%d-%d\nPreco: %d\n\n",calendario[i].data.ano, calendario[i].data.mes, calendario[i].data.dia, calendario[i].marcacao->preco);
                 Total+=calendario[i].marcacao->preco;
@@ -253,7 +253,7 @@ char *create_filepath_all_report(DATA hoje, char file_preset2[]) {
     return file_path;
 }
 
-void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem) {
+void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 
@@ -283,7 +283,7 @@ void generate_all_occupation(EST_HANDLER *arrayEstudios, DATA inicio, DATA final
     fprintf(fw, "Total:  %f\n", Total);
 }
 
- void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, int ordem) {
+ void generate_all_billing(EST_HANDLER *arrayEstudios, DATA inicio, DATA final, char ordem[]) {
     //DATA hoje = get_today();              //Get_today() nao funciona nao sei porque
     DATA hoje = {2020, 12, 25};
 

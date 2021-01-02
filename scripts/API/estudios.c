@@ -96,9 +96,9 @@ int getEstudioArrayIndex(EST_HANDLER *handler, int id) { //Finished
         while (1) {
             int mid = (hi + lo) / 2;
             if (handler->estArray[mid].id > id)
-                lo = mid;
-            else if (handler->estArray[mid].id < id)
                 hi = mid;
+            else if (handler->estArray[mid].id < id)
+                lo = mid;
             else
                 return mid;
         }

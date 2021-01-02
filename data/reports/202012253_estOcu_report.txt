@@ -1,6 +1,6 @@
 2020-12-25
 Relatorio da taxa de ocupacao do estudio: 
-	ID: 1      Configuracao: T2
+	ID: 3      Configuracao: T3D
 
 Data: 2001-5-22
 Ocupado

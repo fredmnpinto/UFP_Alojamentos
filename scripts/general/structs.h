@@ -135,6 +135,7 @@ typedef struct EdificiosList{
     char *fHeader;
     ED *head;
     ED * tail;
+    int size;
     void (*print)(struct EdificiosList*);
     void (*append)(struct EdificiosList*, ED*);
     void (*remove)(struct EdificiosList*, ED*);
