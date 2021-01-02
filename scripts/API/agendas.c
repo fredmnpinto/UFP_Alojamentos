@@ -4,6 +4,7 @@
 
 #include <time.h>
 #include "agendas.h"
+#include "string.h"
 
 AGENDA* init_single_agenda(CALEND *calendario, int size, int id, char* path){
     AGENDA* new_agenda = (AGENDA*)malloc(sizeof(AGENDA));
@@ -362,4 +363,17 @@ int isLeapYear(int ano) {
 
 int howCloseToData(DATA data1, DATA data2) {
     return dataInDays(data1) - dataInDays(data2);
+}
+
+DATA convertStringDATA(char str[]) {
+    DATA data;
+    char* str2 = (char*)malloc(sizeof(char)*2);
+    sprintf(str2, "%c%c", str[0], str[1]);
+    data.dia = atoi(str2);
+    sprintf(str2, "%c%c", str[3], str[4]);
+    data.mes = atoi(str2);
+    sprintf(str2, "%c%c%c%c", str[6], str[7], str[8], str[9]);
+    data.ano = atoi(str2);
+
+    return data;
 }

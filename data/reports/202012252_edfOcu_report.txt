@@ -1,0 +1,14 @@
+2020-12-25
+Relatorio de taxa de faturacao do edificio: 
+	ID: 2      Nome: Chitaozinho e Xororo, fodase
+
+-------------------
+Estudio_ID: 2
+Data: 1979-7-30
+Nao ocupado
+
+Data: 2005-11-27
+Nao ocupado
+
+-------------------
+Total:  0.000000

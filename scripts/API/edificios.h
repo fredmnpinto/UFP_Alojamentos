@@ -54,4 +54,12 @@ void _edfs_list_remove(ED_LIST *queue, ED *edificio);
  */
 void freeEdificioByPtr(ED *ed);
 
+/**
+ * Funcao que percorre a lista ligada de edificio ate encontrar o edificio com o id que desejamos, e retorna-o
+ * @param queue     Ponteiro para a lista ligada de edificios
+ * @param id        ID do edificio que procuramos
+ * @return          Ponteiro para o edificio procurado, ou NULL caso nao seja encontrado.
+ */
+ED* getEdificioFromID(ED_LIST* queue, int id);
+
 #endif //UFP_ALOJAMENTOS_EDIFICIOS_H

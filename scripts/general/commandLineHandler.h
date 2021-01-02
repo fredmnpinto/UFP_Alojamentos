@@ -7,7 +7,10 @@
 
 #include "../data_handler/data_reader.h"
 #include "../API/estudios.h"
+#include "../data_handler/report_generator.h"
 #include "utils.h"
+#include "../API/agendas.h"
+#include "../API/edificios.h"
 
 void mainCmd(int argc, char *argv[]);
 
@@ -36,5 +39,9 @@ void readEdificios(int argc, char *argv[]);
 void readAgendas(int argc, char *argv[]);
 
 void readMarcacao(int argc, char *argv[]);
+
+void createReportOcu(int argc, char *argv[]);
+
+void createReportBill(int argc, char *argv[]);
 
 #endif //UFP_ALOJAMENTOS_COMMANDLINEHANDLER_H

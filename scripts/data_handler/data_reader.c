@@ -50,8 +50,7 @@ int get_number_of_lines(FILE *fr){
 
 ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     FILE *fr = fopen("../data/edfs.psv", "r");
-    ED *head = NULL, *aux, *tail;
-    ED *tmp = (ED*)malloc(sizeof(ED));
+    ED *head;
     ED_LIST *edList = initEdList();
     char delimiter[] = "|";
     if (fr == NULL) {
@@ -70,7 +69,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
         int row_count = 0, field_count;
 
         while(fgets(buffer, CHAR_LIMIT, fr)){
-            tail = tmp;
+            head = (ED*)malloc(sizeof(ED));
             field_count = 0;
             row_count++;
 
@@ -84,28 +83,28 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
             while (field_count < 5){
                 switch (field_count){   // id, endereco_str, endereco_lat, endereco_longi, nome
                     case 0: {
-                        tmp->id = atol(field);
+                        head->id = atol(field);
                         break;
                     }
                     case 1: {
-                        tmp->endereco.endereco = (char *) malloc(sizeof(char) * (strlen(field) + 1));
-                        strcpy(tmp->endereco.endereco, field);
+                        head->endereco.endereco = (char *) malloc(sizeof(char) * (strlen(field) + 1));
+                        strcpy(head->endereco.endereco, field);
                         break;
                     }
                     case 2: {
-                        tmp->endereco.lat = atof(field);
+                        head->endereco.lat = atof(field);
 
                         break;
                     }
                     case 3: {
-                        tmp->endereco.longi = atof(field);
+                        head->endereco.longi = atof(field);
 
                         break;
                     }
                     case 4: {
                         remove_linebreak_on_the_end(field);
-                        tmp->nome = (char *) malloc(sizeof(char) * (strlen(field) + 1));
-                        strcpy(tmp->nome, field);
+                        head->nome = (char *) malloc(sizeof(char) * (strlen(field) + 1));
+                        strcpy(head->nome, field);
                         break;
                     }
                     default :{
@@ -113,27 +112,13 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
                     }
 
                 }
-
                 field = strtok(NULL, delimiter);
                 field_count++;
             }
-            if (head == NULL) {
-                head = tmp;
-                tmp = (ED*)malloc(sizeof(ED));
-                head->next = tmp;
-            }
-            else{
-                aux = (ED*)malloc(sizeof(ED));
-                tmp->next = aux;   //Esta a adicionar todos os elementos sempre a frente da lista
-                tmp = aux;
-            }
+            _edfs_list_append(edList, head);
         }
-        free(aux);
-        tail->next = NULL;
-        edList->tail = tail;
     }
     fclose(fr);
-    edList->head = head;
 //    edList->print(edList);
     system("cls");
     return edList;
@@ -284,8 +269,8 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                     }
                     case 3: {
                         if(strcmp(field, " ")==0) {
-                            calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
+                            calendario[row_count-2].marcacao = NULL;
                         }else{
                             calendario[row_count-2].marcacao->plataforma = (char*)malloc(sizeof(char)*strlen(field));
                             strcpy(calendario[row_count-2].marcacao->plataforma, field);
@@ -294,8 +279,8 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                     }
                     case 4: {
                         if(strcmp(field," ")==0) {
-                            calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
+                            calendario[row_count-2].marcacao = NULL;
                         }else{
                             calendario[row_count-2].marcacao->duracao = atoi(field);
                         }
@@ -303,8 +288,8 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                     }
                     case 5: {
                         if(strcmp(field," ")==0) {
-                            calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
+                            calendario[row_count-2].marcacao = NULL;
                         }else{
                            calendario[row_count-2].marcacao->preco = atoi(field);
                         }
@@ -312,17 +297,17 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                     }
                     case 6: {
                         if(strcmp(field," ")==0) {
-                            calendario[row_count-2].marcacao = NULL;
                             free(calendario[row_count-2].marcacao);
+                            calendario[row_count-2].marcacao = NULL;
                         }else{
                             calendario[row_count-2].marcacao->hospedeID = atoi(field);
                         }
                         break;
                     }
                     case 7: {
-                        if(strcmp(field," ")==0) {
-                            calendario[row_count-2].Eventos = NULL;
+                        if(strcmp(field,"")==0) {
                             free(calendario[row_count-2].Eventos);
+                            calendario[row_count-2].Eventos = NULL;
                         }else{
                             calendario[row_count-2].Eventos = add_data_event(field,calendario[row_count-2].Eventos);
                         }

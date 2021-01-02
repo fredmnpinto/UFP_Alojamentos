@@ -33,7 +33,7 @@ void mainCmd(int argc, char *argv[]) {
             readHandler,
             updateHandler,
             deleteHandler,
-            createHandler
+            createHandler,
     };
 
     printf("- - - - Welcome to %s - - - -\n", proj_name);
@@ -75,7 +75,25 @@ void updateHandler(int argc, char *argv[]) {
 }
 
 void createHandler(int argc, char *argv[]) {
+    if (argc < 4) {
+        errorNumberArguments(argc);
+    }
 
+    char *targets[] = {
+            "report_ocu",
+            "report_bill"
+    };
+
+    int targetsSize = sizeof(targets) / sizeof(char *);
+
+    for (int i = 0; i < 2; ++i) {
+        if (strcmp(targets[0], argv[2]) == 0) {
+            createReportOcu(argc, argv);
+            return;
+        }else if(strcmp(targets[1], argv[2])==0) {
+            createReportBill(argc, argv);
+        }
+    }
 }
 
 void deleteHandler(int argc, char *argv[]) {
@@ -139,5 +157,91 @@ void readEstudios(int argc, char *argv[]) {
         // Faz print a todos os estudios e as suas datas com disponibilidade mais proxima
         printf("Reading all estudios\n...\n");
     }
-
 }
+
+void createReportOcu(int argc, char *argv[]) {
+    // Exemplo: UFP_Alojamentos.exe create report_ocu est 37 10/03/1900 23/04/2030
+    // entao gera um report de taxa de ocupacao de um estudio com id 37 no intervalo de datas 10/03/1900 ate 23/04/2030
+    // Ou: UFP_Alojamentos.exe create report_ocu * 10/03/1900 23/04/2030
+    // entao gera um report de taxa de ocupacao de todos os estudios no intervalo de datas 10/03/1900 ate 23/04/2030
+
+    if (argc < 6) {
+        errorNumberArguments(argc);
+    }
+
+    if(strcmp(argv[3], "est")==0) {
+        int id = atoi(argv[4]);
+        printf("Creating report for estudio with id = %d\n...\n", id);
+        EST_HANDLER *handler = get_data_estudio();
+        int eIndex = getEstudioArrayIndex(handler, id);
+        EST *estudio = getEstudioFromIndex(handler, eIndex);
+        if (estudio == NULL) {
+            printf("ERROR: Index out of range\n");
+            return;
+        }
+        DATA inicio = convertStringDATA(argv[5]);
+        DATA final = convertStringDATA(argv[6]);
+        generate_estudio_occupation(estudio, inicio, final, argv[7]);
+        return;
+    }else if(strcmp(argv[3], "ed")==0) {
+        int id = atoi(argv[4]);
+        printf("Creating report for edificio with id = %d\n...\n", id);
+        ED_LIST* queueEdificios = get_data_edfs();
+        EST_HANDLER* arrayEstudios = get_data_estudio();
+        ED* edificio = getEdificioFromID(queueEdificios, id);
+        DATA inicio = convertStringDATA(argv[5]);
+        DATA final = convertStringDATA(argv[6]);
+        generate_edificio_occupation(arrayEstudios, edificio, inicio, final, argv[7]);
+        return;
+    }else if(strcmp(argv[3], "all")==0) {
+        printf("Creating report for all edificios \n...\n");
+        EST_HANDLER* arrayEstudios = get_data_estudio();
+        DATA inicio = convertStringDATA(argv[4]);
+        DATA final = convertStringDATA(argv[5]);
+        generate_all_occupation(arrayEstudios, inicio, final, argv[6]);
+    }
+}
+
+void createReportBill(int argc, char *argv[]) {
+    // Exemplo: UFP_Alojamentos.exe create report_bill est 37 10/03/1900 23/04/2030
+    // entao gera um report financeiro de um estudio com id 37 no intervalo de datas 10/03/1900 ate 23/04/2030
+    // Ou: UFP_Alojamentos.exe create report_bill * 10/03/1900 23/04/2030
+    // entao gera um report financeiro de todos os estudios no intervalo de datas 10/03/1900 ate 23/04/2030
+
+    if (argc < 6) {
+        errorNumberArguments(argc);
+    }
+
+    if(strcmp(argv[3], "est")==0) {
+        int id = atoi(argv[4]);
+        printf("Creating report for estudio with id = %d\n...\n", id);
+        EST_HANDLER *handler = get_data_estudio();
+        int eIndex = getEstudioArrayIndex(handler, id);
+        EST *estudio = getEstudioFromIndex(handler, eIndex);
+        if (estudio == NULL) {
+            printf("ERROR: Index out of range\n");
+            return;
+        }
+        DATA inicio = convertStringDATA(argv[5]);
+        DATA final = convertStringDATA(argv[6]);
+        generate_estudio_billing(estudio, inicio, final, argv[7]);
+        return;
+    }else if(strcmp(argv[3], "ed")==0) {
+        int id = atoi(argv[4]);
+        printf("Creating report for edificio with id = %d\n...\n", id);
+        ED_LIST* queueEdificios = get_data_edfs();
+        EST_HANDLER* arrayEstudios = get_data_estudio();
+        ED* edificio = getEdificioFromID(queueEdificios, id);
+        DATA inicio = convertStringDATA(argv[5]);
+        DATA final = convertStringDATA(argv[6]);
+        generate_edificio_billing(arrayEstudios, edificio, inicio, final, argv[7]);
+        return;
+    }else if(strcmp(argv[3], "all")==0) {
+        printf("Creating report for all edificios \n...\n");
+        EST_HANDLER* arrayEstudios = get_data_estudio();
+        DATA inicio = convertStringDATA(argv[4]);
+        DATA final = convertStringDATA(argv[5]);
+        generate_all_billing(arrayEstudios, inicio, final, argv[6]);
+    }
+}
+

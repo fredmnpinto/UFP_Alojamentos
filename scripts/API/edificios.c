@@ -13,6 +13,7 @@ ED_LIST * initEdList(){
     queue->insert_to_front = _edfs_list_insert_to_front;
     queue->head = NULL;
     queue->tail = NULL;
+    queue->size = 0;
     return queue;
 }
 
@@ -25,9 +26,15 @@ void _edfs_list_print(ED_LIST *queue){
 }
 
 void _edfs_list_append(ED_LIST* queue, ED* edificio){
-    queue->tail->next = edificio;
-    edificio->next = NULL;
-    queue->tail = edificio;
+    if(queue->head == NULL) {
+        queue->head = edificio;
+        queue->tail = edificio;
+    }else{
+        queue->tail->next = edificio;
+        edificio->next = NULL;
+        queue->tail = edificio;
+    }
+    queue->size++;
 }
 
 void _edfs_list_remove(ED_LIST* queue, ED* edificio){
@@ -38,6 +45,7 @@ void _edfs_list_remove(ED_LIST* queue, ED* edificio){
             current->next = current->next->next;
             free(edificio);
             free(to_be_deleted);
+            queue->size--;
             return;
         }
         current = current->next;
@@ -57,12 +65,14 @@ void _edfs_list_free_all(ED_LIST* queue){
         printf("List has been freed\n");
     else
         printf("Error freeing the list\n");
+    queue->size=0;
 }
 
 void _edfs_list_insert_to_front(ED_LIST *list, ED *edificio) {
 //    ED* prior_head = list->head;
     edificio->next = list->head;
     list->head = edificio;
+    list->size++;
 }
 
 void freeEdificioByPtr(ED *ed) {
@@ -71,4 +81,16 @@ void freeEdificioByPtr(ED *ed) {
     free(ed->endereco.endereco);
     free(ed->nome);
     free(ed);
+}
+
+ED* getEdificioFromID(ED_LIST* queue, int id) {
+    ED* tmp = queue->head;
+    for(int i=0; i<queue->size; i++) {
+        if(tmp->id == id) {
+            return tmp;
+        }
+        tmp = tmp->next;
+    }
+    printf("Edificio with ID=%d was not found", id);
+    return NULL;
 }

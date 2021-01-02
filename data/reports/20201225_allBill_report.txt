@@ -11,18 +11,15 @@ Data: 2020-1-1
 Preco: 123
 
 -------------------
-Edificio_ID: 1        Estudio_ID: 2
-Data: 2001-5-22
-Preco: 321
-
-Data: 2020-1-1
-Preco: 123
-
-Data: 2020-11-16
+Edificio_ID: 2        Estudio_ID: 2
+Data: 1979-7-30
 Preco: 333
 
+Data: 2005-11-27
+Preco: 123
+
 -------------------
-Edificio_ID: 3        Estudio_ID: 3
+Edificio_ID: 1        Estudio_ID: 3
 Data: 2001-5-22
 Preco: 321
 
@@ -30,4 +27,4 @@ Data: 2020-1-1
 Preco: 123
 
 -------------------
-Total:  1665
+Total:  1344
