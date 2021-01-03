@@ -90,3 +90,11 @@ int isEstConfig(char *str) {
         return 1;
     return strlen(str) == 4 && isNumC(str[4]);
 }
+
+char* toLowerStr(char* str){
+    char* cpy = malloc((strlen(str) + 1) * sizeof(char));
+    for (int i = 0; i < strlen(str); ++i) {
+        cpy[i] = toLowerC(str[i]);
+    }
+    return cpy;
+}

@@ -109,4 +109,12 @@ EST *getEstudioAvailableFromConfig(EST_HANDLER handler, char *config);
  */
 DATA getEstudioClosestAvailability(EST estudio);
 
+EST* getEstudioFromId(EST_HANDLER *handler, int id);
+
+EST* updateEstudioEdificioId(int newId, int estudioId, EST_HANDLER* handler);
+
+EST* updateEstudioConfig(char* newConfig, int estudioId, EST_HANDLER* handler);
+
+EST* updateEstudioPrecoBase(int newPreco, int estudioId, EST_HANDLER* handler);
+
 #endif //UFP_ALOJAMENTOS_ESTUDIOS_H
