@@ -62,4 +62,18 @@ void freeEdificioByPtr(ED *ed);
  */
 ED* getEdificioFromID(ED_LIST* queue, int id);
 
+/**
+ * Funcao para buscar um edifcio pelo seu nome
+ * @param list      Lista de edificios
+ * @param name      Nome do edficio desejado
+ * @return          Ponteiro para o edificio com o respetivo nome
+ */
+ED* getEdifcioFromName(ED_LIST* list, char* name);
+
+/**
+ * Funcoa para printar um edificio
+ * @param edficio   Edifcio desejado
+ */
+void printEdificio(ED edificio);
+
 #endif //UFP_ALOJAMENTOS_EDIFICIOS_H

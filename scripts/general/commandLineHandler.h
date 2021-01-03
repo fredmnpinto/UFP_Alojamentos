@@ -38,7 +38,7 @@ void readEdificios(int argc, char *argv[]);
 
 void readAgendas(int argc, char *argv[]);
 
-void readMarcacao(int argc, char *argv[]);
+void readMarc(int argc, char *argv[]);
 
 void createReportOcu(int argc, char *argv[]);
 

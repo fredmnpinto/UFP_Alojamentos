@@ -35,8 +35,8 @@ void mainCmd(int argc, char *argv[]) {
             deleteHandler,
             createHandler,
     };
-
-    printf("- - - - Welcome to %s - - - -\n", proj_name);
+//    system("cls");
+    printf("\n\n\n- - - - Welcome to %s - - - -\n", proj_name);
     for (int i = 0; i < 4; ++i) {
 //        printf("argv[%d] = '%s'\n", i, argv[i]);
         if (strcmp(commands[i], argv[1]) == 0) {
@@ -51,6 +51,7 @@ void readHandler(int argc, char *argv[]) {
 
     if (argc < 4) {
         errorNumberArguments(argc);
+        return;
     }
 
     char *targets[] = {
@@ -60,11 +61,17 @@ void readHandler(int argc, char *argv[]) {
             "marcacao"
     };
 
+    void (*functions[])(int, char**) = {
+            readEstudios,
+            readEdificios,
+            readAgendas
+    };
+
     int targetsSize = sizeof(targets) / sizeof(char *);
 
     for (int i = 0; i < targetsSize; ++i) {
         if (strcmp(targets[i], argv[2]) == 0) {
-            readEstudios(argc, argv);
+            functions[i](argc, argv);
             return;
         }
     }
@@ -126,19 +133,35 @@ void readEstudios(int argc, char *argv[]) {
     if (isNumStr(argv[3])) {
         // Se for um numero vamos procurar pelo ID
         int id = atoi(argv[3]);
-        printf("Reading estdudio with id = %d\n...\n", id);
-        EST_HANDLER *handler = get_data_estudio();
-        int eIndex = getEstudioArrayIndex(handler, id);
-        EST *estudio = getEstudioFromIndex(handler, eIndex);
-        if (estudio == NULL) {
-            printf("ERROR: Index out of range\n");
+        if (argc == 4){
+            printf("Reading estdudio with id = %d\n...\n", id);
+            EST_HANDLER *handler = get_data_estudio();
+            int eIndex = getEstudioArrayIndex(handler, id);
+            EST *estudio = getEstudioFromIndex(handler, eIndex);
+            if (estudio == NULL) {
+                printf("ERROR: Index out of range\n");
+                return;
+            }
+            printEstudio(*estudio);
+            DATA dAvailable = getEstudioClosestAvailability(*estudio);
+            char *dString = dataToString(dAvailable);
+            printf("Vago no dia %s\n", dString);
             return;
         }
-        printEstudio(*estudio);
-        DATA dAvailable = getEstudioClosestAvailability(*estudio);
-        char *dString = dataToString(dAvailable);
-        printf("Vago no dia %s\n", dString);
-        return;
+        else if (argc >= 5 && strcmp(argv[4], "agenda") == 0){
+            if (argc == 5) {
+                EST_HANDLER *estHandler = get_data_estudio();
+                EST *estudio = getEstudioFromIndex(estHandler, atoi(argv[3]));
+                print_agenda(*estudio->agenda_master);
+                return;
+            }
+            else if (argc == 6 && strcmp(argv[5], "outras") == 0){
+//                EST_HANDLER *estHandler = get_data_estudio();
+//                EST *estudio = getEstudioFromIndex(estHandler, atoi(argv[3]));
+                printf("Area nao implementada ainda\n...\nSorry\n");
+                return;
+            }
+        }
     } else if (isEstConfig(argv[3])) {
         // Se for uma configuracao, procuramos pela configuracao
         // retorna o estudio da respectiva configuracao de disponibilidade mais proxima
@@ -156,7 +179,96 @@ void readEstudios(int argc, char *argv[]) {
     } else if (strcmp(argv[3], "*") == 0 || strcmp(argv[3], "*\n")) {
         // Faz print a todos os estudios e as suas datas com disponibilidade mais proxima
         printf("Reading all estudios\n...\n");
+        EST_HANDLER *handler = get_data_estudio();
+        for (int i = 0; i < handler->size; ++i) {
+            EST estudio = handler->estArray[i];
+            printEstudio(estudio);
+            DATA dAvailable = getEstudioClosestAvailability(estudio);
+            char *dString = dataToString(dAvailable);
+            printf("Vago no dia %s\n", dString);
+        }
     }
+
+}
+
+void readEdificios(int argc, char *argv[]){
+    if (argc < 3){
+        errorNumberArguments(argc);
+        printf("Want to print all of them?\nTry: read edificio *\n");
+        return;
+    }
+    if (isNumStr(argv[3])){
+        // Procura pelo ID, que supostamente esta no argv[3]
+        int id = atoi(argv[3]);
+        ED_LIST *list = get_data_edfs();
+        ED* edificio = getEdificioFromID(list, id);
+        if (edificio == NULL){
+            printf("Nao foi encontrado um edificio com o respectivo id de '%d'\n", id);
+            return;
+        }
+        printEdificio(*edificio);
+        return;
+    }
+    if (strcmp(argv[3], "*") == 0 || strcmp(argv[3], "*\n") == 0) {
+        // Caso seja um * printamos todos os edificios
+        ED_LIST *list = get_data_edfs();
+        list->print(list);
+        return;
+    }
+    else{
+        // Por fim, caso nao seja nenhum dos outros, so pode ser o nome do edificio
+        // Por isso procuramos, com isso em mente
+        ED_LIST *list = get_data_edfs();
+        ED* edificio = getEdifcioFromName(list, argv[3]);
+        if (edificio == NULL){
+
+            printf("Nao foi encontrado um edificio com o nome \"%s\"\n", argv[3]);
+            printf("Eis a lista completa:\n");
+            list->print(list);
+            return;
+        }
+        printEdificio(*edificio);
+        return;
+    }
+}
+
+void readAgendas(int argc, char *argv[]){
+    if (argc < 4){
+        errorNumberArguments(argc);
+        printf("Para selecionar uma agenda pelo id fazes:\nUFP_Alojamentos.exe read agenda master 5 (sendo o 5 o id desejado)\nOu:\nUFP_Alojamentos.exe read agenda outra 5");
+        return;
+    }
+    if (strcmp("master", argv[3]) == 0){
+        // Entao o utilizador quer uma agenda master
+        if (isNumStr(argv[4])) {
+            // Pelo id
+            AGENDA *master = get_data_agenda_master(atoi(argv[4]));
+            print_agenda(*master);
+            return;
+        }
+        errorInvalidInput(argc, argv);
+        printf("Id Invalido: [%s]", argv[4]);
+        return;
+    }
+    if (strcmp("outra", argv[3]) == 0){
+        // Entao o utilizador busca uma agenda outra
+        if (isNumStr(argv[4])){
+            // Pelo ID
+            AGENDA *agenda = get_data_single_agenda_outra(atoi(argv[4]));
+            print_agenda(*agenda);
+            return;
+        }
+        else{
+            // Entao ele esta buscando pela plataforma
+            // Oops um pouco chato, vejo depois
+        }
+    }
+    errorInvalidInput(argc, argv);
+    return;
+}
+
+void readMarc(int argc, char* argv[]){
+    // read marc
 }
 
 void createReportOcu(int argc, char *argv[]) {
@@ -244,4 +356,3 @@ void createReportBill(int argc, char *argv[]) {
         generate_all_billing(arrayEstudios, inicio, final, argv[6]);
     }
 }
-

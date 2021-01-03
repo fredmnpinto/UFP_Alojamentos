@@ -20,7 +20,7 @@ ED_LIST * initEdList(){
 void _edfs_list_print(ED_LIST *queue){
     ED *tmp = queue->head;
     while(tmp != NULL){
-        printf("\nId: %d\nNome: %s\nEndereco: %s\t(lat: %f longi: %f)\n", tmp->id, tmp->nome, tmp->endereco.endereco, tmp->endereco.lat, tmp->endereco.longi);
+        printEdificio(*tmp);
         tmp = tmp->next;
     }
 }
@@ -84,13 +84,27 @@ void freeEdificioByPtr(ED *ed) {
 }
 
 ED* getEdificioFromID(ED_LIST* queue, int id) {
-    ED* tmp = queue->head;
-    for(int i=0; i<queue->size; i++) {
-        if(tmp->id == id) {
-            return tmp;
-        }
-        tmp = tmp->next;
+    ED* node = queue->head;
+    while(node != NULL){
+        if (node->id == id)
+            return node;
+        node = node->next;
     }
-    printf("Edificio with ID=%d was not found", id);
+//    printf("Edificio with ID=%d was not found", id);
     return NULL;
+}
+
+ED* getEdifcioFromName(ED_LIST* list, char* name){
+    ED* node = list->head;
+    while (node != NULL){
+        if (strcmp(node->nome, name) == 0){
+            return node;
+        }
+        node = node->next;
+    }
+    return NULL;
+}
+
+void printEdificio(ED edificio){
+    printf("\nId: %d\nNome: %s\nEndereco: %s\t(lat: %f longi: %f)\n", edificio.id, edificio.nome, edificio.endereco.endereco, edificio.endereco.lat, edificio.endereco.longi);
 }

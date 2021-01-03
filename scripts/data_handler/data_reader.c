@@ -120,7 +120,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
     }
     fclose(fr);
 //    edList->print(edList);
-    system("cls");
+    /*system("cls");*/
     return edList;
 }
 
@@ -213,7 +213,7 @@ EST_HANDLER *get_data_estudio() {
         estHandler->estArray[i].agenda_master = get_data_agenda_master(agendaMasterIds[i]);
         estHandler->estArray[i].outrasHandler = get_data_agendas_outras(agendasHandlerIds[i]);
     }
-    system("cls");
+    /*system("cls");*/
     return estHandler;
 }
 
@@ -305,7 +305,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                         break;
                     }
                     case 7: {
-                        if(strcmp(field,"")==0) {
+                        if(strcmp(field," ")==0) {
                             free(calendario[row_count-2].Eventos);
                             calendario[row_count-2].Eventos = NULL;
                         }else{
@@ -328,7 +328,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
     agenda_master->size = agenda_size;
     agenda_master->calendario = calendario;
     agenda_master->path = filepath;
-    system("cls");
+    /*system("cls");*/
     return agenda_master;
 }
 
@@ -453,7 +453,7 @@ AGENDA* get_data_single_agenda_outra(int id){
         free(buffer);
     }
     fclose(fr);
-    system("cls");
+    /*system("cls");*/
     return new_agenda;
 }
 
@@ -542,7 +542,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
         free(buffer);
     }
     fclose(fr);
-    system("cls");
+    /*system("cls");*/
     return agendasHandler;
 }
 
