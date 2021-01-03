@@ -76,6 +76,10 @@ ED* getEdifcioFromName(ED_LIST* list, char* name);
  */
 void printEdificio(ED edificio);
 
+void updateEdificioNome(ED_LIST* list, int id, char* newName);
+
+void updateEdificioEndereco(ED_LIST* list, int id, char* newEndereco, float lat, float longi);
+
 int return_edList_size(ED_LIST* queue);
 
 int edList_isEmpty(ED_LIST* queue);

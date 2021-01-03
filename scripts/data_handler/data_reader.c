@@ -384,7 +384,7 @@ AGENDA* get_data_single_agenda_outra(AGENDA* agenda){
     CALEND *calendario;
     printf("Allocated %d CALEND slots\nsizeof(CALEND) = %d\tsizeof(calendario) = %d\n", n_lines, sizeof(CALEND), sizeof(calendario));
 //    n_lines = 10;
-    calendario = (CALEND*)malloc((n_lines) * sizeof(CALEND));
+    calendario = (CALEND*)malloc((n_lines + 20) * sizeof(CALEND));
     // No caso de um erro procurando pelo arquivo
     if (fr == NULL) {
         printf("ERROR: ");
@@ -392,9 +392,14 @@ AGENDA* get_data_single_agenda_outra(AGENDA* agenda){
         printf("Do you wish to create an empty new file?\n[Y]es --- [N]o\n");
         char answer = (char)getchar();
         if (toLowerC(answer) == 'y') {
-            FILE *fw = fopen(".data/estudio.csv", "w");
+
+            FILE *fw = fopen(file_path, "w");
+            if (fw == NULL){
+                perror("ERROR Openning file");
+            }
             fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospedeID\n");
             fclose(fw);
+            exit(1);
         } else {
             exit(-1);
         }
@@ -403,7 +408,7 @@ AGENDA* get_data_single_agenda_outra(AGENDA* agenda){
         char *buffer = (char*)malloc(sizeof(char)*CHAR_LIMIT);
         int row_count = 0, field_count;
 
-        while(fgets(buffer, CHAR_LIMIT, fr)){
+        while(fgets(buffer, CHAR_LIMIT, fr) && strcmp(buffer, "\n") != 0){
             field_count = 0;
             row_count++;
             if (row_count == 1)

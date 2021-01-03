@@ -335,7 +335,7 @@ int dataInDays(DATA data) {
 
 int daysInMonth(int mes) {
     if (mes < 1 || mes > 12) {
-        perror("Mes Invalido");
+//        perror("Mes Invalido");
         return -1;
     }
     if (mes == 2)

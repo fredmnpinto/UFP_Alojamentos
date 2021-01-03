@@ -60,6 +60,10 @@ void __updateEstudioEdificioId(int argc, char** argv);
 void __updateEstudioConfig(int argc, char** argv);
 
 
+void __updateEdificioNome(int argc, char* argv[], ED_LIST* list);
+
+void __updateEdificioEndereco(int argc, char* argv[], ED_LIST* list);
+
 
 void marcHandler(int argc, char *argv[]);
 

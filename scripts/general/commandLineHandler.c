@@ -305,15 +305,17 @@ void readAgendas(int argc, char *argv[]){
     }
     if (strcmp("outra", argv[3]) == 0){
         // Entao o utilizador busca uma agenda outra
-        if (isNumStr(argv[4])){
-            // Pelo ID
-            AGENDA *agenda = get_data_single_agenda_outra(atoi(argv[4]));
+        if (1){
+            // Pelo Nome ou plataforma
+            AGENDA *agenda = init_single_agenda(NULL, 0, 0, NULL);
+            agenda->nome = malloc(sizeof(char) * (strlen(argv[4] + 1)));
+            strcpy(agenda->nome, argv[4]);
+            agenda = get_data_single_agenda_outra(agenda);
             print_agenda(*agenda);
             return;
         }
         else{
-            // Entao ele esta buscando pela plataforma
-            // Oops um pouco chato, vejo depois
+
         }
     }
     errorInvalidInput(argc, argv);
@@ -411,11 +413,6 @@ void createReportBill(int argc, char *argv[]) {
     }
 }
 
-void marcHandler(int argc, char *argv[]) {
-
-    if (argc < 4) {
-        errorNumberArguments(argc);
-    }
 void updateEstudio(int argc, char* argv[]){
     // Exemplo1: update estudio 1 (id) edificio_id 2
     // Exemplo2: update estudio 1 (id) preco_base 28
@@ -440,7 +437,7 @@ void updateEstudio(int argc, char* argv[]){
     if (isNumStr(argv[3])){
         // Buscando pelo id
         for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
-            if (strcmp(fields[i], argv[5]))
+            if (strcmp(fields[i], argv[4]) == 0)
             {
                 functions[i](argc, argv);
                 return;
@@ -455,27 +452,58 @@ void __updateEstudioPrecoBase(int argc, char** argv){
     EST_HANDLER * handler = get_data_estudio();
     updateEstudioPrecoBase(atoi(argv[5]), atoi(argv[3]), handler);
     printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
 }
 
 void __updateEstudioEdificioId(int argc, char** argv){
     EST_HANDLER * handler = get_data_estudio();
     updateEstudioEdificioId(atoi(argv[5]), atoi(argv[3]), handler);
     printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
 }
 
 void __updateEstudioConfig(int argc, char** argv){
     EST_HANDLER* handler = get_data_estudio();
     updateEstudioConfig(argv[5], atoi(argv[3]), handler);
     printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
 }
 
 void updateEdifcio(int argc, char* argv[]){
+    ED_LIST * list = get_data_edfs();
 
+    char* fields[] = {
+            "endereco",
+            "nome"
+    };
+
+    void (*functions[])(int, char**, ED_LIST*) = {
+            __updateEdificioEndereco,
+            __updateEdificioNome
+    };
+
+    if (isNumStr(argv[3])){
+        // Buscando pelo id
+        for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
+            if (strcmp(fields[i], argv[5]))
+            {
+                functions[i](argc, argv, list);
+                return;
+            }
+        }
+        errorInvalidInput(argc, argv);
+        return;
+    }
 }
 
 void updateAgenda(int argc, char* argv[]){
 
 }
+void marcHandler(int argc, char *argv[]) {
+
+    if (argc < 4) {
+        errorNumberArguments(argc);
+    }
     char *targets[] = {
             "add",
             "validate"
@@ -677,4 +705,19 @@ void createAgenda(int argc, char* argv[]) {
     fclose(fw);
 
     printf("Agendas criadas com sucesso!\n");
+}
+
+void __updateEdificioNome(int argc, char* argv[], ED_LIST* list){
+    int id = atoi(argv[3]);
+    char* nome = argv[5];
+    updateEdificioNome(list, id, nome);
+    saveDataEdificios(list);
+}
+void __updateEdificioEndereco(int argc, char* argv[], ED_LIST* list){
+    int id = atoi(argv[3]);
+    char* endereco = argv[5];
+    float lat = atof(argv[6]);
+    float longi = atof(argv[7]);
+    updateEdificioEndereco(list, id, endereco, lat, longi);
+    saveDataEdificios(list);
 }

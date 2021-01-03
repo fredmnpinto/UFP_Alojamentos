@@ -131,3 +131,23 @@ int return_edList_size(ED_LIST* queue) {
 int edList_isEmpty(ED_LIST* queue) {
     return queue->size==0;
 }
+
+void updateEdificioNome(ED_LIST* list, int id, char* newName){
+    ED* e = getEdificioFromID(list, id);
+    free(e->nome);
+    e->nome = malloc(sizeof(char) * (strlen(newName) + 1));
+    strcpy(e->nome, newName);
+}
+
+void updateEdificioEndereco(ED_LIST* list, int id, char* newEndereco, float lat, float longi){
+    ED* e = getEdificioFromID(list, id);
+//    free(e->endereco.endereco);
+    if (e != NULL) {
+        e->endereco.endereco = realloc(e->endereco.endereco, sizeof(char) * (strlen(newEndereco) + 1));
+        strcpy(e->endereco.endereco, newEndereco);
+        e->endereco.lat = lat;
+        e->endereco.longi = longi;
+        return;
+    }
+    printf("Could not find an Edificio with id of %d\n", id);
+}
