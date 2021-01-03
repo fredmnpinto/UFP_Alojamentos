@@ -78,6 +78,36 @@ void readHandler(int argc, char *argv[]) {
 }
 
 void updateHandler(int argc, char *argv[]) {
+    // Exemplo1: update estudio 1 (id) edificio_id 2
+    // Exemplo2: update estudio 1 (id) preco_base 28
+    // Exemplo3: update estudio 1 (id) config T2+1
+
+    if (argc < 6){
+        errorNumberArguments(argc);
+        return;
+    }
+
+    char* targets[] = {
+            "estudio",
+            "edificio",
+            "agenda",
+            "marcacao"
+    };
+
+    void (*functions[])(int argc, char* argv[]) = {
+            updateEstudio,
+            updateEdifcio,
+            updateAgenda
+    };
+
+    int targetsSize = sizeof(targets) / sizeof(char *);
+
+    for (int i = 0; i < targetsSize; ++i) {
+        if (strcmp(targets[i], argv[2]) == 0) {
+            functions[i](argc, argv);
+            return;
+        }
+    }
 
 }
 
@@ -192,6 +222,10 @@ void readEstudios(int argc, char *argv[]) {
 }
 
 void readEdificios(int argc, char *argv[]){
+    // Exemplo1: read edificio 1
+    // Exemplo2: read edificio *
+    // Exemplo3: read edifico "Dom Afonso Henriques"
+
     if (argc < 3){
         errorNumberArguments(argc);
         printf("Want to print all of them?\nTry: read edificio *\n");
@@ -355,4 +389,65 @@ void createReportBill(int argc, char *argv[]) {
         DATA final = convertStringDATA(argv[5]);
         generate_all_billing(arrayEstudios, inicio, final, argv[6]);
     }
+}
+
+void updateEstudio(int argc, char* argv[]){
+    // Exemplo1: update estudio 1 (id) edificio_id 2
+    // Exemplo2: update estudio 1 (id) preco_base 28
+    // Exemplo3: update estudio 1 (id) config T2+1
+
+    char* fields[] = {
+      "edificio_id",
+      "preco_base",
+      "config",
+      "agenda_handler_id",
+      "agenda_master_id"
+    };
+
+    void (*functions[])(int, char**) = {
+            __updateEstudioEdificioId,
+            __updateEstudioPrecoBase,
+            __updateEstudioConfig,
+            errorInvalidInput,
+            errorInvalidInput
+    };
+
+    if (isNumStr(argv[3])){
+        // Buscando pelo id
+        for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
+            if (strcmp(fields[i], argv[5]))
+            {
+                functions[i](argc, argv);
+                return;
+            }
+        }
+        errorInvalidInput(argc, argv);
+        return;
+    }
+}
+
+void __updateEstudioPrecoBase(int argc, char** argv){
+    EST_HANDLER * handler = get_data_estudio();
+    updateEstudioPrecoBase(atoi(argv[5]), atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+}
+
+void __updateEstudioEdificioId(int argc, char** argv){
+    EST_HANDLER * handler = get_data_estudio();
+    updateEstudioEdificioId(atoi(argv[5]), atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+}
+
+void __updateEstudioConfig(int argc, char** argv){
+    EST_HANDLER* handler = get_data_estudio();
+    updateEstudioConfig(argv[5], atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+}
+
+void updateEdifcio(int argc, char* argv[]){
+
+}
+
+void updateAgenda(int argc, char* argv[]){
+
 }

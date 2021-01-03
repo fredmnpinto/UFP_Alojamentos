@@ -88,4 +88,11 @@ int isNumC(char c);
  */
 int isEstConfig(char *str);
 
+/**
+ * Funcao para pegar a versao lowercase da string
+ * @param str   String
+ * @return      String em lowercase
+ */
+char* toLowerStr(char* str);
+
 #endif //UFP_ALOJAMENTOS_UTILS_H

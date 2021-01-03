@@ -30,7 +30,7 @@ void errorNumberArguments(int argc);
 
 void errorInvalidInput(int argc, char **argv);
 
-/// Outras
+/// Funcoes principais de CRUD
 
 void readEstudios(int argc, char *argv[]);
 
@@ -40,8 +40,22 @@ void readAgendas(int argc, char *argv[]);
 
 void readMarc(int argc, char *argv[]);
 
+void updateEstudio(int argc, char* argv[]);
+
+void updateEdifcio(int argc, char* argv[]);
+
+void updateAgenda(int argc, char* argv[]);
+
 void createReportOcu(int argc, char *argv[]);
 
 void createReportBill(int argc, char *argv[]);
+
+void __updateEstudioPrecoBase(int argc, char** argv);
+
+void __updateEstudioEdificioId(int argc, char** argv);
+
+void __updateEstudioConfig(int argc, char** argv);
+
+
 
 #endif //UFP_ALOJAMENTOS_COMMANDLINEHANDLER_H

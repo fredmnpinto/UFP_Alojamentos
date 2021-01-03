@@ -96,12 +96,16 @@ ED* getEdificioFromID(ED_LIST* queue, int id) {
 
 ED* getEdifcioFromName(ED_LIST* list, char* name){
     ED* node = list->head;
+    char* nameLo = toLowerStr(name);
     while (node != NULL){
-        if (strcmp(node->nome, name) == 0){
+        char* nodeNameLower = toLowerStr(node->nome);
+        if (strcmp(nodeNameLower, nameLo) == 0){
             return node;
         }
+        free(nodeNameLower);
         node = node->next;
     }
+    free(nameLo);
     return NULL;
 }
 
