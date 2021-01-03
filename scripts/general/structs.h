@@ -50,6 +50,7 @@ typedef struct Calendario {
  */
 typedef struct Agenda {
     int id;
+    char* nome;
     CALEND *calendario;
     int size;
     char *path;

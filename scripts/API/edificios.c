@@ -37,6 +37,17 @@ void _edfs_list_append(ED_LIST* queue, ED* edificio){
     queue->size++;
 }
 
+void edf_list_dequeue(ED_LIST* queue) {
+    if(!edList_isEmpty(queue)) {
+        ED* elementToRemove = queue->head;
+        queue->head = elementToRemove->next;
+        queue->size--;
+        free(elementToRemove->endereco.endereco);
+        free(elementToRemove->nome);
+        free(elementToRemove);
+    }
+}
+
 void _edfs_list_remove(ED_LIST* queue, ED* edificio){
     ED* current = queue->head;
     while(current != NULL){
@@ -93,4 +104,12 @@ ED* getEdificioFromID(ED_LIST* queue, int id) {
     }
     printf("Edificio with ID=%d was not found", id);
     return NULL;
+}
+
+int return_edList_size(ED_LIST* queue) {
+    return queue->size;
+}
+
+int edList_isEmpty(ED_LIST* queue) {
+    return queue->size==0;
 }

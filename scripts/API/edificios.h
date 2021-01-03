@@ -62,4 +62,10 @@ void freeEdificioByPtr(ED *ed);
  */
 ED* getEdificioFromID(ED_LIST* queue, int id);
 
+int return_edList_size(ED_LIST* queue);
+
+int edList_isEmpty(ED_LIST* queue);
+
+void edf_list_dequeue(ED_LIST* queue);
+
 #endif //UFP_ALOJAMENTOS_EDIFICIOS_H

@@ -17,14 +17,20 @@
 
 int main_proj(int argc, char *argv[]) {
 /*
-    argc = 7;
+    argc = 12;
     argv[1] = "create";
-    argv[2] =  "report_ocu";
+    argv[2] =  "edificio";
 //    argv[3] = "est";
-    argv[3] =  "*";
-    argv[4] =   "22/10/1900";
-    argv[5] =   "03/03/2040";
+    argv[3] =  "10";
+    argv[4] =   "adress";
+    argv[5] =   "rua";
     argv[6] =   "crescente";
+    argv[7] = "lat";
+    argv[8] = "23.3";
+    argv[9] = "longi";
+    argv[10] = "23.3";
+    argv[11] = "nome";
+    argv[12] = "caralho";
 */
     mainCmd(argc, argv);
     return 0;

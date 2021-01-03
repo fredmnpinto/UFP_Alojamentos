@@ -89,11 +89,11 @@ void _printAllEstudios(EST_HANDLER *handler) { //Finished
 }
 
 int getEstudioArrayIndex(EST_HANDLER *handler, int id) { //Finished
-    if (id > -1) {
+    if (id > -1 && id<=handler->size) {
         int size = handler->size;
         int hi = size;
         int lo = 0;
-        while (1) {
+        while (lo<=hi) {
             int mid = (hi + lo) / 2;
             if (handler->estArray[mid].id > id)
                 hi = mid;

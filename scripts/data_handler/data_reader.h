@@ -50,7 +50,7 @@ AGENDA *get_data_agenda_master(int id); // DONE
  * @param id            Id da agenda a ser buscada
  * @return              Agenda lida do arquivo ou NULL se ela nao existir
  */
-AGENDA * get_data_single_agenda_outra(int id); // DONE
+AGENDA * get_data_single_agenda_outra(AGENDA* agenda); // DONE
 
 /**
  * Funcao para buscar as agendas de outras plataformas do respectivo estudio

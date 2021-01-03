@@ -11,6 +11,9 @@
 #include "utils.h"
 #include "../API/agendas.h"
 #include "../API/edificios.h"
+#include "../API/guests_list.h"
+#include "../billing/billing.h"
+#include "../data_handler/data_writer.h"
 
 void mainCmd(int argc, char *argv[]);
 
@@ -44,4 +47,17 @@ void createReportOcu(int argc, char *argv[]);
 
 void createReportBill(int argc, char *argv[]);
 
+void marcHandler(int argc, char *argv[]);
+
+void marcAdd(int argc, char* argv[]);
+
+void marcValidate(int argc, char* argv[]);
+
+void createEstudio(int argc, char* argv[]);
+
+void createEdificio(int argc, char* argv[]);
+
+void createGuest(int argc, char *argv[]);
+
+void createAgenda(int argc, char* argv[]);
 #endif //UFP_ALOJAMENTOS_COMMANDLINEHANDLER_H
