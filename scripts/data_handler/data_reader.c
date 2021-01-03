@@ -74,7 +74,7 @@ ED_LIST * get_data_edfs(){    ///TEMPLATE PARA GET_DATA EM LISTAS LIGADAS
             row_count++;
 
             if (row_count == 1) {
-                edList->fHeader = (char *) malloc(sizeof(char) * strlen(buffer));
+                edList->fHeader = (char *) malloc(sizeof(char) * (strlen(buffer)+1));
                 strcpy(edList->fHeader, buffer);
                 continue;
             }
@@ -257,14 +257,17 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                 switch (field_count) {   // dia|mes|ano|plataforma|duracao|preco|hospedeID|eventos
                     case 0: {
                         calendario[row_count - 2].data.dia = atoi(field);
+                        calendario[row_count-2].marcacao->data.dia = atoi(field);
                         break;
                     }
                     case 1: {
                         calendario[row_count - 2].data.mes = atoi(field);
+                        calendario[row_count-2].marcacao->data.mes = atoi(field);
                         break;
                     }
                     case 2: {
                         calendario[row_count - 2].data.ano = atoi(field);
+                        calendario[row_count-2].marcacao->data.ano = atoi(field);
                         break;
                     }
                     case 3: {
@@ -272,7 +275,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
                             free(calendario[row_count-2].marcacao);
                             calendario[row_count-2].marcacao = NULL;
                         }else{
-                            calendario[row_count-2].marcacao->plataforma = (char*)malloc(sizeof(char)*strlen(field));
+                            calendario[row_count-2].marcacao->plataforma = (char*)malloc(sizeof(char)*(strlen(field)+1));
                             strcpy(calendario[row_count-2].marcacao->plataforma, field);
                         }
                         break;
@@ -325,6 +328,7 @@ AGENDA* get_data_agenda_master(int agenda_id) {   //DONE
     fclose(data);
     AGENDA *agenda_master = (AGENDA*)malloc(sizeof(AGENDA));
     agenda_master->id = agenda_id;
+    agenda_master->nome = NULL;
     agenda_master->size = agenda_size;
     agenda_master->calendario = calendario;
     agenda_master->path = filepath;
@@ -356,7 +360,7 @@ char* get_filepath_agenda_outra(int id){
     return file_path;
 }
 
-AGENDA* get_data_single_agenda_outra(int id){
+AGENDA* get_data_single_agenda_outra(AGENDA* agenda){
 
     /*
      *                    <#--- Logica ---#>
@@ -368,6 +372,7 @@ AGENDA* get_data_single_agenda_outra(int id){
      * respectivo estudio sendo lido.
     */
     AGENDA* new_agenda;
+    int id = agenda->id;
 
     char *file_path = get_filepath_agenda_outra(id);// File path configured
 
@@ -388,7 +393,7 @@ AGENDA* get_data_single_agenda_outra(int id){
         char answer = (char)getchar();
         if (toLowerC(answer) == 'y') {
             FILE *fw = fopen(".data/estudio.csv", "w");
-            fprintf(fw, "Dia|Mes|Ano|Descricao\n");
+            fprintf(fw, "dia|mes|ano|plataforma|duracao|preco|hospedeID\n");
             fclose(fw);
         } else {
             exit(-1);
@@ -404,9 +409,10 @@ AGENDA* get_data_single_agenda_outra(int id){
             if (row_count == 1)
                 continue;
             calendario[row_count-2].marcacao = (MARC*)malloc(sizeof(MARC));
+            calendario[row_count-2].Eventos = NULL;
 //            printf("Row_count - 2 = %d\n", row_count - 2);
-            char *field = strtok(buffer, delimiter);    // HEADER:  Dia  |   Mes |   Ano |   Descricao
-            while (field_count < 4){
+            char *field = strtok(buffer, delimiter);    // HEADER:  dia|mes|ano|plataforma|duracao|preco|hospedeID
+            while (field_count < 7){
 //                printf("field_count = %d\n", field_count);
 //                printf("field = %s\n", field);
                 switch (field_count){
@@ -414,29 +420,38 @@ AGENDA* get_data_single_agenda_outra(int id){
                         int field_n = atoi(field);
                         printf(field_n <= 31 || field_n >= 1 ? NULL : "Erro no dia (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
                         calendario[row_count-2].data.dia = field_n; // Dia
+                        calendario[row_count-2].marcacao->data.dia = field_n;
                         break;
                     }
                     case 1: {
                         int field_n = atoi(field);
                         printf(field_n <= 12 || field_n >= 1 ? NULL : "Erro no mes (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
                         calendario[row_count - 2].data.mes = atoi(field); // Mes
+                        calendario[row_count-2].marcacao->data.mes = field_n;
                         break;
                     }
                     case 2: {
                         int field_n = atoi(field);
                         printf(field_n < 2100 || field_n > 1900 ? NULL : "Erro no ano (%d) da marcacao numero %d de %s\n", field_n, id, file_path);
                         calendario[row_count - 2].data.ano = field_n; // Ano
+                        calendario[row_count-2].marcacao->data.ano = field_n;
                         break;
                     }
                     case 3: {
-                        if(strcmp(field,"")==0) {
-                            calendario[row_count-2].marcacao = NULL;
-                            free(calendario[row_count-2].marcacao);
-                        }else{
-                            calendario[row_count - 2].marcacao->plataforma = (char*)malloc(sizeof(char)* (strlen(field) + 1));
-                            strcpy(calendario[row_count - 2].marcacao->plataforma, field);
-                            remove_linebreak_on_the_end(calendario[row_count - 2].marcacao->plataforma);
-                        }
+                        calendario[row_count-2].marcacao->plataforma = (char*)malloc(sizeof(char)*(strlen(field)+1));
+                        strcpy(calendario[row_count-2].marcacao->plataforma, field);
+                        break;
+                    }
+                    case 4: {
+                        calendario[row_count-2].marcacao->duracao = atoi(field);
+                        break;
+                    }
+                    case 5: {
+                        calendario[row_count-2].marcacao->preco = atoi(field);
+                        break;
+                    }
+                    case 6: {
+                        calendario[row_count-2].marcacao->hospedeID = atoi(field);
                         break;
                     }
                     default : {
@@ -450,7 +465,15 @@ AGENDA* get_data_single_agenda_outra(int id){
         }
 //        printf("Got here too\n");
         new_agenda = init_single_agenda(calendario, n_lines, id, file_path);
+        new_agenda->nome = (char*)malloc(sizeof(char)*(strlen(agenda->nome)+1));
+        strcpy(new_agenda->nome, agenda->nome);
         free(buffer);
+        if(n_lines==0) {
+            free(new_agenda->calendario->marcacao);
+            free(new_agenda->calendario->Eventos);
+            free(new_agenda->calendario);
+            new_agenda->calendario=NULL;
+        }
     }
     fclose(fr);
     system("cls");
@@ -508,7 +531,7 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
                 continue;
 
             char *field = strtok(buffer, delimiter);    // HEADER:  id  |   nome
-            while (field_count < 1){
+            while (field_count < 2){
 //                printf("%s\t", field);
                 switch (field_count){
                     case 0: {
@@ -517,12 +540,12 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
                         agendasHandler->agendas[row_count - 2].id = field_n; // Id
                         break;
                     }
-                    /*case 1: {
-                        agendasHandler->agendas[row_count - 2].nome = (char*)malloc(sizeof(char) * (strlen(field) + 1));
-                        strcpy(agendasHandler->agendas[row_count - 2].nome, field);
-                        remove_linebreak_on_the_end(agendasHandler->agendas[row_count - 2].nome);
+                    case 1: {
+                        agendasHandler->agendas[row_count-2].nome = (char*)malloc(sizeof(char) * (strlen(field)+1));
+                        strcpy(agendasHandler->agendas[row_count-2].nome, field);
+                        remove_linebreak_on_the_end(agendasHandler->agendas[row_count-2].nome);
                         break;
-                    }*/
+                    }
                     default :{
                         printf("WARNING: Possible unreadable data in line %d of '%s'\n", row_count, file_path);
                     }
@@ -535,9 +558,9 @@ AGENDAS_HANDLER * get_data_agendas_outras(int handler_id){
         // Nesse ponto as agendas foram inicializadas mas nao por inteiro, somente
         // seu id e seu nome ainda precisa-se que pegue os outros parametros dela a partir disso
         // para isso chamamos a funcao get_data_single_agenda(id);
-        for (int i = 0; i < n_lines; ++i) {
+        for (int i = 0; i < n_lines-1; ++i) {
             // Consegue ler perfeitamente a primeira agenda, mas nem sequer comeca a segunda
-            agendasHandler->agendas[i] = *get_data_single_agenda_outra(agendasHandler->agendas[i].id);
+            agendasHandler->agendas[i] = *get_data_single_agenda_outra(&agendasHandler->agendas[i]);
         }
         free(buffer);
     }
@@ -573,18 +596,19 @@ HOSP_STACK* get_data_hosp() {
             }
             char *field = strtok(buffer, delimiter);
             while (field_count < 3){
+                remove_linebreak_on_the_end(field);
                 switch (field_count){   // id, nome, email
                     case 0: {
                         head->id = atol(field);
                         break;
                     }
                     case 1: {
-                        head->nome = (char*)malloc(sizeof(char)*strlen(field));
+                        head->nome = (char*)malloc(sizeof(char)*(strlen(field)+1));
                         strcpy(head->nome, field);
                         break;
                     }
                     case 2: {
-                        head->email = (char*)malloc(sizeof(char)*strlen(field));
+                        head->email = (char*)malloc(sizeof(char)*(strlen(field)+1));
                         strcpy(head->email, field);
                         break;
                     }
@@ -655,7 +679,7 @@ HIST_STACK* get_data_hist() {
                         break;
                     }
                     case 5: {
-                        head->marcacao->plataforma = (char*)malloc(sizeof(char)*strlen(field));
+                        head->marcacao->plataforma = (char*)malloc(sizeof(char)*(strlen(field)+1));
                         strcpy(head->marcacao->plataforma, field);
                         break;
                     }

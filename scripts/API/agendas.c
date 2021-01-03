@@ -15,9 +15,6 @@ AGENDA* init_single_agenda(CALEND *calendario, int size, int id, char* path){
     return new_agenda;
 }
 
-/**
- * @warning ESTA FUNCAO TERA QUE SER MODIFICADA
- */
 AGENDAS_HANDLER* init_outras_handler(AGENDA* agendas, int size, int id){
     AGENDAS_HANDLER *newHandler = (AGENDAS_HANDLER*)malloc(sizeof(AGENDAS_HANDLER));
     newHandler->agendas = agendas;
@@ -46,7 +43,6 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
         return 1;
     }
     else {
-        // Searches in a specific agenda
         AGENDA agenda = *_agendas_handler_get_agenda(self, agenda_id);
         for (int i = 0; i < agenda.size; ++i) {
             if (compDate(agenda.calendario[i].marcacao->data, data))
@@ -56,22 +52,21 @@ int _agendas_handler_check_availability(AGENDAS_HANDLER* self, DATA data, int ag
     }
 }
 
-AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int index) {
-    int n = self->size;
-    if (index > -1) {
-        // TODO Binary search
-        for (int hi = self->size, mid = hi / 2, lo = 0; hi > lo; mid = (hi + lo) / 2) {
-            if (self->agendas[mid].id < index) {
-                lo = mid;
-            } else if (self->agendas[mid].id > index) {
-                hi = mid;
-            } else if (self->agendas[mid].id == index) {
-                return &self->agendas[mid];
-            }
+AGENDA *_agendas_handler_get_agenda(AGENDAS_HANDLER *self, int agenda_id) {
+    int hi = self->size;
+    int lo = 0;
+    int mid;
+    while(lo<=hi) {
+        mid = (hi + lo) / 2;
+        if(self->agendas[mid].id > agenda_id) {
+            hi = mid;
+        }else if(self->agendas[mid].id < agenda_id) {
+            lo = mid;
+        }else{
+            return &self->agendas[mid];
         }
-
     }
-
+    printf("Nao foi possivel encontrar a agenda\n");
     return NULL;
 }
 
@@ -233,11 +228,24 @@ void freeAgendaByPtr(AGENDA *a) {
     free(a);
 }
 
-AGENDA* addMarc(AGENDA *agenda, MARC *marc, DATA data) {
-    int index = getMarcIndex(agenda, data);
-    //FUNCAO QUE VERIFIQUE SE NAO TENHA JA NENHUMA MARCACAO NA DATA DA AGENDA SELECIONADA
-    agenda->calendario[index].marcacao = marc;
-
+AGENDA* addMarc(AGENDA* agenda, MARC *marc, DATA data) {
+    if(agenda->calendario !=NULL) {
+        int index = getMarcIndex(agenda, data);
+        if(index <0) {
+            printf("DATA NAO EXISTE NO CALENDARIO");
+        }else{
+            agenda->calendario[index].marcacao = marc;
+            agenda->size++;
+        }
+    }else{
+        agenda->calendario = (CALEND*)malloc(sizeof(CALEND));
+        agenda->calendario->data.dia = marc->data.dia;
+        agenda->calendario->data.mes = marc->data.mes;
+        agenda->calendario->data.ano = marc->data.ano;
+        agenda->calendario->Eventos = NULL;
+        agenda->calendario->marcacao = marc;
+        agenda->size++;
+    }
     return agenda;
 }
 
@@ -375,5 +383,11 @@ DATA convertStringDATA(char str[]) {
     sprintf(str2, "%c%c%c%c", str[6], str[7], str[8], str[9]);
     data.ano = atoi(str2);
 
+//    free(str2);  //Por algum motivo nao funciona
     return data;
 }
+
+AGENDA* find(AGENDAS_HANDLER* agendasOutras, int id, char plat[]) {
+
+}
+

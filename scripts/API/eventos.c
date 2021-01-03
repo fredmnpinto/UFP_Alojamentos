@@ -16,6 +16,7 @@ void event_list_push(EVENT_STACK *stack, EVENT *newEvent) {
     if(stack->head==NULL) {
         stack->head = newEvent;
         stack->tail = newEvent;
+        stack->tail->next = NULL;
     }else{
         newEvent->next = stack->head;
         stack->head = newEvent;
@@ -72,7 +73,7 @@ EVENT_STACK* change_event(EVENT_STACK *listaEventos, char eventSearchFor[], char
 }
 
 EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
-    char *savefield = (char*)malloc(sizeof(char)*strlen(eventos));
+    char *savefield = (char*)malloc(sizeof(char)*(strlen(eventos)+1));
     strcpy(savefield, eventos);
     char* field = strtok_r(savefield, ",", &savefield);
     do{
@@ -82,6 +83,7 @@ EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
         event_list_push(listaEventos, evento);
     }while((field=strtok_r(savefield, ",", &savefield)));
 
+    free(savefield);
     return listaEventos;
 }
 

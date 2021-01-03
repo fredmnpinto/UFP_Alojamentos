@@ -9,6 +9,8 @@
 #include "../API/estudios.h"
 #include "../API/edificios.h"
 #include "../API/agendas.h"
+#include "../API/guests_list.h"
+#include "./data_reader.h"
 
 /**
  * Funcao para salvar as agendas outras a partir do Handler
@@ -25,5 +27,7 @@ void saveDataSingleAgenda(AGENDA *agenda);
 void saveDataEstudio(EST_HANDLER *handler);
 
 void saveDataEdificios(ED_LIST *list);
+
+void saveDataHospedes(HOSP_STACK* stack);
 
 #endif //UFP_ALOJAMENTOS_DATA_WRITER_H
