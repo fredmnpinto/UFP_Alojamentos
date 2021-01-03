@@ -78,7 +78,7 @@ EVENT_STACK* add_data_event(char eventos[], EVENT_STACK* listaEventos) {
     char* field = strtok_r(savefield, ",", &savefield);
     do{
         EVENT* evento = (EVENT*)malloc(sizeof(EVENT));
-        evento->descricao = (char*)malloc(sizeof(char)*strlen(field));
+        evento->descricao = (char*)malloc(sizeof(char)*(strlen(field)+1));
         strcpy(evento->descricao, field);
         event_list_push(listaEventos, evento);
     }while((field=strtok_r(savefield, ",", &savefield)));

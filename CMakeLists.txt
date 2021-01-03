@@ -12,8 +12,6 @@ include_directories(scripts/general)
 add_executable(UFP_Alojamentos
         cmake-build-debug/CMakeCache.txt
         data/agendas/masters/1234_master.psv
-        data/agendas/outras/1_outra.psv
-        data/agendas/outras/2_outra.psv
         data/agendas/outras_handlers/1234_handler.psv
         data/edfs.psv
         data/estudio.psv

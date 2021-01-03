@@ -411,11 +411,7 @@ void createReportBill(int argc, char *argv[]) {
     }
 }
 
-void marcHandler(int argc, char *argv[]) {
 
-    if (argc < 4) {
-        errorNumberArguments(argc);
-    }
 void updateEstudio(int argc, char* argv[]){
     // Exemplo1: update estudio 1 (id) edificio_id 2
     // Exemplo2: update estudio 1 (id) preco_base 28
@@ -476,6 +472,11 @@ void updateEdifcio(int argc, char* argv[]){
 void updateAgenda(int argc, char* argv[]){
 
 }
+void marcHandler(int argc, char *argv[]) {
+
+    if (argc < 4) {
+        errorNumberArguments(argc);
+    }
     char *targets[] = {
             "add",
             "validate"
@@ -678,3 +679,4 @@ void createAgenda(int argc, char* argv[]) {
 
     printf("Agendas criadas com sucesso!\n");
 }
+
