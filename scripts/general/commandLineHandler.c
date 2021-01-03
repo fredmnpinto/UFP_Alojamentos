@@ -53,6 +53,7 @@ void readHandler(int argc, char *argv[]) {
 
     if (argc < 4) {
         errorNumberArguments(argc);
+        return;
     }
 
     char *targets[] = {
@@ -62,17 +63,53 @@ void readHandler(int argc, char *argv[]) {
             "marcacao"
     };
 
+    void (*functions[])(int, char**) = {
+            readEstudios,
+            readEdificios,
+            readAgendas
+    };
+
     int targetsSize = sizeof(targets) / sizeof(char *);
 
     for (int i = 0; i < targetsSize; ++i) {
         if (strcmp(targets[i], argv[2]) == 0) {
-            readEstudios(argc, argv);
+            functions[i](argc, argv);
             return;
         }
     }
 }
 
 void updateHandler(int argc, char *argv[]) {
+    // Exemplo1: update estudio 1 (id) edificio_id 2
+    // Exemplo2: update estudio 1 (id) preco_base 28
+    // Exemplo3: update estudio 1 (id) config T2+1
+
+    if (argc < 6){
+        errorNumberArguments(argc);
+        return;
+    }
+
+    char* targets[] = {
+            "estudio",
+            "edificio",
+            "agenda",
+            "marcacao"
+    };
+
+    void (*functions[])(int argc, char* argv[]) = {
+            updateEstudio,
+            updateEdifcio,
+            updateAgenda
+    };
+
+    int targetsSize = sizeof(targets) / sizeof(char *);
+
+    for (int i = 0; i < targetsSize; ++i) {
+        if (strcmp(targets[i], argv[2]) == 0) {
+            functions[i](argc, argv);
+            return;
+        }
+    }
 
 }
 
@@ -145,19 +182,35 @@ void readEstudios(int argc, char *argv[]) {
     if (isNumStr(argv[3])) {
         // Se for um numero vamos procurar pelo ID
         int id = atoi(argv[3]);
-        printf("Reading estdudio with id = %d\n...\n", id);
-        EST_HANDLER *handler = get_data_estudio();
-        int eIndex = getEstudioArrayIndex(handler, id);
-        EST *estudio = getEstudioFromIndex(handler, eIndex);
-        if (estudio == NULL) {
-            printf("ERROR: Index out of range\n");
+        if (argc == 4){
+            printf("Reading estdudio with id = %d\n...\n", id);
+            EST_HANDLER *handler = get_data_estudio();
+            int eIndex = getEstudioArrayIndex(handler, id);
+            EST *estudio = getEstudioFromIndex(handler, eIndex);
+            if (estudio == NULL) {
+                printf("ERROR: Index out of range\n");
+                return;
+            }
+            printEstudio(*estudio);
+            DATA dAvailable = getEstudioClosestAvailability(*estudio);
+            char *dString = dataToString(dAvailable);
+            printf("Vago no dia %s\n", dString);
             return;
         }
-        printEstudio(*estudio);
-        DATA dAvailable = getEstudioClosestAvailability(*estudio);
-        char *dString = dataToString(dAvailable);
-        printf("Vago no dia %s\n", dString);
-        return;
+        else if (argc >= 5 && strcmp(argv[4], "agenda") == 0){
+            if (argc == 5) {
+                EST_HANDLER *estHandler = get_data_estudio();
+                EST *estudio = getEstudioFromIndex(estHandler, atoi(argv[3]));
+                print_agenda(*estudio->agenda_master);
+                return;
+            }
+            else if (argc == 6 && strcmp(argv[5], "outras") == 0){
+//                EST_HANDLER *estHandler = get_data_estudio();
+//                EST *estudio = getEstudioFromIndex(estHandler, atoi(argv[3]));
+                printf("Area nao implementada ainda\n...\nSorry\n");
+                return;
+            }
+        }
     } else if (isEstConfig(argv[3])) {
         // Se for uma configuracao, procuramos pela configuracao
         // retorna o estudio da respectiva configuracao de disponibilidade mais proxima
@@ -175,7 +228,102 @@ void readEstudios(int argc, char *argv[]) {
     } else if (strcmp(argv[3], "*") == 0 || strcmp(argv[3], "*\n")) {
         // Faz print a todos os estudios e as suas datas com disponibilidade mais proxima
         printf("Reading all estudios\n...\n");
+        EST_HANDLER *handler = get_data_estudio();
+        for (int i = 0; i < handler->size; ++i) {
+            EST estudio = handler->estArray[i];
+            printEstudio(estudio);
+            DATA dAvailable = getEstudioClosestAvailability(estudio);
+            char *dString = dataToString(dAvailable);
+            printf("Vago no dia %s\n", dString);
+        }
     }
+
+}
+
+void readEdificios(int argc, char *argv[]){
+    // Exemplo1: read edificio 1
+    // Exemplo2: read edificio *
+    // Exemplo3: read edifico "Dom Afonso Henriques"
+
+    if (argc < 3){
+        errorNumberArguments(argc);
+        printf("Want to print all of them?\nTry: read edificio *\n");
+        return;
+    }
+    if (isNumStr(argv[3])){
+        // Procura pelo ID, que supostamente esta no argv[3]
+        int id = atoi(argv[3]);
+        ED_LIST *list = get_data_edfs();
+        ED* edificio = getEdificioFromID(list, id);
+        if (edificio == NULL){
+            printf("Nao foi encontrado um edificio com o respectivo id de '%d'\n", id);
+            return;
+        }
+        printEdificio(*edificio);
+        return;
+    }
+    if (strcmp(argv[3], "*") == 0 || strcmp(argv[3], "*\n") == 0) {
+        // Caso seja um * printamos todos os edificios
+        ED_LIST *list = get_data_edfs();
+        list->print(list);
+        return;
+    }
+    else{
+        // Por fim, caso nao seja nenhum dos outros, so pode ser o nome do edificio
+        // Por isso procuramos, com isso em mente
+        ED_LIST *list = get_data_edfs();
+        ED* edificio = getEdifcioFromName(list, argv[3]);
+        if (edificio == NULL){
+
+            printf("Nao foi encontrado um edificio com o nome \"%s\"\n", argv[3]);
+            printf("Eis a lista completa:\n");
+            list->print(list);
+            return;
+        }
+        printEdificio(*edificio);
+        return;
+    }
+}
+
+void readAgendas(int argc, char *argv[]){
+    if (argc < 4){
+        errorNumberArguments(argc);
+        printf("Para selecionar uma agenda pelo id fazes:\nUFP_Alojamentos.exe read agenda master 5 (sendo o 5 o id desejado)\nOu:\nUFP_Alojamentos.exe read agenda outra 5");
+        return;
+    }
+    if (strcmp("master", argv[3]) == 0){
+        // Entao o utilizador quer uma agenda master
+        if (isNumStr(argv[4])) {
+            // Pelo id
+            AGENDA *master = get_data_agenda_master(atoi(argv[4]));
+            print_agenda(*master);
+            return;
+        }
+        errorInvalidInput(argc, argv);
+        printf("Id Invalido: [%s]", argv[4]);
+        return;
+    }
+    if (strcmp("outra", argv[3]) == 0){
+        // Entao o utilizador busca uma agenda outra
+        if (1){
+            // Pelo Nome ou plataforma
+            AGENDA *agenda = init_single_agenda(NULL, 0, 0, NULL);
+            agenda->nome = malloc(sizeof(char) * (strlen(argv[4] + 1)));
+            strcpy(agenda->nome, argv[4]);
+            agenda = get_data_single_agenda_outra(agenda);
+            print_agenda(*agenda);
+            return;
+        }
+        else{
+
+        }
+    }
+    errorInvalidInput(argc, argv);
+    return;
+}
+
+void readMarc(int argc, char* argv[]){
+    // read marc
 }
 
 void createReportOcu(int argc, char *argv[]) {
@@ -265,12 +413,97 @@ void createReportBill(int argc, char *argv[]) {
     }
 }
 
+void updateEstudio(int argc, char* argv[]){
+    // Exemplo1: update estudio 1 (id) edificio_id 2
+    // Exemplo2: update estudio 1 (id) preco_base 28
+    // Exemplo3: update estudio 1 (id) config T2+1
+
+    char* fields[] = {
+      "edificio_id",
+      "preco_base",
+      "config",
+      "agenda_handler_id",
+      "agenda_master_id"
+    };
+
+    void (*functions[])(int, char**) = {
+            __updateEstudioEdificioId,
+            __updateEstudioPrecoBase,
+            __updateEstudioConfig,
+            errorInvalidInput,
+            errorInvalidInput
+    };
+
+    if (isNumStr(argv[3])){
+        // Buscando pelo id
+        for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
+            if (strcmp(fields[i], argv[4]) == 0)
+            {
+                functions[i](argc, argv);
+                return;
+            }
+        }
+        errorInvalidInput(argc, argv);
+        return;
+    }
+}
+
+void __updateEstudioPrecoBase(int argc, char** argv){
+    EST_HANDLER * handler = get_data_estudio();
+    updateEstudioPrecoBase(atoi(argv[5]), atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
+}
+
+void __updateEstudioEdificioId(int argc, char** argv){
+    EST_HANDLER * handler = get_data_estudio();
+    updateEstudioEdificioId(atoi(argv[5]), atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
+}
+
+void __updateEstudioConfig(int argc, char** argv){
+    EST_HANDLER* handler = get_data_estudio();
+    updateEstudioConfig(argv[5], atoi(argv[3]), handler);
+    printEstudio(*getEstudioFromId(handler, atoi(argv[3])));
+    saveDataEstudio(handler);
+}
+
+void updateEdifcio(int argc, char* argv[]){
+    ED_LIST * list = get_data_edfs();
+
+    char* fields[] = {
+            "endereco",
+            "nome"
+    };
+
+    void (*functions[])(int, char**, ED_LIST*) = {
+            __updateEdificioEndereco,
+            __updateEdificioNome
+    };
+
+    if (isNumStr(argv[3])){
+        // Buscando pelo id
+        for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
+            if (strcmp(fields[i], argv[5]))
+            {
+                functions[i](argc, argv, list);
+                return;
+            }
+        }
+        errorInvalidInput(argc, argv);
+        return;
+    }
+}
+
+void updateAgenda(int argc, char* argv[]){
+
+}
 void marcHandler(int argc, char *argv[]) {
 
     if (argc < 4) {
         errorNumberArguments(argc);
     }
-
     char *targets[] = {
             "add",
             "validate"
@@ -472,4 +705,19 @@ void createAgenda(int argc, char* argv[]) {
     fclose(fw);
 
     printf("Agendas criadas com sucesso!\n");
+}
+
+void __updateEdificioNome(int argc, char* argv[], ED_LIST* list){
+    int id = atoi(argv[3]);
+    char* nome = argv[5];
+    updateEdificioNome(list, id, nome);
+    saveDataEdificios(list);
+}
+void __updateEdificioEndereco(int argc, char* argv[], ED_LIST* list){
+    int id = atoi(argv[3]);
+    char* endereco = argv[5];
+    float lat = atof(argv[6]);
+    float longi = atof(argv[7]);
+    updateEdificioEndereco(list, id, endereco, lat, longi);
+    saveDataEdificios(list);
 }

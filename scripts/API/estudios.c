@@ -8,7 +8,7 @@ EST_HANDLER *initEstHandler(EST *array, int size) { // Finished
     EST_HANDLER *nHandler = (EST_HANDLER *) malloc(sizeof(EST_HANDLER));
     nHandler->estArray = array;
     nHandler->size = size;
-    nHandler->header = "id|edificio_id|nome|agenda_master_id|outras_agendas_id\n";
+    nHandler->header = "id|edificio_id|configuracao|precoDiario_base|master_agendas_id|outras_agendas_id\n";
     return nHandler;
 }
 
@@ -163,4 +163,29 @@ EST *getEstudioFromIndex(EST_HANDLER *handler, int index) {
     if (index > size || index < 0)
         return NULL;
     return &handler->estArray[index];
+}
+
+EST* getEstudioFromId(EST_HANDLER *handler, int id){
+    int estudioIndex = getEstudioArrayIndex(handler, id);
+    EST* estudio = getEstudioFromIndex(handler, estudioIndex);
+    return estudio;
+}
+
+EST* updateEstudioPrecoBase(int newPreco, int estudioId, EST_HANDLER* handler){
+    EST* estudio = getEstudioFromId(handler, estudioId);
+    estudio->precoDiario_base = newPreco;
+    return estudio;
+}
+
+EST* updateEstudioEdificioId(int newId, int estudioId, EST_HANDLER* handler){
+    EST* estudio = getEstudioFromId(handler, estudioId);
+    estudio->edificio_id = newId;
+    return estudio;
+}
+
+EST* updateEstudioConfig(char* newConfig, int estudioId, EST_HANDLER* handler){
+    EST* estudio = getEstudioFromId(handler, estudioId);
+    free(estudio->configuracao);
+    estudio->configuracao = malloc(sizeof(char) * (strlen(newConfig) + 1));
+    return estudio;
 }

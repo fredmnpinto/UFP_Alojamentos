@@ -8,7 +8,7 @@
 void saveDataEstudio(EST_HANDLER *handler) { // Tested
     char *filepath = "../data/estudio.psv";
     FILE *fw = fopen(filepath, "w");
-    printf("Oppening %s\n...\n", filepath);
+//    printf("Oppening %s\n...\n", filepath);
     if (fw != NULL) {
         int size = handler->size;
         fprintf(fw, "%s", handler->header);
