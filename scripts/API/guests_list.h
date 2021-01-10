@@ -45,4 +45,12 @@ int hosp_isEmpty(HOSP_STACK* stack);
  */
 void print_hosp_Stack(HOSP_STACK* stack);
 
+/**
+ * Funcao que procura na lista ligada por um hospede com o id especificado e retorna-o
+ * @param stack     Ponteiro para a stack
+ * @param id        Id do hospede
+ * @return          Ponteiro para o hospede com o id selecionada ou NULL se nao existir
+ */
+HOSP* search_hosp_by_id(HOSP_STACK* stack, int id);
+
 #endif //UFP_ALOJAMENTOS_GUESTS_LIST_H

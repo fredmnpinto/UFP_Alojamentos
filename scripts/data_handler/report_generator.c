@@ -170,7 +170,7 @@ float return_estudioOcu_selected_data(EST *estudio, CALEND *calendario, FILE *fw
     float Total=0;
     if(strcmp(ordem, "crescente") == 0) {
         calendario = sortCalendAsc(estudio->agenda_master->calendario, estudio->agenda_master->size);
-    }else if(strcmp(ordem, "decrescente") == 1) {
+    }else if(strcmp(ordem, "decrescente") == 0) {
         calendario = sortCalendDesc(estudio->agenda_master->calendario, estudio->agenda_master->size);
     }else{
         printf("ERROR: Invalid order mode. Please type 'crescente' for increasing and 'decrescente for decreasing.\n");

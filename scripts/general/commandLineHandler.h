@@ -78,4 +78,12 @@ void createEdificio(int argc, char* argv[]);
 void createGuest(int argc, char *argv[]);
 
 void createAgenda(int argc, char* argv[]);
+
+void readGuests(int argc, char* argv[]);
+
+void updateGuest(int argc, char* argv[]);
+
+void __updateHospedeNome(int argc, char* argv[], HOSP_STACK* stack);
+
+void __updateHospedeEmail(int argc, char* argv[], HOSP_STACK* stack);
 #endif //UFP_ALOJAMENTOS_COMMANDLINEHANDLER_H

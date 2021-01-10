@@ -36,3 +36,15 @@ void print_hosp_Stack(HOSP_STACK* stack) {
         guests_list_pop(stack, tmp);
     }
 }
+
+HOSP* search_hosp_by_id(HOSP_STACK* stack, int id) {
+    HOSP* hospede = stack->head;
+    while(hospede!=NULL) {
+        if(hospede->id == id) {
+            return hospede;
+        }
+        hospede = hospede->next;
+    }
+    printf("O hospede com esse id nao foi encontrado\n");
+    return NULL;
+}
