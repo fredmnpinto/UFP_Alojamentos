@@ -60,13 +60,14 @@ void readHandler(int argc, char *argv[]) {
             "estudio",
             "edificio",
             "agenda",
-            "marcacao"
+            "guest"
     };
 
     void (*functions[])(int, char**) = {
             readEstudios,
             readEdificios,
-            readAgendas
+            readAgendas,
+            readGuests
     };
 
     int targetsSize = sizeof(targets) / sizeof(char *);
@@ -93,13 +94,14 @@ void updateHandler(int argc, char *argv[]) {
             "estudio",
             "edificio",
             "agenda",
-            "marcacao"
+            "guest"
     };
 
     void (*functions[])(int argc, char* argv[]) = {
             updateEstudio,
             updateEdifcio,
-            updateAgenda
+            updateAgenda,
+            updateGuest
     };
 
     int targetsSize = sizeof(targets) / sizeof(char *);
@@ -720,4 +722,73 @@ void __updateEdificioEndereco(int argc, char* argv[], ED_LIST* list){
     float longi = atof(argv[7]);
     updateEdificioEndereco(list, id, endereco, lat, longi);
     saveDataEdificios(list);
+}
+
+void readGuests(int argc, char *argv[]){
+    if (argc < 3){
+        errorNumberArguments(argc);
+        return;
+    }
+    if (isNumStr(argv[3])){
+        HOSP_STACK* stack = get_data_hosp();
+        HOSP* hospede = search_hosp_by_id(stack, atoi(argv[3]));
+        printf("Id: %d\nNome: %s\nE-mail: %s\n\n", hospede->id, hospede->nome, hospede->email);
+        return;
+    }
+    if (strcmp("all", argv[3]) == 0){
+        HOSP_STACK* stack = get_data_hosp();
+        print_hosp_Stack(stack);
+        return;
+    }
+    errorInvalidInput(argc, argv);
+    return;
+}
+
+void updateGuest(int argc, char* argv[]){
+    HOSP_STACK* stack = get_data_hosp();
+
+    char* fields[] = {
+            "nome",
+            "email"
+    };
+
+    void (*functions[])(int, char**, HOSP_STACK*) = {
+            __updateHospedeNome,
+            __updateHospedeEmail
+    };
+
+    if (isNumStr(argv[3])){
+        // Buscando pelo id
+        for (int i = 0; i < sizeof(fields)/sizeof(char*); ++i) {
+            if (strcmp(fields[i], argv[4])==0)
+            {
+                functions[i](argc, argv, stack);
+                return;
+            }
+        }
+        errorInvalidInput(argc, argv);
+        return;
+    }
+}
+
+void __updateHospedeNome(int argc, char* argv[], HOSP_STACK* stack){
+    int id = atoi(argv[3]);
+    char* nome = argv[5];
+    char* sobrenome = argv[6];
+    HOSP* hospede = search_hosp_by_id(stack, id);
+    free(hospede->nome);
+    hospede->nome = (char*)malloc(sizeof(char)*(strlen(nome)+strlen(sobrenome)+1));
+    strcat(nome, sobrenome);
+    strcpy(hospede->nome, nome);
+    saveDataHospedes(stack);
+}
+
+void __updateHospedeEmail(int argc, char* argv[], HOSP_STACK* stack) {
+    int id = atoi(argv[3]);
+    char* email = argv[5];
+    HOSP* hospede = search_hosp_by_id(stack, id);
+    free(hospede->email);
+    hospede->email = (char*)malloc(sizeof(char)*(strlen(email)+1));
+    strcpy(hospede->email, email);
+    saveDataHospedes(stack);
 }
